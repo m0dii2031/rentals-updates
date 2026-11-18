@@ -1,10 +1,10 @@
 {
- "web": 54,
+ "web": 55,
  "minApk": 41,
  "apk": 44,
  "apkVer": "5.1.1",
  "apkFile": "Rentals.apk",
- "webSha": "f2f90ec76f800778d9501acba7a470a863bbb4fe619e521958e2ae7f2218b5fa",
- "apkSha": "8a346ae8ca38d642a278d744a33a35f83a014e9d574bf9cd89fc2d2994cad267",
- "notes": "عقود البلدية في كرت الأرض وفي ملفاتي"
+ "webSha": "064abbf0ac7ab7d2898a6bc8cf6ccc072cf01d0bdf354cca66c80635a862ca14",
+ "apkSha": "121534f1fd6dc5ce1c609e0c20eed6e19ad45c0f0811c121cf143dbe63288719",
+ "notes": "استيراد عقود منصة إيجار: رقم العقد والمستأجر وتاريخ البداية والنهاية"
 }

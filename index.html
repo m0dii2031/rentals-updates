@@ -402,7 +402,7 @@ function padd(p,n){let t=p.y*12+(p.m-1)+n;return {y:Math.floor(t/12),m:t%12+1}}
 /* ---------- البيانات ---------- */
 const STORE='rentals_db_v1';
 // رقم نسخة الواجهة (يزيد مع كل تحديث عن بعد) وأقل نسخة تطبيق تشتغل معها
-const WEBV=54,MINAPK=41;
+const WEBV=55,MINAPK=41;
 let db;
 const uid=()=>Math.random().toString(36).slice(2,9)+Date.now().toString(36).slice(-3);
 const COLORS=['#3B82F6','#FACC15','#14B8A6','#F97316','#8B5CF6','#22C55E','#EC4899','#EF4444','#06B6D4','#A16207'];
@@ -1476,8 +1476,27 @@ function importPack(d){let n=0;const miss=[];
     if(!u){miss.push(it.plot+(it.unit!=null?'/'+it.unit:''));return}u.docs=u.docs||[];if(u.docs.some(x=>x.file===it.file))return;
     u.docs.push({id:uid(),kind:it.kind||CK,name:it.name||'',file:it.file,pdf:/\.pdf$/i.test(it.file),date:today()});n++});
   save();_lastView='';render();alert('تمت إضافة '+n+' ملف'+(miss.length?'\nما لقيت: '+miss.join('، '):''))}
+// عقود منصة إيجار (رقم العقد، المستأجر، البداية والنهاية): نقترح الاستراحة لكل عقد وتأكدها قبل الحفظ
+function ejarContractsSheet(items){
+  const toks=n=>normAr(n).split(/\s+/).map(normAr).filter(w=>w.length>2&&!['بن','ابن','ابو'].includes(w));
+  const freq={};items.forEach(it=>new Set(toks(it.tenant)).forEach(w=>freq[w]=(freq[w]||0)+1));
+  const cand=[];items.forEach((it,i)=>{const c=String(it.c);db.units.forEach(u=>{let sc=0;
+      if(u.contractNo&&toLatin(u.contractNo).replace(/\D/g,'')===c)sc=100;
+      else{const hay=new Set([...toks(u.name||''),...toks(u.tenant||'')]);toks(it.tenant).forEach(w=>{if(hay.has(w))sc+=freq[w]>1?.3:1})}
+      if(sc>=1)cand.push({i,u,sc})})});
+  cand.sort((a,b)=>b.sc-a.sc);const pick={},used=new Set();cand.forEach(x=>{if(pick[x.i]==null&&!used.has(x.u.id)){pick[x.i]=x.u.id;used.add(x.u.id)}});
+  window._ec=items;
+  const opts=sel=>`<option value="">— اختر الاستراحة (أو تجاهل) —</option>`+db.lands.map(l=>`<optgroup label="${esc(l.name)}">${unitsOf(l.id).map(u=>`<option value="${u.id}" ${sel===u.id?'selected':''}>${esc(uNo(u)+' - '+(u.name||'فاضية'))}</option>`).join('')}</optgroup>`).join('');
+  sheet(`<h2>📑 عقود إيجار (${items.length})</h2><div style="color:var(--mut);font-size:13.5px;margin-bottom:10px">اخترت لك الاستراحة لكل عقد حسب الاسم. تأكد منها، وعدّل اللي غلط، واللي ما عرفته اختره أنت.</div>
+   ${items.map((it,i)=>`<div class="card" style="padding:12px 14px"><b style="font-size:15px">${esc(it.tenant)}</b><div style="font-size:12.5px;color:var(--mut);margin:4px 0 8px">عقد ${esc(it.c)} · ${fdate(it.start)} ← ${fdate(it.end)}${pick[i]?' · <span style="color:var(--ok)">✓ اقتراح</span>':' · <span style="color:var(--no)">اختر الاستراحة</span>'}</div><select id="ec_${i}">${opts(pick[i])}</select></div>`).join('')}
+   <div class="btns" style="margin-top:6px"><button class="btn full" onclick="ejarContractsSave()">${I.check} حفظ العقود</button></div>`)}
+function ejarContractsSave(){let n=0;const seen=new Set();
+  for(let i=0;i<window._ec.length;i++){const id=document.getElementById('ec_'+i).value;if(!id)continue;if(seen.has(id)){toast('فيه استراحة مختارة لعقدين — عدّلها');return}seen.add(id)}
+  window._ec.forEach((it,i)=>{const id=document.getElementById('ec_'+i).value;if(!id)return;const u=unit(id);
+    u.contractNo=String(it.c);u.tenant=it.tenant;u.start=it.start;u.end=it.end;if(u.vacant){u.vacant=false;delete u.vacantSince}if(!u.name){const w=it.tenant.split(/\s+/).filter(x=>x!=='بن');u.name=w.length>1?w[0]+' '+w[w.length-1]:it.tenant}n++});
+  save();closeSheet();_lastView='';render();toast('تم حفظ '+n+' عقد')}
 window.onImport=function(s){
-  try{const d=JSON.parse(s);if(d.kind==='docs-pack'&&Array.isArray(d.items))return importPack(d);if(!d.lands||!d.units)throw 0;if(!confirm('سيتم استبدال بياناتك الحالية بالنسخة ('+d.units.length+' استراحة). متابعة؟'))return;db=d;db.pay=db.pay||{};db.settings=db.settings||{cal:'H'};save();stack=[{v:'home'}];ui.period=null;render();toast('تم الاسترجاع')}
+  try{const d=JSON.parse(s);if(d.kind==='ejar-contracts'&&Array.isArray(d.items))return ejarContractsSheet(d.items);if(d.kind==='docs-pack'&&Array.isArray(d.items))return importPack(d);if(!d.lands||!d.units)throw 0;if(!confirm('سيتم استبدال بياناتك الحالية بالنسخة ('+d.units.length+' استراحة). متابعة؟'))return;db=d;db.pay=db.pay||{};db.settings=db.settings||{cal:'H'};save();stack=[{v:'home'}];ui.period=null;render();toast('تم الاسترجاع')}
   catch(e){alert('الملف غير صالح')}
 };
 function resetAll(){if(!confirm('سيتم مسح كل شيء نهائياً. هل أنت متأكد؟'))return;if(!confirm('تأكيد أخير: مسح كل البيانات؟'))return;db={v:1,settings:{cal:db.settings.cal},lands:[],units:[],pay:{}};save();stack=[{v:'home'}];render()}
