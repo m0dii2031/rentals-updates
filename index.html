@@ -1,0 +1,1509 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>استراحاتي</title>
+<style>
+/* خط IBM Plex Sans Arabic (رخصة OFL) مضمّن مع التطبيق ليعمل بدون إنترنت */
+@font-face{font-family:Plex;font-weight:400;font-display:swap;src:url(fonts/plex-ar-400.woff2) format('woff2');unicode-range:U+0600-06FF,U+0750-077F,U+08A0-08FF,U+FB50-FDFF,U+FE70-FEFF,U+200C-200E}
+@font-face{font-family:Plex;font-weight:600;font-display:swap;src:url(fonts/plex-ar-600.woff2) format('woff2');unicode-range:U+0600-06FF,U+0750-077F,U+08A0-08FF,U+FB50-FDFF,U+FE70-FEFF,U+200C-200E}
+@font-face{font-family:Plex;font-weight:700;font-display:swap;src:url(fonts/plex-ar-700.woff2) format('woff2');unicode-range:U+0600-06FF,U+0750-077F,U+08A0-08FF,U+FB50-FDFF,U+FE70-FEFF,U+200C-200E}
+@font-face{font-family:Plex;font-weight:400;font-display:swap;src:url(fonts/plex-la-400.woff2) format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+20AC,U+2212}
+@font-face{font-family:Plex;font-weight:600;font-display:swap;src:url(fonts/plex-la-600.woff2) format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+20AC,U+2212}
+@font-face{font-family:Plex;font-weight:700;font-display:swap;src:url(fonts/plex-la-700.woff2) format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+20AC,U+2212}
+
+/* التصميم: سطح داكن عميق بتوهج أزرق-بنفسجي، بطاقات زجاجية، حركة ناعمة */
+:root{
+  --bg:#F3F5FA; --bg-glow1:rgba(79,124,255,.10); --bg-glow2:rgba(139,92,246,.08);
+  --card:#FFFFFF; --card2:#F6F8FC; --line:rgba(15,23,42,.07); --line2:rgba(15,23,42,.12);
+  --tx:#0E1424; --tx2:#3A445A; --mut:#6B7489; --mut2:#9AA2B4;
+  --pri:#3D6BFF; --pri-2:#7A5CFF; --pri-soft:rgba(61,107,255,.10); --on-pri:#fff;
+  --ok:#0EA968; --ok-soft:rgba(14,169,104,.12);
+  --wait:#D98A00; --wait-soft:rgba(245,166,35,.16);
+  --no:#E5484D; --no-soft:rgba(229,72,77,.11);
+  --part:#3D6BFF; --part-soft:rgba(61,107,255,.11);
+  --wa:#17B861; --tn:#0E9F8E; --amber:#F5B301;
+  --shadow:0 1px 2px rgba(16,24,40,.04),0 8px 24px -12px rgba(16,24,40,.12);
+  --shadow-lg:0 20px 50px -20px rgba(30,41,80,.35);
+  --glass:rgba(255,255,255,.72); --nav:rgba(255,255,255,.82);
+  --hero:linear-gradient(135deg,#3D6BFF 0%,#6B5CFF 55%,#9B5CFF 100%);
+  --field:#FFFFFF; --field-dis:#EEF1F6;
+  --r:20px; --r-sm:14px;
+  --ease:cubic-bezier(.2,.8,.2,1); --spring:cubic-bezier(.34,1.56,.64,1);
+  color-scheme:light;
+}
+:root[data-theme="dark"]{
+  --bg:#070B16; --bg-glow1:rgba(61,107,255,.20); --bg-glow2:rgba(155,92,255,.14);
+  --card:#0F1526; --card2:#141B2F; --line:rgba(255,255,255,.06); --line2:rgba(255,255,255,.11);
+  --tx:#EEF1F8; --tx2:#C3CAD9; --mut:#8B94AA; --mut2:#5E6780;
+  --pri:#6E8EFF; --pri-2:#A07CFF; --pri-soft:rgba(110,142,255,.14); --on-pri:#fff;
+  --ok:#34D399; --ok-soft:rgba(52,211,153,.13);
+  --wait:#FBBF24; --wait-soft:rgba(251,191,36,.13);
+  --no:#FB7185; --no-soft:rgba(251,113,133,.13);
+  --part:#7DA2FF; --part-soft:rgba(110,142,255,.15);
+  --shadow:0 1px 0 rgba(255,255,255,.03) inset,0 10px 30px -14px rgba(0,0,0,.6);
+  --shadow-lg:0 30px 60px -20px rgba(0,0,0,.7);
+  --glass:rgba(10,14,28,.66); --nav:rgba(15,21,38,.78);
+  --hero:linear-gradient(135deg,#2B4FE0 0%,#5A3FE0 55%,#8B3FD9 100%);
+  --field:#0B1121; --field-dis:#121A2C;
+  color-scheme:dark;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:var(--bg)}
+html,body{margin:0;color:var(--tx);font-family:Plex,system-ui,"Segoe UI",Tahoma,sans-serif;font-size:16px;-webkit-font-smoothing:antialiased}
+body{background:radial-gradient(900px 500px at 110% -10%,var(--bg-glow1),transparent 60%),radial-gradient(700px 500px at -20% 10%,var(--bg-glow2),transparent 60%),var(--bg);background-attachment:fixed;min-height:100vh;transition:background-color .3s}
+button{font:inherit;border:0;background:none;color:inherit;cursor:pointer;transition:transform .18s var(--ease),background-color .2s,opacity .2s}
+button:active{transform:scale(.96)}
+input,select,textarea{font:inherit;width:100%;min-width:0;max-width:100%;padding:12px 14px;border:1px solid var(--line2);border-radius:var(--r-sm);background:var(--field);color:var(--tx);transition:border-color .2s,box-shadow .2s}
+input:focus,select:focus,textarea:focus{outline:0;border-color:var(--pri);box-shadow:0 0 0 4px var(--pri-soft)}
+input:disabled,select:disabled{background:var(--field-dis);color:var(--mut)}
+textarea{min-height:76px;resize:vertical}
+:focus-visible{outline:2px solid var(--pri);outline-offset:2px}
+
+/* الشريط العلوي */
+.top{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:10px;padding:14px 16px 12px;background:var(--glass);-webkit-backdrop-filter:saturate(1.6) blur(18px);backdrop-filter:saturate(1.6) blur(18px);border-bottom:1px solid var(--line)}
+.top h1{flex:1;margin:0;font-size:20px;font-weight:700;letter-spacing:-.2px;text-wrap:balance}
+.top .hi{flex:1;min-width:0}
+.top .hi small{display:block;color:var(--mut);font-size:12.5px;font-weight:600}
+.top .hi h1{font-size:24px;line-height:1.2}
+.ib{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;font-size:20px;flex:none}
+.ib:active{background:var(--pri-soft)}
+.ib svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+
+/* عدّاد موعد الإيجار: حلقة تتعبّى كل ما قرب اليوم */
+.due{position:relative;display:flex;align-items:center;gap:10px;padding:6px 6px 6px 14px;border-radius:999px;background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow)}
+.due .ring{width:46px;height:46px;flex:none;position:relative}
+.due .ring svg{width:46px;height:46px;transform:rotate(-90deg)}
+.due .ring circle{fill:none;stroke-width:5}
+.due .ring .trk{stroke:var(--line2)}
+.due .ring .val{stroke:url(#dueG);stroke-linecap:round;transition:stroke-dashoffset 1.2s var(--ease)}
+.due .ring b{position:absolute;inset:0;display:grid;place-items:center;font-size:16px;font-weight:700;font-variant-numeric:tabular-nums}
+.due .tx{line-height:1.15;text-align:right}
+.due .tx b{display:block;font-size:14px}
+.due .tx span{font-size:11.5px;color:var(--mut)}
+.due.soon{background:linear-gradient(135deg,#FFC93C,#FF9F1C);border-color:transparent;color:#2B1A00}
+.due.soon .tx span{color:rgba(43,26,0,.7)}.due.soon .ring .trk{stroke:rgba(43,26,0,.15)}
+.due.soon .ring .val{stroke:#2B1A00}
+
+.wrap{padding:14px 14px 170px}
+
+/* بطاقة الشهر الرئيسية */
+.hero{position:relative;overflow:hidden;border-radius:26px;padding:16px 16px 18px;margin-bottom:14px;color:#fff;background:var(--hero);box-shadow:0 24px 50px -24px rgba(61,90,255,.65)}
+.hero:before{content:"";position:absolute;inset:-40% -30% auto auto;width:280px;height:280px;border-radius:50%;background:radial-gradient(closest-side,rgba(255,255,255,.28),transparent);animation:float 9s ease-in-out infinite}
+.hero:after{content:"";position:absolute;inset:auto auto -45% -25%;width:260px;height:260px;border-radius:50%;background:radial-gradient(closest-side,rgba(0,220,255,.22),transparent);animation:float 11s ease-in-out infinite reverse}
+.hero>*{position:relative;z-index:1}
+.hm{display:flex;align-items:center;justify-content:space-between;gap:6px}
+.hm .ib{color:#fff;background:rgba(255,255,255,.14);width:38px;height:38px;border-radius:12px}
+.hm .t{text-align:center;min-width:0}
+.hm .t b{display:block;font-size:17px;font-weight:700}
+.hm .t small{display:block;font-size:12px;opacity:.78}
+.hm .t a{color:#fff;text-decoration:underline;text-underline-offset:3px;opacity:.95}
+.hbig{margin:16px 2px 4px;display:flex;align-items:flex-end;justify-content:space-between;gap:10px}
+.hbig .lbl{font-size:13px;opacity:.82;font-weight:600}
+.hbig .num{font-size:38px;font-weight:700;letter-spacing:-1px;line-height:1.05;font-variant-numeric:tabular-nums}
+.hbig .num small{font-size:15px;opacity:.75;font-weight:600;letter-spacing:0;margin-inline-start:4px}
+.hbig .pct{font-size:13px;font-weight:700;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.18);white-space:nowrap}
+.hbar{height:10px;border-radius:999px;background:rgba(255,255,255,.18);overflow:hidden;display:flex;margin:12px 0 14px}
+.hbar i{display:block;height:100%;transform-origin:right;animation:grow 1s var(--ease) both}
+.hbar .g{background:linear-gradient(90deg,#5CF2B0,#25D695)}
+.hbar .w{background:linear-gradient(90deg,#FFE07A,#FFC23C)}
+.hstats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.hstats div{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:8px 10px}
+.hstats span{display:flex;align-items:center;gap:6px;font-size:11.5px;opacity:.85;font-weight:600}
+.hstats span:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--d)}
+.hstats b{display:block;font-size:17px;font-variant-numeric:tabular-nums;margin-top:2px}
+
+/* الفلاتر */
+.chips{display:flex;flex-wrap:wrap;gap:6px;padding-bottom:4px;margin-bottom:10px}
+.chip{white-space:nowrap;padding:8px 14px;border-radius:999px;background:var(--card);border:1px solid var(--line);font-size:14px;font-weight:600;color:var(--tx2);box-shadow:var(--shadow)}
+.chip.on{background:var(--tx);border-color:var(--tx);color:var(--bg)}
+.seg{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px;padding:4px;border-radius:16px;background:var(--card);border:1px solid var(--line);margin-bottom:14px;box-shadow:var(--shadow)}
+.seg button{padding:9px 2px;border-radius:12px;font-size:13px;font-weight:600;color:var(--mut);white-space:nowrap}
+.seg button.on{background:var(--pri-soft);color:var(--pri)}
+.seg button i{font-style:normal;font-size:11px;opacity:.8;margin-inline-start:3px}
+
+/* الأراضي والاستراحات */
+.land{position:relative;background:var(--card);border-radius:var(--r);margin-bottom:14px;overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow)}
+.land:before{content:"";position:absolute;inset:0 0 auto 0;height:84px;background:linear-gradient(180deg,color-mix(in srgb,var(--c) 16%,transparent),transparent);pointer-events:none}
+.lh{position:relative;display:flex;align-items:center;gap:10px;padding:14px 14px 10px}
+.lh .dot{width:12px;height:12px;border-radius:50%;background:var(--c);box-shadow:0 0 0 4px color-mix(in srgb,var(--c) 22%,transparent),0 0 16px var(--c);flex:none}
+.lh h2{margin:0;font-size:17px;font-weight:700;line-height:1.25}
+.lh .meta{font-size:12.5px;color:var(--mut);margin-top:2px}
+.lh .ib{width:38px;height:38px;color:var(--tx2);border-radius:12px;background:var(--card2)}
+.lh .ib svg{width:18px;height:18px}
+.lprog{position:relative;height:4px;margin:0 14px 6px;border-radius:999px;background:var(--line);overflow:hidden}
+.lprog i{display:block;height:100%;background:var(--c);border-radius:999px;transform-origin:right;animation:grow .9s var(--ease) both}
+.u{position:relative;display:flex;align-items:center;gap:10px;padding:11px 14px;border-top:1px solid var(--line)}
+.u:active{background:var(--card2)}
+.u .nm{flex:1;min-width:0}
+.u .no{flex:none;width:34px;height:34px;border-radius:12px;display:grid;place-items:center;font-weight:700;font-size:15px;font-variant-numeric:tabular-nums;color:var(--c);background:color-mix(in srgb,var(--c) 15%,transparent);border:1px solid color-mix(in srgb,var(--c) 30%,transparent)}
+.u .nm b{display:block;font-size:15.5px;font-weight:600;line-height:1.35}
+.u .nm small{display:block;color:var(--mut);font-size:12px}
+.u .nm small.mtr{color:var(--mut2);font-size:12px;letter-spacing:.4px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.u .amt{font-weight:700;font-size:15px;min-width:48px;text-align:left;font-variant-numeric:tabular-nums}
+.u .bolt{width:34px;height:34px;color:var(--amber);flex:none;border-radius:10px}.u .bolt svg{width:19px;height:19px}.u .bolt.off{color:var(--mut2);opacity:.6}
+.st{min-width:82px;padding:7px 10px;border-radius:999px;font-size:12.5px;font-weight:700;text-align:center;display:inline-flex;align-items:center;justify-content:center;gap:6px;white-space:nowrap}
+.st:before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor;flex:none}
+.st.paid{background:var(--ok-soft);color:var(--ok)}
+.st.platform{background:var(--wait-soft);color:var(--wait)}
+.st.unpaid{background:var(--no-soft);color:var(--no)}
+.st.partial{background:var(--part-soft);color:var(--part)}
+.lh .tag{display:inline-block;vertical-align:middle;margin-inline-start:8px;font-size:11.5px;font-weight:700;padding:3px 9px;border-radius:999px;color:var(--c);background:color-mix(in srgb,var(--c) 14%,transparent);border:1px solid color-mix(in srgb,var(--c) 28%,transparent);font-variant-numeric:tabular-nums}
+.addrow{width:100%;padding:16px;border-radius:var(--r);border:2px dashed var(--line2);color:var(--mut);font-weight:700;display:flex;align-items:center;justify-content:center;gap:10px}
+.addrow span{width:30px;height:30px;border-radius:10px;display:grid;place-items:center;background:var(--hero);color:#fff;font-size:20px}
+.empty{text-align:center;color:var(--mut);padding:44px 10px}
+
+/* زر الإضافة العائم */
+.fab{position:fixed;left:18px;bottom:calc(96px + env(safe-area-inset-bottom,0px));width:58px;height:58px;border-radius:20px;background:var(--hero);color:#fff;font-size:30px;font-weight:400;box-shadow:0 16px 30px -10px rgba(80,80,255,.7);z-index:6;animation:pop .5s var(--spring) .2s both}
+
+/* البطاقات العامة */
+.card{background:var(--card);border-radius:var(--r);padding:4px 0;margin-bottom:14px;border:1px solid var(--line);box-shadow:var(--shadow);overflow:hidden}
+.card h3{margin:14px 16px 6px;font-size:13px;color:var(--mut);font-weight:700;letter-spacing:.2px}
+.row{display:flex;align-items:center;gap:6px;padding:11px 16px;border-top:1px solid var(--line)}
+.card h3+.row,.card .row:first-child{border-top:0}
+.row .k{font-size:12px;color:var(--mut);font-weight:600}
+.row .v{font-size:16px;word-break:break-word;direction:auto;font-variant-numeric:tabular-nums}
+.row .f{flex:1;min-width:0}
+.row .ib{width:38px;height:38px;color:var(--pri);border-radius:12px}
+.row .ib:active{background:var(--pri-soft)}
+.row .ib svg{width:19px;height:19px}
+
+/* صفحة الاستراحة */
+.uhero{position:relative;overflow:hidden;border-radius:26px;padding:18px;margin-bottom:14px;color:#fff;background:linear-gradient(140deg,var(--c),color-mix(in srgb,var(--c) 45%,#1a1f4a));box-shadow:0 24px 50px -26px var(--c)}
+.uhero:before{content:"";position:absolute;inset:-50% -30% auto auto;width:260px;height:260px;border-radius:50%;background:radial-gradient(closest-side,rgba(255,255,255,.3),transparent);animation:float 10s ease-in-out infinite}
+.uhero>*{position:relative}
+.uhero .l1{display:flex;align-items:center;gap:12px}
+.uhero .bn{width:54px;height:54px;border-radius:18px;display:grid;place-items:center;font-size:26px;font-weight:700;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.3);flex:none}
+.uhero .nm{flex:1;min-width:0}
+.uhero .nm small{display:block;font-size:12.5px;opacity:.85;font-weight:600}
+.uhero .nm b{display:block;font-size:22px;line-height:1.25}
+.uhero .l2{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,.2)}
+.uhero .l2 .r{font-size:24px;font-weight:700;font-variant-numeric:tabular-nums}
+.uhero .l2 .r small{font-size:13px;opacity:.8;font-weight:600;margin-inline-start:4px}
+.uhero .l2 .m{font-size:12px;opacity:.85}
+.uhero .st{background:rgba(255,255,255,.95)}
+.uhero .mtrl{margin-top:8px;font-size:13px;opacity:.9;letter-spacing:.4px;font-variant-numeric:tabular-nums}
+
+/* الأزرار */
+.btns{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px;margin-bottom:14px}
+.btn{padding:13px 12px;border-radius:16px;background:var(--pri);color:var(--on-pri);font-weight:700;text-align:center;display:flex;align-items:center;justify-content:center;gap:7px;box-shadow:0 10px 22px -12px var(--pri)}
+.btn.sec{background:var(--card);color:var(--tx);border:1px solid var(--line2);box-shadow:var(--shadow)}
+.btn.wa{background:var(--wa);box-shadow:0 10px 22px -12px var(--wa)}
+.btn.tn{background:var(--tn);color:#fff;box-shadow:0 10px 22px -12px var(--tn)}
+.btn.elec{background:linear-gradient(135deg,#FFD54A,#FFAA1C);color:#2B1A00;box-shadow:0 10px 22px -12px #FFAA1C}
+.btn.red{background:var(--no-soft);color:var(--no);border:0;box-shadow:none}
+.btn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.btn.full{grid-column:1/-1}
+
+/* الحقول */
+.fld{padding:8px 16px}
+.fld label{display:block;font-size:13px;color:var(--mut);margin-bottom:6px;font-weight:600}
+.g2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 8px}
+.colors{display:flex;flex-wrap:wrap;gap:10px}
+.colors button{width:38px;height:38px;border-radius:50%;border:3px solid var(--card);box-shadow:0 0 0 1px var(--line2)}
+.colors button.on{box-shadow:0 0 0 3px var(--tx)}
+.hist .row{font-size:14px}
+
+/* المستندات */
+.docs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding:8px 16px 14px}
+.doc{position:relative;aspect-ratio:1;border-radius:16px;overflow:hidden;background:var(--pri-soft);display:grid;place-items:center;color:var(--pri);font-weight:700}
+.doc img{width:100%;height:100%;object-fit:cover;display:block}
+.doc span{position:absolute;inset:auto 0 0 0;background:linear-gradient(0deg,rgba(0,0,0,.7),transparent);color:#fff;font-size:11px;padding:14px 6px 5px;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.doc.add{background:transparent;border:2px dashed var(--line2);font-size:28px;font-weight:400}
+.viewer img{width:100%;border-radius:18px;display:block;margin-bottom:12px;background:#000}
+.ago{font-size:12px;color:var(--pri-2);font-weight:700}.ago.big{font-size:13px;background:color-mix(in srgb,var(--pri-2) 14%,transparent);padding:6px 11px;border-radius:999px;white-space:nowrap}
+.mc{display:inline-block;font-size:11.5px;font-weight:700;padding:4px 9px;border-radius:999px;background:var(--wait-soft);color:var(--wait);white-space:nowrap}
+
+/* النوافذ السفلية */
+.ov{position:fixed;inset:0;background:rgba(3,6,15,.5);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);z-index:30;display:flex;align-items:flex-end;animation:fd .2s}
+.sheet{background:var(--bg);width:100%;max-height:88vh;overflow:auto;border-radius:28px 28px 0 0;padding:8px 16px calc(24px + env(safe-area-inset-bottom,0px));animation:up .42s var(--spring);border-top:1px solid var(--line2);box-shadow:var(--shadow-lg)}
+.sx{position:sticky;top:0;float:left;z-index:3;width:38px;height:38px;border-radius:50%;background:var(--card2);border:1px solid var(--line);color:var(--tx);font-size:16px;font-weight:700;margin:4px 0 0}
+.sheet .grab{width:44px;height:5px;border-radius:3px;background:var(--line2);margin:6px auto 12px}
+.sheet h2{margin:4px 0 14px;font-size:19px;font-weight:700;text-wrap:balance}
+.sheet .card{margin-bottom:10px}
+.sbig{display:grid;gap:8px;margin-bottom:12px}
+.sbig button{padding:16px;border-radius:18px;font-weight:700;font-size:16px;text-align:right;display:flex;align-items:center;gap:10px;border:2px solid transparent}
+.sbig .paid{background:var(--ok-soft);color:var(--ok)}
+.sbig .platform{background:var(--wait-soft);color:var(--wait)}
+.sbig .partial{background:var(--part-soft);color:var(--part)}
+.sbig .unpaid{background:var(--no-soft);color:var(--no)}
+.sbig button.on{border-color:currentColor}
+.swr{position:relative;overflow:hidden;border-top:1px solid var(--line)}
+.swr>.row{position:relative;z-index:1;background:var(--card);border-top:0;transition:transform .22s ease;touch-action:pan-y;cursor:pointer}
+.swa{position:absolute;top:0;bottom:0;left:0;display:flex}
+.swa button{border:0;width:66px;color:#fff;font:inherit;font-size:12px;font-weight:700;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px}
+.swa button b{font-size:19px;font-weight:400}
+.acts button{display:flex;width:100%;align-items:center;gap:12px;padding:14px 6px;background:none;border:0;border-top:1px solid var(--line);color:var(--tx);font:inherit;font-size:15.5px;font-weight:600;text-align:right}
+.acts button .e{font-size:21px;width:28px;text-align:center}
+.acts button.dg{color:var(--no)}
+.ksum{background:var(--card2);border-radius:16px;padding:12px 14px;margin:4px 0 8px;display:flex;align-items:center;gap:10px}
+.wpend{display:flex;align-items:center;gap:10px;margin:4px 14px 10px;padding:12px;border-radius:16px;background:color-mix(in srgb,#F59E0B 14%,transparent);border:1px solid color-mix(in srgb,#F59E0B 40%,transparent)}
+.wpend .f{flex:1;min-width:0}.wpend b{font-size:15px}.wpend .btn{flex:none;padding:0 14px;min-height:42px}
+.wpill{flex-basis:100%;margin-top:8px;display:flex;align-items:center;justify-content:space-between;gap:8px;border:0;border-radius:12px;padding:9px 12px;background:rgba(0,0,0,.22);color:#fff;font:inherit;font-size:13.5px;font-weight:600;text-align:right}
+.wpill b{background:#0EA968;border-radius:9px;padding:4px 10px;font-size:13px;white-space:nowrap}
+.wst{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding:4px 14px 10px}
+.wst div{background:var(--card2);border-radius:14px;padding:10px 4px;text-align:center}
+.wst b{display:block;font-size:22px;color:#0EA5E9;font-variant-numeric:tabular-nums}.wst span{font-size:12px;color:var(--mut)}
+.wbars{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px;align-items:end;padding:2px 14px 12px}
+.wbars div{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:3px;height:84px}
+.wbars i{width:56%;min-height:3px;border-radius:6px;background:linear-gradient(180deg,#38BDF8,#2563EB)}
+.wbars div.on i{background:linear-gradient(180deg,#22D3EE,#0EA968)}
+.wbars b{font-size:12px;min-height:15px}.wbars span{font-size:10.5px;color:var(--mut);white-space:nowrap}
+.ck{display:flex;align-items:center;gap:12px;padding:12px 4px;border-bottom:1px solid var(--line)}
+.ck input{width:22px;height:22px;flex:none;accent-color:var(--pri)}
+.ck span{flex:1}
+
+/* الشريط السفلي العائم */
+.nav{position:fixed;left:12px;right:12px;bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:15;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));padding:6px;border-radius:24px;background:var(--nav);-webkit-backdrop-filter:saturate(1.8) blur(20px);backdrop-filter:saturate(1.8) blur(20px);border:1px solid var(--line2);box-shadow:var(--shadow-lg);max-width:500px;margin:0 auto}
+.nav button{position:relative;display:flex;flex-direction:column;align-items:center;gap:3px;padding:7px 0 6px;border-radius:18px;color:var(--mut);font-size:10.5px;font-weight:700;min-width:0}
+.nav button svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;transition:transform .35s var(--spring)}
+.nav button.on{color:var(--pri);background:var(--pri-soft)}
+.nav button.on svg{transform:translateY(-1px) scale(1.08)}
+.nav span{white-space:nowrap}
+
+/* عناصر متفرقة */
+.toast{position:fixed;bottom:calc(100px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);background:var(--tx);color:var(--bg);padding:11px 20px;border-radius:999px;z-index:50;font-size:14px;font-weight:600;box-shadow:var(--shadow-lg);animation:toast .35s var(--spring);white-space:nowrap}
+.searchbox{flex:1}
+.searchbox input{border-radius:14px;padding:11px 14px;background:var(--card)}
+.alert{display:flex;gap:10px;align-items:flex-start;background:var(--wait-soft);color:var(--tx);border:1px solid color-mix(in srgb,var(--wait) 30%,transparent);border-radius:18px;padding:12px 14px;margin-bottom:12px;font-size:14px;line-height:1.55}
+.themes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding:6px 16px 14px}
+.themes button{border-radius:18px;padding:10px 8px;border:2px solid var(--line);background:var(--card2);font-weight:700;font-size:13px;display:grid;gap:8px;justify-items:center}
+.themes button.on{border-color:var(--pri);color:var(--pri)}
+.themes i{display:block;width:100%;height:46px;border-radius:12px}
+
+/* تدرّج لون كل أرض: رأس بلونها الكامل، والاستراحات تحته بدرجات أفتح فأفتح */
+.land{background:color-mix(in srgb,var(--c) 7%,var(--card));border-color:color-mix(in srgb,var(--c) 28%,transparent);box-shadow:0 18px 40px -26px var(--c),var(--shadow)}
+.land:before{display:none}
+.lh{color:var(--lt);background:linear-gradient(135deg,var(--c) 0%,color-mix(in srgb,var(--c) 78%,#fff) 100%);padding:16px 14px 14px;flex-wrap:wrap}
+:root[data-theme="dark"] .lh{background:linear-gradient(135deg,var(--c) 0%,color-mix(in srgb,var(--c) 70%,#000) 100%)}
+.lh .dot{background:var(--lt);opacity:.9;box-shadow:0 0 0 4px color-mix(in srgb,var(--lt) 25%,transparent)}
+.lh .meta{color:var(--lt);opacity:.8}
+.lh .tag{color:var(--lt);background:color-mix(in srgb,var(--lt) 16%,transparent);border-color:color-mix(in srgb,var(--lt) 30%,transparent)}
+.lh .ib{color:var(--lt);background:color-mix(in srgb,var(--lt) 16%,transparent)}
+.lprog{margin:0;height:5px;border-radius:0;background:color-mix(in srgb,var(--c) 25%,var(--card))}
+.lprog i{background:linear-gradient(90deg,color-mix(in srgb,var(--c) 60%,#fff),var(--c));border-radius:0}
+.u{background:color-mix(in srgb,var(--c) var(--t,8%),var(--card));border-top-color:color-mix(in srgb,var(--c) 18%,transparent)}
+:root[data-theme="dark"] .u{background:color-mix(in srgb,var(--c) calc(var(--t,8%) * 1.5),var(--card))}
+:root[data-theme="dark"] .land{background:color-mix(in srgb,var(--c) 9%,var(--card))}
+.u .no{color:var(--lt);background:var(--c);border-color:transparent;box-shadow:0 6px 14px -6px var(--c)}
+.kbadge{display:inline-block;vertical-align:middle;font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:color-mix(in srgb,#22C55E 18%,transparent);color:#16A34A;margin-inline-start:4px}
+.st.vacant{background:color-mix(in srgb,var(--mut) 16%,transparent);color:var(--mut)}
+.u.vac .nm b{color:var(--mut);font-style:italic}.u.vac .no{opacity:.45;box-shadow:none}.u.vac .amt{color:var(--mut)}
+.allpaid{display:inline-flex;align-items:center;gap:6px;margin:0 0 12px;padding:8px 14px;border-radius:999px;background:rgba(255,255,255,.95);color:#2b3cff;font-weight:700;font-size:13.5px;box-shadow:0 8px 20px -10px rgba(0,0,0,.5)}
+.allpaid svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.ychart{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:5px;align-items:end;height:150px;padding:10px 16px 0}
+.ychart div{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:4px;min-width:0}
+.ychart i{display:block;width:100%;border-radius:8px 8px 3px 3px;background:linear-gradient(180deg,var(--pri-2),var(--pri));min-height:3px;transform-origin:bottom;animation:growy .8s var(--ease) both}
+.ychart i.now{background:linear-gradient(180deg,#5CF2B0,#25D695)}.ychart i.zero{background:var(--line2)}
+.ychart span{font-size:10px;color:var(--mut);font-weight:700}
+.ylbl{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:5px;padding:0 16px 12px;font-size:9.5px;color:var(--mut);text-align:center}
+.ystat{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:14px}
+.ystat div{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:12px;box-shadow:var(--shadow)}
+.ystat span{display:block;font-size:12px;color:var(--mut);font-weight:600}.ystat b{font-size:19px;font-variant-numeric:tabular-nums}
+.yl .row .bar2{height:6px;border-radius:999px;background:var(--line);overflow:hidden;margin-top:6px}.yl .row .bar2 i{display:block;height:100%;background:var(--c);border-radius:999px}
+@keyframes growy{from{transform:scaleY(0)}}
+.u.fee .no{background:var(--card2);box-shadow:none;font-size:16px}
+.btn.water{background:linear-gradient(135deg,#38BDF8,#2563EB);color:#fff;box-shadow:0 10px 22px -12px #2563EB}
+.lacts{width:100%;display:flex;gap:6px;margin-top:10px}
+.lacts button{display:inline-flex;align-items:center;justify-content:center;gap:5px;height:34px;padding:0 12px;border-radius:999px;color:var(--lt);background:color-mix(in srgb,var(--lt) 16%,transparent);font-size:13px;font-weight:700}
+.lacts button.ic{width:34px;padding:0;flex:none}.lacts button.sp{margin-inline-start:auto}.lacts button:not(.ic){padding:0 11px;white-space:nowrap}
+.lacts svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}.lacts b{font-size:14px}
+.msgbox{font-size:15px;line-height:1.75;min-height:150px;margin-bottom:10px;background:var(--card);border-radius:18px;padding:14px}
+.spin{width:44px;height:44px;margin:0 auto;border-radius:50%;border:4px solid var(--line2);border-top-color:var(--pri);animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+/* الحركة */
+@keyframes up{from{transform:translateY(60%)}}
+@keyframes fd{from{opacity:0}}
+@keyframes toast{from{opacity:0;transform:translate(-50%,16px) scale(.9)}}
+@keyframes rise{from{opacity:0;transform:translateY(18px) scale(.985)}}
+@keyframes grow{from{transform:scaleX(0)}}
+@keyframes pop{from{transform:scale(.4);opacity:0}}
+@keyframes float{50%{transform:translate(-14px,12px) scale(1.06)}}
+.enter .wrap>*{animation:rise .55s var(--ease) both}
+.enter .wrap>*:nth-child(2){animation-delay:.05s}.enter .wrap>*:nth-child(3){animation-delay:.1s}.enter .wrap>*:nth-child(4){animation-delay:.15s}
+.enter .wrap>*:nth-child(5){animation-delay:.2s}.enter .wrap>*:nth-child(n+6){animation-delay:.24s}
+.enter #list>.land{animation:rise .6s var(--ease) both}
+.enter #list>.land:nth-child(2){animation-delay:.08s}.enter #list>.land:nth-child(3){animation-delay:.16s}.enter #list>.land:nth-child(n+4){animation-delay:.22s}
+@media (prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script src="seed.js"></script>
+<script>
+/* ---------- أيقونات ---------- */
+const I={
+ back:'<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>',
+ search:'<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>',
+ share:'<svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>',
+ copy:'<svg viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>',
+ edit:'<svg viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>',
+ gear:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1A1.7 1.7 0 0 0 4.6 9a1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>',
+ phone:'<svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>',
+ msg:'<svg viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.6A8.4 8.4 0 1 1 21 11.5z"/></svg>',
+ report:'<svg viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg>',
+ bolt:'<svg viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg>',
+ cam:'<svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>',
+ img:'<svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>',
+ trash:'<svg viewBox="0 0 24 24"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></svg>',
+ user:'<svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="11" r="2.5"/><path d="M5.5 17c.6-1.8 2-2.7 3.5-2.7s2.9.9 3.5 2.7M15 9h3M15 13h3"/></svg>',
+ home:'<svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>',
+ check:'<svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>',
+ chart:'<svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>',
+ map:'<svg viewBox="0 0 24 24"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>',
+ up:'<svg viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></svg>',
+ down:'<svg viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></svg>',
+};
+
+/* ---------- الجسر مع أندرويد ---------- */
+const A=window.Android||null;
+function toast(t){const d=document.createElement('div');d.className='toast';d.textContent=t;document.body.appendChild(d);setTimeout(()=>d.remove(),1800)}
+/* المشاركة: داخل التطبيق تفتح قائمة أندرويد. في المتصفح قد تُمنع، فننسخ النص بدلها ونخبر المستخدم */
+function share(text,title){
+  if(A){try{A.share(text,title||'مشاركة');return}catch(e){}}
+  const fallback=()=>copy(text,'نسخت النص — المشاركة تفتح من التطبيق على الجوال');
+  try{if(navigator.share){navigator.share({text}).catch(e=>{if(!e||e.name!=='AbortError')fallback()});return}}catch(e){}
+  fallback();
+}
+function copy(text,msg){ try{ if(A) A.copy(text); else navigator.clipboard.writeText(text).catch(()=>{}) }catch(e){} toast(msg||'تم النسخ') }
+function openUrl(u){ if(A) A.openUrl(u); else window.open(u,'_blank') }
+
+/* ---------- التقويم ---------- */
+const HM=['محرم','صفر','ربيع الأول','ربيع الآخر','جمادى الأولى','جمادى الآخرة','رجب','شعبان','رمضان','شوال','ذو القعدة','ذو الحجة'];
+const GM=['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+function nowPeriod(cal){
+  const d=new Date();
+  if(cal==='H'){
+    try{
+      const p=new Intl.DateTimeFormat('en-u-ca-islamic-umalqura-nu-latn',{year:'numeric',month:'numeric'}).formatToParts(d);
+      const y=parseInt(p.find(x=>x.type==='year').value),m=parseInt(p.find(x=>x.type==='month').value);
+      if(y>1300&&m>=1&&m<=12) return {y,m};
+    }catch(e){}
+    // تقريب احتياطي
+    const jd=Math.floor(d.getTime()/864e5)+2440588-1948440+10632, n=Math.floor((jd-1)/10631), r=jd-10631*n+354;
+    const j=Math.floor((10985-r)/5316)*Math.floor(50*r/17719)+Math.floor(r/5670)*Math.floor(43*r/15238);
+    const rr=r-Math.floor((30-j)/15)*Math.floor(17719*j/50)-Math.floor(j/16)*Math.floor(15238*j/43)+29;
+    return {y:30*n+j-30,m:Math.floor(24*rr/709)};
+  }
+  return {y:d.getFullYear(),m:d.getMonth()+1};
+}
+const pkey=(cal,p)=>cal+p.y+'-'+String(p.m).padStart(2,'0');
+const pname=(cal,p)=>(cal==='H'?HM:GM)[p.m-1]+' '+p.y+(cal==='H'?' هـ':' م');
+/* يحسب أول يوم ميلادي لشهر هجري (أو العكس) لعرض التقويمين معاً */
+function hParts(d){try{const p=new Intl.DateTimeFormat('en-u-ca-islamic-umalqura-nu-latn',{year:'numeric',month:'numeric',day:'numeric'}).formatToParts(d);const g=t=>parseInt(p.find(x=>x.type===t).value);return {y:g('year'),m:g('month'),d:g('day')}}catch(e){return null}}
+function hStart(p){let d=new Date(Date.UTC(622,6,16)+((p.y-1)*354.367+(p.m-1)*29.5306)*864e5);d=new Date(d.getUTCFullYear(),d.getUTCMonth(),d.getUTCDate(),12);
+  for(let i=0;i<60;i++){const h=hParts(d);if(!h)return null;const diff=(h.y*12+h.m)-(p.y*12+p.m);if(diff===0&&h.d===1)return d;d=new Date(d.getTime()+(diff<0?1:diff>0?-1:-(h.d-1))*864e5)}return null}
+const fd=d=>d.getDate()+' '+GM[d.getMonth()];
+function otherCal(cal,p){
+  if(cal==='H'){const a=hStart(p),b=hStart(padd(p,1));if(!a||!b)return '';const e=new Date(b.getTime()-864e5);return fd(a)+' – '+fd(e)+' '+e.getFullYear()+' م'}
+  const a=hParts(new Date(p.y,p.m-1,1,12)),b=hParts(new Date(p.y,p.m,0,12));if(!a||!b)return '';return a.m===b.m?HM[a.m-1]+' '+a.y+' هـ':HM[a.m-1]+' – '+HM[b.m-1]+' '+b.y+' هـ'}
+function padd(p,n){let t=p.y*12+(p.m-1)+n;return {y:Math.floor(t/12),m:t%12+1}}
+
+/* ---------- البيانات ---------- */
+const STORE='rentals_db_v1';
+// رقم نسخة الواجهة (يزيد مع كل تحديث عن بعد) وأقل نسخة تطبيق تشتغل معها
+const WEBV=54,MINAPK=41;
+let db;
+const uid=()=>Math.random().toString(36).slice(2,9)+Date.now().toString(36).slice(-3);
+const COLORS=['#3B82F6','#FACC15','#14B8A6','#F97316','#8B5CF6','#22C55E','#EC4899','#EF4444','#06B6D4','#A16207'];
+const STATUS={paid:'وصل',platform:'بالمنصة',partial:'دفع جزء',unpaid:'لم يدفع',vacant:'فاضية',own:'حقتي 🏠'};
+const METHODS={ejar:'منصة إيجار',transfer:'تحويل بنكي',cash:'كاش',other:'أخرى'};
+
+const withVat=(b,v)=>Math.round(b*(100+(+v||0)))/100;
+const fmt2=n=>(+n||0).toLocaleString('en-US',{minimumFractionDigits:(+n%1)?2:0,maximumFractionDigits:2});
+// البيانات الأولية (أراضي، عدادات، فرص) في seed.js داخل التطبيق فقط — ما تنرفع مع التحديثات
+function seed(){return window.SEED?SEED.make():{v:1,settings:{cal:'G',calG:1,pal2:1,fees1:1,fees2:1,own1:1},lands:[],units:[],pay:{}}}
+function today(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function load(){
+  let s=null;
+  try{ if(A) s=A.load(); }catch(e){}
+  if(!s){ try{ s=localStorage.getItem(STORE) }catch(e){} }
+  try{ db=s?JSON.parse(s):seed() }catch(e){ db=seed() }
+  db.settings=db.settings||{cal:'G'}; db.pay=db.pay||{};
+  if(db.settings.myAcct==null&&window.SEED&&SEED.ACCT){db.settings.myAcct=SEED.ACCT.me;db.settings.officeAcct=SEED.ACCT.office}
+  if(!db.settings.calG){db.settings.calG=1;db.settings.cal='G'}
+  // ألوان أحدث للأراضي (مرة وحدة، فقط إذا اللون ما تغيّر يدوياً)
+  // رسوم البلدية السنوية لكل أرض (مرة وحدة، حسب رقم القطعة)
+  if(!db.settings.fees1){db.settings.fees1=1;const F={'424':7000,'472':9700,'509':2500,'470':5555};db.lands.forEach(l=>{if(!l.fee&&F[l.landNo])l.fee=F[l.landNo];l.feePaid=l.feePaid||{}})}
+  if(!db.settings.fees2){db.settings.fees2=1;const A2={'424':6025,'472':8474,'509':2240,'470':4829};db.lands.forEach(l=>{const f=((window.SEED||{}).FURAS||{})[l.landNo];if(!f)return;
+    if(l.fee)l.feeOld=l.fee;l.feeBase=A2[l.landNo];l.vat=15;l.fee=withVat(l.feeBase,15);Object.keys(f).forEach(k=>{if(!l[k])l[k]=f[k]});l.feePaid=l.feePaid||{}})}
+  if(!db.settings.own1){db.settings.own1=1;const l=db.lands.find(x=>x.landNo==='509');const u=l&&unitsOf(l.id).find(x=>uNo(x)==='1');if(u)u.own=true}
+  if(!db.settings.pal2){db.settings.pal2=1;const M={'#2196F3':'#3B82F6','#FBC02D':'#FACC15','#78909C':'#14B8A6','#F4A261':'#F97316','#FB8C00':'#F97316'};db.lands.forEach(l=>{if(M[l.color])l.color=M[l.color]})}
+  if(!s) save();
+}
+function save(){
+  const s=JSON.stringify(db);
+  try{ if(A) A.save(s) }catch(e){}
+  try{ localStorage.setItem(STORE,s) }catch(e){}
+}
+const land=id=>db.lands.find(l=>l.id===id);
+const unit=id=>db.units.find(u=>u.id===id);
+const unitsOf=lid=>db.units.filter(u=>u.landId===lid);
+const payOf=(u,k)=>(db.pay[u.id]||{})[k]||null;
+const fmt=n=>(Math.round(+n||0)).toLocaleString('en-US');
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+/* رقم الاستراحة: المكتوب، وإلا ترتيبها داخل الأرض تلقائياً */
+const uNo=u=>u.unitNo||String(unitsOf(u.landId).indexOf(u)+1);
+const nextNo=lid=>String(Math.max(0,...unitsOf(lid).map(x=>parseInt(x.unitNo)||0))+1);
+const uTitle=u=>'استراحة '+uNo(u)+' - '+(u.name||'فاضية');
+/* حالة الاستراحة في شهر: الفاضية ما تنحسب عليها دفعة إلا إذا انسجّلت */
+const stOf=(u,k)=>{const x=payOf(u,k);return x?x.s:(u.vacant?'vacant':'unpaid')};
+/* استراحة مو مؤجرة (فاضية). الخاصة (own) تبقى محسوبة في الإيجار عادي، بس لها "القطة" */
+const nr=u=>!!u.vacant;
+const counts=u=>!nr(u);
+
+/* حقول قابلة للمشاركة */
+const UF=[['name','الاسم'],['unitNo','رقم الاستراحة'],['plotNo','رقم القطعة'],['tenant','اسم المستأجر'],['phone','جوال المستأجر'],['rent','الإيجار'],['contractNo','رقم العقد'],['elecMeter','رقم عداد الكهرباء'],['elecAccount','رقم حساب الكهرباء'],['waterMeter','رقم عداد الماء'],['start','بداية العقد'],['end','نهاية العقد'],['method','طريقة الدفع المعتادة'],['notes','ملاحظات']];
+const LF=[['name','اسم الأرض'],['landNo','رقم الأرض / القطعة'],['deedNo','رقم الصك'],['elecMeter','عداد كهرباء الأرض'],['location','الموقع'],['notes','ملاحظات الأرض']];
+const fval=(o,k)=>k==='method'?(METHODS[o[k]]||''):k==='rent'?(o.rent?fmt(o.rent)+' ريال':''):(o[k]||'');
+
+/* ---------- التنقل ---------- */
+let stack=[{v:'home'}], ui={period:null,filter:'all',q:null};
+function go(v){stack.push(v);render();scrollTo(0,0)}
+function back(){ if(closeSheet()) return true; if(ui.q!==null&&cur().v==='home'){ui.q=null;render();return true} if(stack.length>1){stack.pop();render();return true} return false }
+window.onBack=()=>back();
+const cur=()=>stack[stack.length-1];
+const app=document.getElementById('app');
+let _lastView='';
+function render(){const v=cur(),key=v.v+(v.id||'')+(v.mid||'')+(v.y||'')+(v.p||'');const fresh=key!==_lastView;_lastView=key;
+  app.classList.toggle('enter',fresh);if(fresh)setTimeout(()=>app.classList.remove('enter'),900);
+  setTimeout(()=>{if(v.v==='editUnit'&&v.id)lockFixed();if(fresh)countUp()});app.innerHTML=({home:vHome,unit:vUnit,editUnit:vEditUnit,editLand:vEditLand,settings:vSettings,history:vHistory,maint:vMaint,me:vMe,year:vYear,fees:vFees,kitty:vKitty})[v.v](v)+navHtml(v.v)}
+/* الشريط السفلي الثابت */
+function navGo(t){closeSheet();if(t==='home'||t==='search'){stack=[{v:'home'}];ui.q=t==='search'?'':null;render();scrollTo(0,0);if(t==='search')setTimeout(()=>{const q=document.getElementById('q');q&&q.focus()},50);return}
+  if(t==='share')return multiShare();if(t==='report')return reportSheet();if(cur().v!==t){stack=[{v:'home'},{v:t}];render();scrollTo(0,0)}}
+function navHtml(v){const on=t=>(t===v||(t==='search'&&v==='home'&&ui.q!==null)||(t==='home'&&v!=='me'&&v!=='settings'&&!(v==='home'&&ui.q!==null)))?'on':'';
+  return `<nav class="nav">${[['home',I.home,'الرئيسية'],['search',I.search,'بحث'],['share',I.share,'مشاركة'],['report',I.report,'تقارير'],['me',I.user,'ملفاتي'],['settings',I.gear,'الإعدادات']].map(([t,ic,lab])=>`<button class="${on(t)}" onclick="navGo('${t}')">${ic}<span>${lab}</span></button>`).join('')}</nav>`}
+
+/* ---------- الرئيسية ---------- */
+/* عدّاد موعد الإيجار: يوم ثابت من كل شهر ميلادي (الافتراضي 27) */
+function dueInfo(){const day=+db.settings.dueDay||27,[Y,M,D]=today().split('-').map(Number),t=new Date(Y,M-1,D),dim=(y,m)=>new Date(y,m+1,0).getDate();
+  let d=new Date(t.getFullYear(),t.getMonth(),Math.min(day,dim(t.getFullYear(),t.getMonth())));
+  if(d<t)d=new Date(t.getFullYear(),t.getMonth()+1,Math.min(day,dim(t.getFullYear(),t.getMonth()+1)));
+  return {days:Math.round((d-t)/864e5),date:d}}
+function dueBadge(){const {days,date}=dueInfo(),cyc=new Date(date.getFullYear(),date.getMonth(),0).getDate()||30,frac=Math.max(.04,1-days/cyc),C=2*Math.PI*19;
+  const big=days===0?'اليوم':days===1?'بكرة':days===2?'يومين':days+' '+(days<=10?'أيام':'يوم'),small=days<=1?'موعد الإيجار':'باقي على الإيجار';
+  return `<div class="due ${days<=3?'soon':''}" onclick="toast('موعد الإيجار: ${date.getDate()} ${GM[date.getMonth()]}')"><div class="tx"><b>${big}</b><span>${small}</span></div><div class="ring"><svg viewBox="0 0 46 46"><defs><linearGradient id="dueG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6E8EFF"/><stop offset="1" stop-color="#B07CFF"/></linearGradient></defs><circle class="trk" cx="23" cy="23" r="19"/><circle class="val" cx="23" cy="23" r="19" stroke-dasharray="${C.toFixed(1)}" stroke-dashoffset="${(C*(1-frac)).toFixed(1)}"/></svg><b>${days===0?'✓':days}</b></div></div>`}
+function greet(){const h=new Date().getHours(),n=((db.me&&db.me.fullName)||'').split(' ')[0];return (h<12?'صباح الخير':'مساء الخير')+(n?' يا '+n:'')+' 👋'}
+// المتبقي = إيجار كل مستأجر ما دفع + باقي اللي دفع جزء (ولا ينقص لو أحد دفع زيادة)
+// اللي يوصلني من الدفعة: الإيجار فقط (الزيادة عمولة المكتب، مثلاً 1550 = 1500 لي + 50 للمكتب)
+const netA=(u,x)=>{const a=+x.a||0,r=+u.rent||0;return r?Math.min(a,r):a};
+function remOf(k){return db.units.reduce((t,u)=>{const s=stOf(u,k),x=payOf(u,k),r=+u.rent||0;return t+(s==='unpaid'?r:s==='partial'?Math.max(0,r-(+x.a||0)):0)},0)}
+function vHome(){
+  const cal=db.settings.cal, p=ui.period||(ui.period=nowPeriod(cal)), k=pkey(cal,p);
+  let exp=0,got=0,wait=0;
+  db.units.forEach(u=>{const x=payOf(u,k);if(!nr(u)||x)exp+=+u.rent||0;if(x){if(x.s==='paid')got+=netA(u,x);else if(x.s==='platform')wait+=netA(u,x);else if(x.s==='partial')got+=netA(u,x)}});
+  const rem=remOf(k), pc=v=>exp?(v/exp*100).toFixed(1):0;
+  const q=(ui.q||'').trim().toLowerCase();
+  const match=u=>{ if(q){const l=land(u.landId);const hay=[...UF.map(f=>u[f[0]]),l&&l.name,l&&l.landNo].join(' ').toLowerCase(); if(!hay.includes(q)) return false}
+    if(ui.filter==='all') return true; return stOf(u,k)===ui.filter };
+  // تنبيهات انتهاء العقود
+  const soon=db.units.filter(u=>u.end&&(new Date(u.end)-new Date())/864e5<=30);
+  let h=`<div class="top">${ui.q!==null?`<button class="ib" onclick="ui.q=null;render()">${I.back}</button><div class="searchbox"><input id="q" placeholder="ابحث بالاسم، رقم العداد، العقد..." value="${esc(ui.q)}" oninput="ui.q=this.value;renderList()"></div>`
+   :`<div class="hi"><small>${greet()}</small><h1>استراحاتي</h1></div>${dueBadge()}`}</div><div class="wrap">`;
+  const vacN=db.units.filter(u=>u.vacant).length,isNow=k===pkey(cal,nowPeriod(cal)),paidN=db.units.filter(u=>{const x=payOf(u,k);return x&&x.s==='paid'}).length;
+  h+=`<div class="hero"><div class="hm"><button class="ib" onclick="ui.period=padd(ui.period,-1);render()" aria-label="الشهر السابق">›</button><div class="t"><b>${pname(cal,p)}</b><small>${otherCal(cal,p)}${isNow?'':` · <a onclick="ui.period=null;render()">الشهر الحالي</a>`}</small></div><button class="ib" onclick="ui.period=padd(ui.period,1);render()" aria-label="الشهر التالي">‹</button></div>
+   <div class="hbig"><div><div class="lbl">وصلك من ${fmt(exp)} ريال</div><div class="num"><span data-count="${got}">${fmt(got)}</span><small>ريال</small></div></div><div class="pct">${paidN}/${db.units.filter(counts).length} دفعوا${vacN?` · ${vacN} فاضية`:''}</div></div>
+   <div class="hbar"><i class="g" style="width:${pc(got)}%"></i><i class="w" style="width:${pc(wait)}%"></i></div>
+   <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="allpaid" onclick="markAllSheet('all')">${I.check} الكل وصل</button><button class="allpaid" onclick="ejarPaste()">📩 رسالة إيجار</button></div>
+   <div class="hstats"><div style="--d:#5CF2B0"><span>وصل</span><b>${fmt(got)}</b></div><div style="--d:#FFD24A"><span>بالمنصة</span><b>${fmt(wait)}</b></div><div style="--d:#FF8A9A"><span>متبقي</span><b>${fmt(rem)}</b></div></div></div>`;
+  const lb=db.settings.lastBackup,lbd=lb?Math.floor((new Date(today())-new Date(lb))/864e5):null;
+  if(db.units.length&&(lbd===null||lbd>=30)) h+=`<div class="alert" onclick="go({v:'settings'})"><span>💾</span><span>${lb?'آخر نسخة احتياطية '+ago(lb).replace('مضى','قبل'):'ما سويت نسخة احتياطية للحين'} — اضغط هنا واحفظ نسخة</span></div>`;
+  {const fl=db.lands.map(l=>({l,st:feeStatus(l)})).filter(x=>x.st&&(x.st.late||x.st.n<=30));
+   if(fl.length){const late=fl.filter(x=>x.st.late);h+=`<div class="alert" style="${late.length?'background:var(--no-soft);border-color:color-mix(in srgb,var(--no) 35%,transparent)':''}" onclick="go({v:'fees'})"><span>🏛️</span><span><b>رسوم البلدية:</b> ${fl.map(x=>esc(x.l.name.replace('استراحات ',''))+' '+(x.st.late?'متأخرة '+dayWord(-x.st.n):'باقي '+dayWord(x.st.n))).join(' · ')}</span></div>`}}
+  if(soon.length) h+=`<div class="alert"><span>⚠️</span><span>عقود تنتهي خلال 30 يوم أو انتهت: ${soon.map(u=>esc(uTitle(u))+' ('+esc(u.end)+')').join('، ')}</span></div>`;
+  const cnt=f=>f==='all'?db.units.length:db.units.filter(u=>stOf(u,k)===f).length;
+  h+=`<div class="seg">${[['all','الكل'],['unpaid','ما دفع'],['platform','المنصة'],['partial','جزء'],['paid','وصل']].map(([f,t])=>`<button class="${ui.filter===f?'on':''}" onclick="ui.filter='${f}';render()">${t}<i>${cnt(f)}</i></button>`).join('')}</div><div id="list">`;
+  h+=listHtml(k,match)+`</div><button class="addrow" onclick="addSheet()"><span>+</span> إضافة استراحة أو أرض</button></div>`;
+  window.renderList=()=>{document.getElementById('list').innerHTML=listHtml(k,u=>{const q=(ui.q||'').trim().toLowerCase();const l=land(u.landId);const hay=[...UF.map(f=>u[f[0]]),l&&l.name,l&&l.landNo].join(' ').toLowerCase();if(q&&!hay.includes(q))return false;if(ui.filter==='all')return true;return stOf(u,k)===ui.filter})};
+  return h;
+}
+function listHtml(k,match){
+  let h='',any=false;
+  db.lands.forEach(l=>{
+    const us=unitsOf(l.id), vis=us.filter(match);
+    if(!vis.length&&(ui.q||ui.filter!=='all'||us.length)) return;
+    any=true;
+    const vac=us.filter(u=>u.vacant).length,act=us.filter(u=>!nr(u)).length,tot=us.reduce((s,u)=>s+(nr(u)?0:+u.rent||0),0), paid=us.filter(u=>{const x=payOf(u,k);return x&&x.s==='paid'}).length;
+    h+=`<div class="land" style="--c:${l.color};--lt:${dark(l.color)?'#fff':'#1d1400'}"><div class="lh"><span class="dot"></span><div style="flex:1;min-width:0"><h2>${esc(l.name)}${l.landNo?`<span class="tag">قطعة ${esc(l.landNo)}</span>`:''}</h2><div class="meta">${us.length} استراحات · ${fmt(tot)} ريال · وصل ${paid}/${act}${vac?` · ${vac} فاضية`:''}${(()=>{const f=wFills(l)[0];return f?` · 💧 آخر تعبئة ${ago(f.d)}`:''})()}</div></div>
+      <div class="lacts"><button onclick="markAllSheet('${l.id}')">${I.check}<span>الكل وصل</span></button>${landContracts(l).length?`<button onclick="landContract('${l.id}')"><b>📄</b><span>العقد</span></button>`:''}<button onclick="waterSheet(['${l.id}'])"><b>💧</b><span>موية</span></button><button class="ic sp" onclick="shareLand('${l.id}')" aria-label="مشاركة">${I.share}</button><button class="ic" onclick="go({v:'editLand',id:'${l.id}'})" aria-label="تعديل">${I.edit}</button></div>${wPend(l).slice(0,1).map(w=>`<button class="wpill" onclick="wDone('${l.id}','${w.id}')">⏳ طلبت موية ${ago(w.date)} — عبّاها؟ <b>✅ نعم</b></button>`).join('')}</div><div class="lprog"><i style="width:${act?paid/act*100:0}%"></i></div>`;
+    vis.forEach((u,ri)=>{const x=payOf(u,k), s=stOf(u,k);
+      const sub=[u.tenant,x&&x.n].filter(Boolean).map(esc).join(' · ');
+      h+=`<div class="u ${u.vacant?'vac':''}" style="--t:${Math.max(5,17-ri*2.6).toFixed(1)}%"><span class="no">${esc(uNo(u))}</span><div class="nm" onclick="go({v:'unit',id:'${u.id}'})"><b>${esc(u.name||'فاضية')}${u.own?` <span class="kbadge" onclick="event.stopPropagation();go({v:'kitty',id:'${u.id}'})">💰 القطة</span>`:''}</b>${u.elecMeter?`<small class="mtr">${esc(u.elecMeter)}</small>`:''}${sub?`<small>${sub}</small>`:''}</div>
+      <div class="amt" onclick="go({v:'unit',id:'${u.id}'})">${s==='vacant'?'—':fmt(s==='partial'?x.a:u.rent)}</div><button class="ib bolt ${u.elecMeter?'':'off'}" onclick="copyElec('${u.id}')">${I.bolt}</button><button class="st ${s}" onclick="${s==='vacant'?`go({v:'unit',id:'${u.id}'})`:`paySheet('${u.id}')`}">${STATUS[s]}</button></div>`});
+    if(!us.length) h+=`<div class="u" style="color:var(--mut);font-size:14px" onclick="go({v:'editUnit',landId:'${l.id}'})">لا توجد استراحات — اضغط للإضافة</div>`;
+    h+='</div>';
+  });
+  return any?h:`<div class="empty">لا توجد نتائج</div>`;
+}
+
+/* ---------- نافذة الدفع ---------- */
+let sheetEl=null;
+function sheet(html){closeSheet();sheetEl=document.createElement('div');sheetEl.className='ov';sheetEl.innerHTML=`<div class="sheet"><button class="sx" onclick="closeSheet()" aria-label="إغلاق">✕</button><div class="grab"></div>${html}</div>`;sheetEl.onclick=e=>{if(e.target===sheetEl)closeSheet()};document.body.appendChild(sheetEl)}
+function closeSheet(){if(sheetEl){sheetEl.remove();sheetEl=null;return true}return false}
+function paySheet(id,pk){
+  const u=unit(id), cal=db.settings.cal, p=ui.period||nowPeriod(cal), k=pk||pkey(cal,p);
+  const x=payOf(u,k)||{s:'unpaid',m:u.method||'ejar',a:u.rent,d:today(),n:''};
+  window._pm=x.m||u.method||'ejar';
+  const label=pk?k.slice(1):pname(cal,p);
+  sheet(`<h2>${esc(uTitle(u))} — ${esc(label)}</h2>
+   <div class="fld" style="padding:0 0 10px"><label>طريقة الدفع</label><div class="chips" id="pm">${Object.entries(METHODS).map(([m,t])=>`<button class="chip ${window._pm===m?'on':''}" onclick="window._pm='${m}';document.querySelectorAll('#pm .chip').forEach(c=>c.classList.remove('on'));this.classList.add('on')">${t}</button>`).join('')}</div></div>
+   <div class="g2" style="gap:8px;margin-bottom:10px"><div><label style="font-size:13px;color:var(--mut)">المبلغ</label><input id="pa" type="number" inputmode="numeric" value="${esc(x.a!=null?x.a:u.rent)}"></div><div><label style="font-size:13px;color:var(--mut)">التاريخ</label><input id="pd" type="date" value="${esc(x.d||today())}"></div></div>
+   <input id="pn" placeholder="ملاحظة (اختياري)" value="${esc(x.n||'')}" style="margin-bottom:12px">
+   <div class="sbig">${['paid','platform','partial','unpaid'].map(s=>`<button class="${s} ${x.s===s?'on':''}" onclick="setPay('${id}','${k}','${s}')">${{paid:'✓  وصلني المبلغ',platform:'⏳  دفع بالمنصة ولم يصلني',partial:'◐  دفع جزء من المبلغ',unpaid:'✕  لم يدفع'}[s]}</button>`).join('')}</div>`);
+}
+function setPay(id,k,s){
+  const u=unit(id); db.pay[id]=db.pay[id]||{};
+  if(s==='unpaid'){ const n=document.getElementById('pn').value.trim(); if(n) db.pay[id][k]={s,m:window._pm,a:0,d:'',n}; else delete db.pay[id][k]; }
+  else db.pay[id][k]={s,m:window._pm,a:+document.getElementById('pa').value||(s==='partial'?0:u.rent),d:document.getElementById('pd').value,n:document.getElementById('pn').value.trim()};
+  save();closeSheet();render();toast('تم الحفظ');
+}
+
+/* ---------- صفحة الاستراحة ---------- */
+function vUnit(v){
+  const u=unit(v.id); if(!u){stack.pop();return vHome()}
+  const l=land(u.landId)||{};
+  const row=(lab,val,raw)=>val?`<div class="row"><div class="f"><div class="k">${lab}</div><div class="v">${esc(val)}</div></div><button class="ib" onclick='copy(${JSON.stringify(uTitle(u)+"\n"+lab+": "+val).replace(/'/g,"&#39;")},${JSON.stringify("تم نسخ "+lab).replace(/'/g,"&#39;")})'>${I.copy}</button><button class="ib" onclick='share(${JSON.stringify(uTitle(u)+"\n"+lab+": "+val).replace(/'/g,"&#39;")})'>${I.share}</button></div>`:'';
+  let h=`<div class="top"><button class="ib" onclick="back()">${I.back}</button><h1>${esc(l.name||'')}</h1><button class="ib" onclick="go({v:'editUnit',id:'${u.id}'})">${I.edit}</button></div><div class="wrap">`;
+  const cal=db.settings.cal,k=pkey(cal,ui.period||nowPeriod(cal)),x=payOf(u,k),s=stOf(u,k);
+  h+=`<div class="uhero" style="--c:${l.color||'#3D6BFF'}"><div class="l1"><div class="bn">${esc(uNo(u))}</div><div class="nm"><small>استراحة ${esc(uNo(u))}${u.plotNo?' · قطعة '+esc(u.plotNo):''}</small><b>${esc(u.name||'فاضية')}</b></div></div>${u.elecMeter?`<div class="mtrl">⚡ ${esc(u.elecMeter)}</div>`:''}
+   <div class="l2"><div><div class="r">${fmt(u.rent)}<small>ريال</small></div><div class="m">${pname(cal,ui.period||nowPeriod(cal))}${x&&x.s!=='unpaid'?' · '+METHODS[x.m]:''}</div></div><button class="st ${s}" onclick="${s==='vacant'?`changeTenant('${u.id}')`:`paySheet('${u.id}')`}">${STATUS[s]}</button></div></div>`;
+  if(u.vacant) h+=`<div class="alert"><span>⚪</span><span>الاستراحة فاضية${u.vacantSince?' من '+esc(u.vacantSince)+' ('+ago(u.vacantSince)+')':''}. ما تنحسب في الإيجارات المتوقعة.</span></div>`;
+  h+=`<div class="btns"><button class="btn" onclick="shareUnitAll('${u.id}')">${I.share} مشاركة الكل</button><button class="btn sec" onclick="pickShare('${u.id}')">${I.share} اختيار ما يُشارك</button>`;
+  if(u.own)h+=`<button class="btn full" style="background:linear-gradient(135deg,#22C55E,#0EA968)" onclick="go({v:'kitty',id:'${u.id}'})">💰 القطة — وين راحت الفلوس</button>`;
+  {
+  if(u.vacant) h+=`<button class="btn wa full" onclick="vacantSheet('${u.id}')">📢 أرسل للمكتب: متاحة للإيجار</button>`;
+  h+=u.vacant?`<button class="btn full" onclick="changeTenant('${u.id}')">🔑 تأجيرها لمستأجر جديد</button>`:`<button class="btn sec" onclick="changeTenant('${u.id}')">🔄 تغيير المستأجر</button><button class="btn sec" onclick="markVacant('${u.id}')">⚪ صارت فاضية</button>`;
+  if(u.elecMeter) h+=`<button class="btn elec full" onclick="copyElec('${u.id}')">${I.bolt} مشاركة بيانات الكهرباء</button>`;
+  if(u.vacant){} else if(u.phone) h+=`<button class="btn tn" onclick="sendTenant('${u.id}','')">${I.msg} واتساب المستأجر</button><button class="btn sec" onclick="openUrl('tel:${esc(u.phone)}')">${I.phone} اتصال</button><button class="btn wa full" onclick="remind('${u.id}')">${I.msg} تذكير بالإيجار</button>`;
+  else h+=`<button class="btn sec full" onclick="withTenantPhone('${u.id}',()=>{})">${I.phone} إضافة جوال المستأجر</button>`;
+  h+=`<button class="btn sec full" onclick="setOwn('${u.id}',${u.own?0:1})">${u.own?'إخفاء القطة من هالاستراحة':'💰 تفعيل القطة لهالاستراحة'}</button>`}
+  h+=`</div>`+contractCard(u)+`<div class="card"><h3>بيانات الاستراحة</h3>${UF.map(([f,lab])=>row(lab,fval(u,f))).join('')||''}</div>`;
+  const docs=u.docs||[];
+  h+=maintCard(u);
+  if((u.prev||[]).length) h+=`<div class="card"><h3>المستأجرين السابقين</h3>${u.prev.map(p=>`<div class="row"><div class="f"><div class="v" style="font-size:15px">${esc(p.name)}</div><div class="k">${[p.phone,p.start&&('من '+p.start),'إلى '+(p.end||p.left)].filter(Boolean).map(esc).join(' · ')}</div></div><b>${p.rent?fmt(p.rent):''}</b></div>`).join('')}</div>`;
+  h+=`<div class="card"><h3>المستندات والصور (${docs.length})</h3>${docsGrid(u.id,docs)}</div>`;
+  if(LF.slice(1).some(([f])=>l[f])) h+=`<div class="card"><h3>بيانات الأرض: ${esc(l.name||'')}</h3>${LF.slice(1).map(([f,lab])=>row(lab,l[f])).join('')}${l.location?`<div class="row"><button class="btn sec" style="flex:1" onclick="openUrl(land('${l.id}').location)">${I.map} فتح الموقع</button></div>`:''}</div>`;
+  h+='</div>';
+  return h;
+}
+function tint(c){const n=parseInt((c||'#888888').slice(1),16),m=v=>Math.round(v*.16+255*.84);return `rgb(${m(n>>16)},${m(n>>8&255)},${m(n&255)})`}
+function dark(c){if(!c)return true;const n=parseInt(c.slice(1),16),r=n>>16,g=n>>8&255,b=n&255;return (r*299+g*587+b*114)/1000<150}
+function histRows(u,n){
+  const cal=db.settings.cal;let p=nowPeriod(cal),h='';
+  for(let i=0;i<n;i++){const k=pkey(cal,p),x=payOf(u,k),s=x?x.s:'unpaid';
+    h+=`<div class="row" onclick="paySheet('${u.id}','${k}')"><div class="f">${pname(cal,p)}<div class="k">${x?[x.s!=='unpaid'&&METHODS[x.m],x.d,x.n].filter(Boolean).map(esc).join(' · '):''}</div></div><b style="margin-left:8px">${x&&x.a?fmt(x.a):''}${x&&x.a&&+u.rent&&x.a>u.rent?`<small style="display:block;font-size:11px;color:var(--mut);font-weight:600">منها ${fmt(x.a-u.rent)} للمكتب</small>`:''}</b><span class="st ${s}">${STATUS[s]}</span></div>`;p=padd(p,-1)}
+  return h;
+}
+function vHistory(v){const u=unit(v.id);return `<div class="top"><button class="ib" onclick="back()">${I.back}</button><h1>سجل ${esc(uTitle(u))}</h1></div><div class="wrap"><div class="card hist">${histRows(u,36)}</div></div>`}
+/* ---------- تنسيق رسائل الواتساب: عنوان عريض، فواصل، وإيموجي لكل معلومة ---------- */
+const SEP='━━━━━━━━━━━━━━';
+const KEYS=['0️⃣','1️⃣','2️⃣','3️⃣','4️⃣','5️⃣','6️⃣','7️⃣','8️⃣','9️⃣','🔟'];
+const keyNo=n=>KEYS[+n]||('#'+n);
+const ICO={name:'👤',unitNo:'🔢',plotNo:'🗺️',tenant:'👤',phone:'📱',rent:'💰',contractNo:'📄',elecMeter:'⚡',elecAccount:'🧾',waterMeter:'💧',start:'📅',end:'⏳',method:'💳',notes:'📝',landNo:'🗺️',deedNo:'📜',location:'📍'};
+const bold=v=>'*'+String(v).trim()+'*';
+const head=(e,t)=>e+' '+bold(t);
+function msgJoin(blocks){return blocks.filter(b=>b&&b.length).map(b=>b.filter(Boolean).join('\n')).join('\n'+SEP+'\n')}
+const fdate=d=>{if(!d)return '';const [y,m,dd]=d.split('-');return dd+'/'+m+'/'+y};
+function unitText(u,fields,lfields){
+  const l=land(u.landId)||{},top=[head('🏡',(l.name?l.name+' — ':'')+'استراحة '+uNo(u))];
+  if(u.name&&fields.includes('name'))top.push('👤 '+u.name);
+  const info=[],lf=[];let loc='',notes='';
+  fields.forEach(f=>{if(f==='name'||f==='unitNo')return;const lab=UF.find(x=>x[0]===f)[1],val=fval(u,f);if(!val)return;if(f==='notes'){notes=val;return}
+    info.push((ICO[f]||'▫️')+' '+lab+': '+bold(/start|end/.test(f)?fdate(val):val))});
+  (lfields||[]).forEach(f=>{if(f==='name'||!l[f]||(f==='landNo'&&l[f]===u.plotNo&&fields.includes('plotNo')))return;if(f==='location'){loc=l[f];return}if(f==='notes')return;const lab=LF.find(x=>x[0]===f)[1];lf.push((ICO[f]||'▫️')+' '+lab+': '+bold(l[f]))});
+  return msgJoin([top,info,lf,notes&&['📝 '+bold('ملاحظات'),...notes.split('\n').map(x=>'• '+x)],loc&&['📍 '+bold('الموقع'),loc]]);
+}
+function shareUnitAll(id){share(unitText(unit(id),UF.map(f=>f[0]),LF.map(f=>f[0])))}
+function pickShare(id){
+  const u=unit(id),l=land(u.landId)||{};
+  const opts=[...UF.filter(f=>f[0]!=='name'&&fval(u,f[0])).map(f=>['u',...f]),...LF.filter(f=>f[0]!=='name'&&l[f[0]]).map(f=>['l',...f])];
+  if(!opts.length){toast('لا توجد بيانات — عدّل الاستراحة وأضفها');return}
+  sheet(`<h2>اختر ما تريد مشاركته</h2><div class="chips"><button class="chip" onclick="pickSet(()=>true)">الكل</button><button class="chip" onclick="pickSet(i=>/^elec/.test(i.value))">الكهرباء فقط</button><button class="chip" onclick="pickSet(i=>i.value==='contractNo')">العقد فقط</button><button class="chip" onclick="pickSet(()=>false)">إلغاء الكل</button></div>${opts.map(([t,f,lab])=>`<label class="ck"><input type="checkbox" data-t="${t}" value="${f}" ${t==='u'&&f==='elecMeter'?'checked':''}><span>${lab}<br><small style="color:var(--mut)">${esc(t==='u'?fval(u,f):l[f])}</small></span></label>`).join('')}
+   <div class="btns" style="margin-top:12px"><button class="btn wa" onclick="doPick('${id}',2)">${I.msg} للمكتب</button><button class="btn tn" onclick="doPick('${id}',3)">${I.msg} للمستأجر</button><button class="btn" onclick="doPick('${id}')">${I.share} مشاركة</button><button class="btn sec" onclick="doPick('${id}',1)">${I.copy} نسخ</button></div>`);
+}
+function pickSet(fn){sheetEl.querySelectorAll('.ck input').forEach(i=>i.checked=fn(i))}
+function doPick(id,cp){
+  const c=[...sheetEl.querySelectorAll('input:checked')];if(!c.length){toast('اختر شيء واحد على الأقل');return}
+  const t=unitText(unit(id),c.filter(i=>i.dataset.t==='u').map(i=>i.value),c.filter(i=>i.dataset.t==='l').map(i=>i.value));
+  closeSheet(); cp===3?sendTenant(id,t):cp===2?sendOffice(t):cp?copy(t):share(t);
+}
+/* بطاقة الكهرباء: نص منظم + صورة العداد إن وُجدت */
+function elecText(u){const l=land(u.landId)||{};
+  return msgJoin([[head('⚡','بيانات الكهرباء')],['🏡 '+(l.name?l.name+' — ':'')+'استراحة '+bold(uNo(u)),u.plotNo&&'🗺️ رقم القطعة: '+bold(u.plotNo)],['🔌 رقم العداد: '+bold(u.elecMeter),u.elecAccount&&'🧾 رقم الحساب: '+bold(u.elecAccount)]])}
+const elecPics=u=>(u.docs||[]).filter(d=>d.kind==='عداد الكهرباء'&&!d.pdf);
+function copyElec(id){
+  const u=unit(id);if(!u.elecMeter){toast('ما فيه رقم عداد — أضفه من تعديل الاستراحة');return}
+  const t=elecText(u),pics=elecPics(u);
+  sheet(`<h2>⚡ كهرباء ${esc(uTitle(u))}</h2><label style="display:block;font-size:13px;color:var(--mut);font-weight:600;margin-bottom:6px">✏️ الرسالة — تقدر تعدّلها</label><textarea id="emsg" class="msgbox" rows="5">${esc(t)}</textarea>
+   ${pics.length?`<label class="ck"><input type="checkbox" id="ep" checked><span>إرفاق صورة العداد (${pics.length})</span></label>`:''}
+   <div class="btns" style="margin-top:12px"><button class="btn wa" onclick="elecGo('${id}','office')">${I.msg} للمكتب</button><button class="btn tn" onclick="elecGo('${id}','tenant')">${I.msg} للمستأجر</button><button class="btn" onclick="elecGo('${id}','share')">${I.share} مشاركة</button><button class="btn sec" onclick="elecGo('${id}','copy')">${I.copy} نسخ</button></div>`);
+}
+function elecGo(id,how){
+  const u=unit(id),t=(document.getElementById('emsg')||{}).value||elecText(u),cb=document.getElementById('ep'),pics=cb&&cb.checked&&A?elecPics(u).filter(d=>d.file):[];
+  closeSheet();
+  if(how==='copy')return copy(t,'تم نسخ كهرباء '+uTitle(u));
+  if(how==='tenant')return withTenantPhone(id,ph=>pics.length?A.shareDoc(pics[0].file,t,ph):openUrl('https://wa.me/'+ph+'?text='+encodeURIComponent(t)));
+  if(how==='office'){
+    if(!waNum(db.settings.office)){toast('أضف رقم المكتب من الإعدادات أولاً');go({v:'settings'});return}
+    if(pics.length)return A.shareDoc(pics[0].file,t,waNum(db.settings.office));
+    return sendOffice(t);
+  }
+  if(pics.length)return A.shareDocs(JSON.stringify(pics.map(d=>d.file)),t,'');
+  share(t);
+}
+function waNum(p){let ph=(p||'').replace(/\D/g,'');if(ph.startsWith('00'))ph=ph.slice(2);if(ph.startsWith('05'))ph='966'+ph.slice(1);else if(ph.startsWith('5')&&ph.length===9)ph='966'+ph;return ph}
+/* المستأجر: إذا ما له جوال نطلبه مرة وحدة ونحفظه */
+function withTenantPhone(id,fn){
+  const u=unit(id),ph=waNum(u.phone);if(ph)return fn(ph);
+  window._afterPhone=fn;
+  sheet(`<h2>جوال ${esc(u.tenant||uTitle(u))}</h2><div style="color:var(--mut);font-size:14px;margin-bottom:8px">ما فيه رقم جوال لهالاستراحة. اكتبه مرة وحدة وينحفظ.</div>
+   <input id="tp" type="tel" inputmode="tel" placeholder="05xxxxxxxx" style="margin-bottom:12px"><div class="btns"><button class="btn full" onclick="saveTenantPhone('${id}')">حفظ وإرسال</button></div>`);
+  setTimeout(()=>{const e=document.getElementById('tp');e&&e.focus()},100);
+}
+function saveTenantPhone(id){const v=document.getElementById('tp').value.trim();if(!waNum(v)||waNum(v).length<11){toast('اكتب رقم صحيح');return}
+  unit(id).phone=v;save();closeSheet();if(['unit'].includes(cur().v))render();const fn=window._afterPhone;window._afterPhone=null;fn&&fn(waNum(v))}
+function sendTenant(id,text){withTenantPhone(id,ph=>openUrl('https://wa.me/'+ph+'?text='+encodeURIComponent(text)))}
+function sendOffice(text){const ph=waNum(db.settings.office);if(!ph){toast('أضف رقم المكتب من الإعدادات أولاً');closeSheet();go({v:'settings'});return}openUrl('https://wa.me/'+ph+'?text='+encodeURIComponent(text))}
+
+/* ---------- المستندات ---------- */
+const DOCK=['عقد البلدية','عداد الكهرباء','الصك','مخطط / رخصة','أخرى'];
+let _base=null;
+function docSrc(d){if(d.src)return d.src;if(_base===null)_base=A?A.filesDir():'';return _base+d.file}
+/* المستندات تتبع "هدفاً": الاستراحة (uid) أو سجل صيانة فيها (uid|mid) */
+function tgt(tid){if(String(tid).startsWith('L:')){const l=land(tid.slice(2));if(!l)return null;l.docs=l.docs||[];return {land:l,list:l.docs,label:l.name}}
+  if(tid==='me'){db.me=db.me||{};db.me.docs=db.me.docs||[];return {me:true,list:db.me.docs,label:'ملفاتي'}}
+  const [a,b]=String(tid).split('|'),u=unit(a);if(!u)return null;
+  if(!b){u.docs=u.docs||[];return {u,list:u.docs,label:uTitle(u)}}
+  u.maint=u.maint||[];let m=u.maint.find(x=>x.id===b);
+  if(!m){let pm=null;try{pm=JSON.parse(localStorage.getItem('pm')||'null')}catch(e){}pm=pm||window._pm2;
+    if(!pm||pm.mid!==b)return null;m={id:b,cat:pm.cat,title:'',amount:0,date:pm.date||today(),notes:'',docs:[]};u.maint.push(m)}m.docs=m.docs||[];return {u,m,list:m.docs,label:mTitle(m)}}
+function docsGrid(tid,list){return `<div class="docs">${list.map(d=>`<button class="doc" onclick="docSheet('${tid}','${d.id}')">${d.pdf?'PDF':`<img src="${esc(docSrc(d))}" loading="lazy" alt="">`}<span>${esc(d.name||d.kind)}</span></button>`).join('')}<button class="doc add" onclick="addDocSheet('${tid}')">+</button></div>`}
+const LDOCK=['صورة الأرض','عقد البلدية','الصك','مخطط / رخصة','أخرى'];
+const MDOCK=['فاتورة','قبل','بعد','أخرى'];
+function addDocSheet(tid){
+  const t=tgt(tid),kinds=tid==='me'?MEK:t.land?LDOCK:tid.includes('|')?MDOCK:DOCK;window._dk=kinds[0];window._dn='';
+  sheet(`<h2>إضافة صورة لـ ${esc(t.label)}</h2><div class="fld" style="padding:0 0 10px"><label>النوع</label><div class="chips" id="dk" style="flex-wrap:wrap">${kinds.map((k,i)=>`<button class="chip ${i?'':'on'}" onclick="window._dk='${k}';document.querySelectorAll('#dk .chip').forEach(c=>c.classList.remove('on'));this.classList.add('on')">${k}</button>`).join('')}</div></div>
+   <div>${tid==='me'?`<input placeholder="اسم الملف (اختياري) مثلاً: عقد الأرض الأولى" oninput="window._dn=this.value" style="margin-bottom:12px">`:''}<div class="btns" style="margin:0"><button class="btn" onclick="pickDoc('${tid}',true)">${I.cam} تصوير</button><button class="btn sec" onclick="pickDoc('${tid}',false)">${I.img} من الجوال / PDF</button></div></div>`);
+}
+function pickDoc(id,cam){
+  try{localStorage.setItem('dk',window._dk);localStorage.setItem('dn',window._dn||'')}catch(e){}
+  if(A){A.pickDoc(id,cam);return}
+  const i=document.createElement('input');i.type='file';i.accept='image/*,application/pdf';if(cam)i.capture='environment';else i.multiple=true;
+  i.onchange=()=>[...i.files].forEach(f=>{const r=new FileReader();
+    if(f.type==='application/pdf'){r.onload=()=>onDocAdded(id,null,r.result,true);r.readAsDataURL(f);return}
+    r.onload=()=>{const im=new Image();im.onload=()=>{const k=Math.min(1,1200/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=im.width*k;c.height=im.height*k;c.getContext('2d').drawImage(im,0,0,c.width,c.height);onDocAdded(id,null,c.toDataURL('image/jpeg',.8))};im.src=r.result};r.readAsDataURL(f)});
+  i.click();
+}
+window.drainDocs=function(){if(!A)return;try{JSON.parse(A.takeDocs()).forEach(([id,f])=>onDocAdded(id,f))}catch(e){}};
+window.onDocAdded=function(tid,file,src,pdf){
+  const t=tgt(tid);if(!t)return;
+  let kind=window._dk;try{kind=kind||localStorage.getItem('dk')}catch(e){}
+  const d={id:uid(),kind:kind||'أخرى',date:today()};if(file){d.file=file;d.pdf=/\.pdf$/i.test(file)}else{d.src=src;d.pdf=!!pdf}
+  if(t.m&&t.m.date)d.date=t.m.date;
+  if(t.me){let n=window._dn;try{n=n||localStorage.getItem('dn')}catch(e){}if(n)d.name=n}
+  t.list.push(d);save();closeSheet();if(['unit','maint','me','editLand'].includes(cur().v))render();toast('تمت إضافة '+(d.name||d.kind));
+};
+function docText(t,d){if(t.land)return t.land.name+(t.land.landNo?' (قطعة '+t.land.landNo+')':'')+'\n'+d.kind;if(t.me)return (d.name||d.kind)+(db.me.fullName?' — '+db.me.fullName:'');const l=land(t.u.landId)||{};return (l.name?l.name+' - ':'')+uTitle(t.u)+(t.m?'\n'+t.m.cat+': '+mTitle(t.m)+(t.m.date?' ('+t.m.date+')':''):'')+'\n'+d.kind}
+// عقد البلدية لكل استراحة: ملف PDF (أو صور صفحاته) يتشارك بضغطة
+const CK='عقد البلدية';
+// عقد الاستراحة نفسها، وإذا ما فيه فعقد الأرض (عقد البلدية غالباً للقطعة كاملة)
+function contractsOf(u){const own=(u.docs||[]).filter(d=>d.kind===CK);if(own.length)return own.map(d=>({d,tid:u.id}));
+  const l=land(u.landId);return ((l&&l.docs)||[]).filter(d=>d.kind===CK).map(d=>({d,tid:'L:'+l.id}))}
+function contractCard(u){const cs=contractsOf(u),ofLand=cs.length&&cs[0].tid!==u.id;
+  return `<div class="card"><h3>📄 عقد البلدية${cs.length>1?' ('+cs.length+' ملفات)':''}</h3>${ofLand?`<div class="k" style="padding:0 16px 4px">عقد الأرض كاملة (قطعة ${esc(land(u.landId).landNo||'')}) — يشمل كل استراحاتها</div>`:''}${cs.map(({d:c,tid})=>`<div class="row" style="cursor:pointer" onclick="docSheet('${tid}','${c.id}')"><span style="font-size:26px">${c.pdf?'📕':'🖼️'}</span><div class="f"><div class="v" style="font-size:15px">${esc(c.name||CK)}${c.pdf?' · PDF':''}</div><div class="k">أُضيف ${fdate(c.date)}</div></div><span class="k">⋮</span></div>`).join('')}
+  ${cs.length?`<div class="btns" style="padding:4px 14px 12px"><button class="btn wa" onclick="shareContract('${u.id}',1)">${I.msg} للمكتب</button><button class="btn" onclick="shareContract('${u.id}')">${I.share} مشاركة</button><button class="btn sec" onclick="addContract('${u.id}')">＋ ملف</button></div>`
+  :`<div class="fld" style="color:var(--mut);font-size:13.5px;padding-bottom:4px">أرفق العقد مرة وحدة، وبعدها تشاركه للمكتب أو لأي أحد بضغطة.</div><div class="btns" style="padding:4px 14px 12px"><button class="btn full" onclick="addContract('${u.id}')">📎 أرفق عقد البلدية (PDF أو صورة)</button></div>`}</div>`}
+const landContracts=l=>((l&&l.docs)||[]).filter(d=>d.kind===CK);
+function landContract(lid){const c=landContracts(land(lid));if(c.length)docSheet('L:'+lid,c[c.length-1].id)}
+function addContract(id){window._dk=CK;window._dn='';pickDoc(id,false)}
+function shareContract(id,office){const u=unit(id),cs=contractsOf(u).map(x=>x.d);if(!cs.length)return;
+  if(office&&!waNum(db.settings.office)){toast('أضف رقم المكتب من الإعدادات أولاً');go({v:'settings'});return}
+  const l=land(u.landId)||{},txt=['📄 '+bold(CK),'🏘️ '+(l.name||'')+(l.landNo?' (قطعة '+l.landNo+')':''),keyNo(uNo(u))+' '+uTitle(u)].join('\n'),files=cs.filter(d=>d.file).map(d=>d.file),ph=office?waNum(db.settings.office):'';
+  if(A&&files.length)return files.length>1?A.shareDocs(JSON.stringify(files),txt,ph):A.shareDoc(files[0],txt,ph);
+  copy(txt,'إرسال الملفات يشتغل من التطبيق على الجوال — نسخت الوصف')}
+function docSheet(tid,did){
+  const t=tgt(tid),d=t&&t.list.find(x=>x.id===did);if(!d)return;
+  sheet(`<h2>${esc(d.name||d.kind)} — ${esc(t.label)}</h2><div class="viewer">${d.pdf?`<div class="doc" style="aspect-ratio:auto;padding:30px;margin-bottom:12px">ملف PDF</div>`:`<img src="${esc(docSrc(d))}" alt="" onclick="openDoc('${tid}','${did}')">`}</div>
+   <div class="btns"><button class="btn wa ${t.me||t.land?'full':''}" onclick="shareDocTo('${tid}','${did}',1)">${I.msg} للمكتب</button>${t.me||t.land?'':`<button class="btn tn" onclick="shareDocTo('${tid}','${did}',2)">${I.msg} للمستأجر</button>`}<button class="btn" onclick="shareDocTo('${tid}','${did}')">${I.share} مشاركة</button><button class="btn sec" onclick="openDoc('${tid}','${did}')">${I.img} فتح</button>
+   <button class="btn red full" onclick="delDoc('${tid}','${did}')">${I.trash} حذف</button></div><div style="text-align:center;color:var(--mut);font-size:13px">أُضيف ${esc(d.date||'')} · ${ago(d.date)}</div>`);
+}
+function shareDocTo(tid,did,office){
+  const t=tgt(tid),d=t.list.find(x=>x.id===did);
+  if(office===2){closeSheet();return withTenantPhone(t.u.id,ph=>{if(A&&d.file)A.shareDoc(d.file,docText(t,d),ph);else openUrl('https://wa.me/'+ph+'?text='+encodeURIComponent(docText(t,d)))})}
+  if(office&&!waNum(db.settings.office)){toast('أضف رقم المكتب من الإعدادات أولاً');closeSheet();go({v:'settings'});return}
+  if(A&&d.file){A.shareDoc(d.file,docText(t,d),office?waNum(db.settings.office):'');return}
+  copy(docText(t,d),'إرسال الصور يشتغل من التطبيق على الجوال — نسخت الوصف');
+}
+function openDoc(tid,did){const d=tgt(tid).list.find(x=>x.id===did);if(A&&d.file)A.openDoc(d.file);else window.open(d.src,'_blank')}
+function delDoc(tid,did){if(!confirm('حذف هذا الملف؟'))return;const t=tgt(tid),i=t.list.findIndex(x=>x.id===did),f=t.list[i].file,refs=[...db.units,...db.lands].reduce((n,o)=>n+(o.docs||[]).filter(x=>x.file===f).length,0);if(A&&f&&refs<2)A.deleteDoc(f);t.list.splice(i,1);save();closeSheet();render()}
+const rmFiles=list=>(list||[]).forEach(d=>{if(A&&d.file)A.deleteDoc(d.file)});
+
+/* ---------- الصيانة والفواتير ---------- */
+function ago(date){if(!date)return '';const d=Math.floor((new Date(today())-new Date(date))/864e5);if(isNaN(d))return '';
+  const n=(x,one,two,few,many)=>x===1?one:x===2?two:x>=3&&x<=10?x+' '+few:x+' '+many;
+  if(d<=0)return 'اليوم';if(d<30)return 'مضى '+n(d,'يوم','يومين','أيام','يوم');
+  const mo=Math.floor(d/30.44);if(mo<12)return 'مضى '+n(mo,'شهر','شهرين','أشهر','شهر');
+  const y=Math.floor(mo/12),r=mo%12;return 'مضى '+n(y,'سنة','سنتين','سنوات','سنة')+(r?' و'+n(r,'شهر','شهرين','أشهر','شهر'):'')}
+const mTitle=m=>m.title||('فاتورة '+m.cat);
+const MCATS=['صيانة','كهرباء','موية','ماء / سباكة','تكييف','أخرى'];
+function maintCard(u){
+  const ms=(u.maint||[]).slice().sort((a,b)=>(b.date||'').localeCompare(a.date||'')),tot=ms.reduce((s,m)=>s+(+m.amount||0),0);
+  return `<div class="card"><h3>الصيانة والفواتير (${ms.length})${tot?' · '+fmt(tot)+' ريال':''}</h3>${ms.map(m=>`<div class="row" onclick="go({v:'maint',id:'${u.id}',mid:'${m.id}'})"><span class="mc">${esc(m.cat)}</span><div class="f"><div class="v" style="font-size:15px">${esc(mTitle(m))}</div><div class="k">${esc(m.date||'')}${(m.docs||[]).length?' · 📷 '+m.docs.length:''}</div><div class="ago">${ago(m.date)}</div></div><b>${m.amount?fmt(m.amount):''}</b><button class="ib" onclick="event.stopPropagation();shareBill('${u.id}','${m.id}')">${I.share}</button><button class="ib" style="color:var(--no)" onclick="event.stopPropagation();delMaint('${u.id}','${m.id}')">${I.trash}</button></div>`).join('')}
+   <div class="row" style="gap:8px"><button class="btn" style="flex:1" onclick="quickBill('${u.id}')">${I.cam} إرفاق فاتورة</button><button class="btn sec" style="flex:1" onclick="maintSheet('${u.id}')">+ مع تفاصيل</button></div></div>`;
+}
+/* إرفاق سريع: اختر النوع ثم صوّر — بدون كتابة أي تفاصيل */
+function quickBill(id){
+  window._mc=MCATS[0];
+  sheet(`<h2>إرفاق فاتورة — ${esc(uTitle(unit(id)))}</h2><div class="fld" style="padding:0 0 10px"><label>الفاتورة لـ</label><div class="chips" id="mcat" style="flex-wrap:wrap">${MCATS.map((c,i)=>`<button class="chip ${i?'':'on'}" onclick="window._mc='${c}';document.querySelectorAll('#mcat .chip').forEach(x=>x.classList.remove('on'));this.classList.add('on')">${c}</button>`).join('')}</div></div>
+   <div class="btns"><button class="btn" onclick="quickPick('${id}',true)">${I.cam} تصوير</button><button class="btn sec" onclick="quickPick('${id}',false)">${I.img} من الجوال</button></div>
+   `.replace('<div class="btns">',`<div class="fld" style="padding:0 0 12px"><label>تاريخ الفاتورة (غيّره لو الصيانة قبل اليوم)</label><input id="qb_date" type="date" value="${today()}" max="${today()}"></div><div class="btns">`));
+}
+function quickPick(id,cam){
+  const pm={mid:uid(),cat:window._mc||MCATS[0],date:(document.getElementById('qb_date')||{}).value||today()};window._pm2=pm;try{localStorage.setItem('pm',JSON.stringify(pm))}catch(e){}
+  window._dk='فاتورة';pickDoc(id+'|'+pm.mid,cam);
+}
+function maintSheet(id,mid){
+  const u=unit(id),m=mid?u.maint.find(x=>x.id===mid):{cat:MCATS[0],date:today()};window._mc=m.cat;
+  sheet(`<h2>${mid?'تعديل':'صيانة / فاتورة جديدة'} — ${esc(uTitle(u))}</h2>
+   <div class="chips" id="mcat" style="flex-wrap:wrap">${MCATS.map(c=>`<button class="chip ${c===m.cat?'on':''}" onclick="window._mc='${c}';document.querySelectorAll('#mcat .chip').forEach(x=>x.classList.remove('on'));this.classList.add('on')">${c}</button>`).join('')}</div>
+   <div style="display:grid;gap:8px;margin:6px 0 12px"><input id="m_title" placeholder="وش صار؟ مثلاً: تبديل عداد، تصليح مكيف" value="${esc(m.title||'')}">
+   <div class="g2" style="gap:8px"><div><label style="font-size:13px;color:var(--mut)">المبلغ (اختياري)</label><input id="m_amount" type="number" inputmode="numeric" value="${esc(m.amount||'')}"></div><div><label style="font-size:13px;color:var(--mut)">تاريخ الفاتورة</label><input id="m_date" type="date" value="${esc(m.date||'')}" max="${today()}"></div></div>
+   <textarea id="m_notes" placeholder="ملاحظات: اسم الفني، رقم الفاتورة، الضمان...">${esc(m.notes||'')}</textarea></div>
+   <div class="btns"><button class="btn full" onclick="saveMaint('${id}','${mid||''}')">حفظ</button></div>`);
+}
+function saveMaint(id,mid){
+  const u=unit(id),g=f=>document.getElementById('m_'+f).value.trim();
+    u.maint=u.maint||[];let m=mid&&u.maint.find(x=>x.id===mid);if(!m){m={id:uid(),docs:[]};u.maint.push(m)}
+  m.cat=window._mc||MCATS[0];m.title=g('title');m.amount=+g('amount')||0;m.date=g('date');(m.docs||[]).forEach(d=>d.date=m.date);m.notes=g('notes');
+  save();closeSheet();if(!mid)go({v:'maint',id,mid:m.id});else render();toast('تم الحفظ');
+}
+function maintText(u,m){const l=land(u.landId)||{};return [(l.name?l.name+' - ':'')+uTitle(u),m.cat+': '+mTitle(m),m.date&&'تاريخ الفاتورة: '+m.date+' ('+ago(m.date)+')',m.amount&&'المبلغ: '+fmt(m.amount)+' ريال',m.notes].filter(Boolean).join('\n')}
+function vMaint(v){
+  const u=unit(v.id),m=u&&(u.maint||[]).find(x=>x.id===v.mid);if(!m){stack.pop();setTimeout(render);return ''}
+  const tid=u.id+'|'+m.id,t=maintText(u,m);
+  return `<div class="top"><button class="ib" onclick="back()">${I.back}</button><h1>${esc(mTitle(m))}</h1><button class="ib" onclick="maintSheet('${u.id}','${m.id}')">${I.edit}</button></div><div class="wrap">
+  <div class="card"><div class="row"><div class="f"><div class="k">${esc(uTitle(u))}</div><div class="v"><span class="mc">${esc(m.cat)}</span> ${esc(m.title||'')}</div></div></div>
+   ${m.date?`<div class="row" onclick="maintSheet('${u.id}','${m.id}')"><div class="f"><div class="k">تاريخ الفاتورة (اضغط للتعديل)</div><div class="v">${esc(m.date)}</div></div><span class="ago big">${ago(m.date)}</span></div>`:''}
+   ${m.amount?`<div class="row"><div class="f"><div class="k">المبلغ</div><div class="v">${fmt(m.amount)} ريال</div></div></div>`:''}
+   ${m.notes?`<div class="row"><div class="f"><div class="k">ملاحظات</div><div class="v" style="white-space:pre-wrap">${esc(m.notes)}</div></div></div>`:''}</div>
+  <div class="card"><h3>الفواتير والصور (${(m.docs||[]).length})</h3>${docsGrid(tid,m.docs||[])}</div>
+  <div class="btns"><button class="btn wa" onclick='sendOffice(${JSON.stringify(t).replace(/'/g,"&#39;")})'>${I.msg} للمكتب</button><button class="btn tn" onclick='sendTenant("${u.id}",${JSON.stringify(t).replace(/'/g,"&#39;")})'>${I.msg} للمستأجر</button><button class="btn" onclick="shareBill('${u.id}','${m.id}')">${I.share} مشاركة الفاتورة</button><button class="btn sec" onclick='copy(${JSON.stringify(t).replace(/'/g,"&#39;")})'>${I.copy} نسخ</button>
+  <button class="btn red full" onclick="delMaint('${u.id}','${m.id}')">${I.trash} حذف</button></div></div>`;
+}
+function shareBill(id,mid){
+  const u=unit(id),m=u.maint.find(x=>x.id===mid),t=maintText(u,m),files=(m.docs||[]).filter(d=>d.file).map(d=>d.file);
+  if(A){A.shareDocs(JSON.stringify(files),t,'');return}
+  share(t);
+}
+function delMaint(id,mid){if(!confirm('حذف هذا السجل وصوره؟'))return;const u=unit(id),m=u.maint.find(x=>x.id===mid);rmFiles(m.docs);u.maint=u.maint.filter(x=>x.id!==mid);save();if(cur().v==='maint')back();else render();toast('تم الحذف')}
+
+const DEF_TPL='السلام عليكم {المستأجر}\nنذكركم بإيجار {الاستراحة} لشهر {الشهر}\nالمبلغ: {المبلغ} ريال\nشاكرين لكم';
+function remind(id){
+  const u=unit(id),cal=db.settings.cal,p=ui.period||nowPeriod(cal);
+  const ph=waNum(u.phone);
+  const msg=(db.settings.remindTpl||DEF_TPL).replace(/\{المستأجر\}/g,u.tenant||'').replace(/\{الاستراحة\}/g,uTitle(u)).replace(/\{الشهر\}/g,pname(cal,p)).replace(/\{المبلغ\}/g,fmt(u.rent));
+  openUrl('https://wa.me/'+ph+'?text='+encodeURIComponent(msg));
+}
+function shareLand(id){
+  const l=land(id),us=unitsOf(id);
+  const top=[head('🏘️',l.name),l.landNo&&'🗺️ رقم القطعة: '+bold(l.landNo),l.deedNo&&'📜 رقم الصك: '+bold(l.deedNo),'🏡 عدد الاستراحات: '+bold(us.length)];
+  const rows=us.map(u=>[keyNo(uNo(u))+' '+bold(u.name||'فاضية')+(u.vacant?' ⚪':''),u.elecMeter&&'     ⚡ '+u.elecMeter,u.contractNo&&'     📄 '+u.contractNo,u.waterMeter&&'     💧 '+u.waterMeter].filter(Boolean).join('\n'));
+  share(msgJoin([top,[rows.join('\n\n')],l.location&&['📍 '+bold('الموقع'),l.location]]));
+}
+
+/* مشاركة متعددة: اختر حقل + استراحات */
+function multiShare(){
+  sheet(`<h2>مشاركة سريعة</h2><div class="sbig"><button class="platform" onclick="officeCard()">🖼️ صورة كاملة لاستراحات المكتب</button><button class="partial" onclick="waterPick()">💧 طلب موية</button></div><div class="fld" style="padding:0 0 8px"><label>ماذا تريد أن ترسل؟</label><div class="chips" id="mf" style="flex-wrap:wrap">${[['elecMeter','عداد الكهرباء'],['elecAccount','حساب الكهرباء'],['contractNo','رقم العقد'],['waterMeter','عداد الماء'],['unitNo','رقم الاستراحة'],['plotNo','رقم القطعة'],['tenant','المستأجر'],['phone','الجوال'],['rent','الإيجار'],['L:landNo','رقم الأرض'],['L:deedNo','رقم الصك'],['L:elecMeter','كهرباء الأرض']].map(([f,t],i)=>`<button class="chip ${i==0?'on':''}" data-f="${f}" onclick="this.classList.toggle('on')">${t}</button>`).join('')}</div></div>
+   <label style="font-size:13px;color:var(--mut)">لأي استراحة؟</label>
+   ${db.lands.map(l=>`<div style="margin-top:8px;font-weight:700;color:${l.color}">● ${esc(l.name)}</div>${unitsOf(l.id).map(u=>`<label class="ck"><input type="checkbox" value="${u.id}"><span>${esc(uTitle(u))}</span></label>`).join('')}`).join('')}
+   <div class="btns" style="margin-top:12px;position:sticky;bottom:0;background:var(--bg);padding-top:8px"><button class="btn wa full" onclick="doMulti(2)">${I.msg} إرسال للمكتب</button><button class="btn" onclick="doMulti()">${I.share} مشاركة</button><button class="btn sec" onclick="doMulti(1)">${I.copy} نسخ</button></div>`);
+}
+function doMulti(cp){
+  const fs=[...sheetEl.querySelectorAll('#mf .chip.on')].map(c=>c.dataset.f), ids=[...sheetEl.querySelectorAll('input:checked')].map(i=>i.value);
+  if(!fs.length||!ids.length){toast('اختر البيانات والاستراحات');return}
+  const out=ids.map(id=>{const u=unit(id),l=land(u.landId)||{};const ln=[(l.name?l.name+' - ':'')+uTitle(u)];
+    fs.forEach(f=>{if(f.startsWith('L:')){const k=f.slice(2);ln.push(LF.find(x=>x[0]===k)[1]+': '+(l[k]||'—'))}else ln.push(UF.find(x=>x[0]===f)[1]+': '+(fval(u,f)||'—'))});return ln.join('\n')}).join('\n\n');
+  closeSheet(); cp===2?sendOffice(out):cp?copy(out):share(out);
+}
+
+/* تقارير الشهر */
+/* ---------- صورة المكتب: جدول واحد بكل بيانات الاستراحات المختارة ---------- */
+const OC=[['plotNo','رقم القطعة'],['rent','الإيجار'],['elecMeter','عداد الكهرباء'],['elecAccount','حساب الكهرباء'],['contractNo','رقم العقد'],['tenant','المستأجر'],['waterMeter','عداد الماء']];
+function officeCard(){
+  const cols=db.settings.ocCols||['plotNo','rent','elecMeter'];
+  const anyMarked=db.units.some(u=>u.office);
+  sheet(`<h2>🖼️ صورة للمكتب</h2>
+   <div class="fld" style="padding:0 0 8px"><label>وش يظهر في الصورة؟ (الاسم دائماً)</label><div class="chips" id="occ" style="flex-wrap:wrap">${OC.map(([f,t])=>`<button class="chip ${cols.includes(f)?'on':''}" data-f="${f}" onclick="this.classList.toggle('on')">${t}</button>`).join('')}</div></div>
+   <div style="display:flex;align-items:center;justify-content:space-between"><label style="font-size:13px;color:var(--mut)">الاستراحات اللي عند المكتب (تنحفظ للمرة الجاية)</label><button class="chip" onclick="sheetEl.querySelectorAll('.ock input').forEach(i=>i.checked=!sheetEl.querySelector('.ock input:not(:checked)')?false:true)">الكل</button></div>
+   ${db.lands.map(l=>`<div style="margin-top:8px;font-weight:700;color:${l.color}">● ${esc(l.name)}</div>${unitsOf(l.id).map(u=>`<label class="ck ock"><input type="checkbox" value="${u.id}" ${u.office||!anyMarked?'checked':''}><span>${esc(uTitle(u))}</span><small style="color:var(--mut)">${fmt(u.rent)}</small></label>`).join('')}`).join('')}
+   <div class="btns" style="margin-top:12px;position:sticky;bottom:0;background:var(--bg);padding-top:8px"><button class="btn full" onclick="makeOfficeCard()">🖼️ إنشاء الصورة</button></div>`);
+}
+function makeOfficeCard(){
+  const cols=[...sheetEl.querySelectorAll('#occ .chip.on')].map(c=>c.dataset.f), ids=new Set([...sheetEl.querySelectorAll('.ock input:checked')].map(i=>i.value));
+  if(!ids.size){toast('اختر استراحة واحدة على الأقل');return}
+  db.units.forEach(u=>u.office=ids.has(u.id));db.settings.ocCols=cols;save();
+  const url=drawOfficeCard(cols);window._oc=url;
+  sheet(`<h2>صورة المكتب جاهزة</h2><img src="${url}" alt="" style="width:100%;border-radius:10px;border:1px solid var(--ln);margin-bottom:12px">
+   <div class="btns"><button class="btn wa full" onclick="sendOfficeCard(1)">${I.msg} إرسال للمكتب</button><button class="btn" onclick="sendOfficeCard()">${I.share} مشاركة</button><button class="btn sec" onclick="officeCard()">تعديل الاختيار</button></div>`);
+}
+function drawOfficeCard(cols){
+  const W=Math.max(1080,720+cols.length*230),P=40,RH=72,cv=document.createElement('canvas'),x=cv.getContext('2d');
+  const groups=db.lands.map(l=>[l,unitsOf(l.id).filter(u=>u.office)]).filter(g=>g[1].length);
+  const n=groups.reduce((s,g)=>s+g[1].length,0),H=P+150+RH+groups.length*58+n*RH+130;
+  cv.width=W;cv.height=H;x.direction='rtl';x.textBaseline='middle';
+  const F=(sz,b)=>x.font=(b?'bold ':'')+sz+'px system-ui,"Noto Sans Arabic",Tahoma,sans-serif';
+  const fit=(t,w,sz,b)=>{t=String(t==null?'':t);F(sz,b);while(x.measureText(t).width>w-16&&sz>16){sz--;F(sz,b)}return t};
+  x.fillStyle='#f1f4fa';x.fillRect(0,0,W,H);
+  // الترويسة
+  x.fillStyle='#0D5BA8';x.fillRect(0,0,W,130);x.fillStyle='#fff';x.textAlign='right';
+  F(44,1);x.fillText('بيانات الاستراحات'+(db.settings.officeName?' — '+db.settings.officeName:''),W-P,52);
+  const cal=db.settings.cal,p=nowPeriod(cal);F(26);x.fillStyle='#d6e6f7';x.fillText('محدّث بتاريخ '+today()+'  ·  '+pname(cal,p),W-P,100);
+  // الأعمدة: # ثم الاسم ثم المختار
+  const defs=[['رقم',80],['الاستراحة',0],...cols.map(f=>[OC.find(o=>o[0]===f)[1],/^elec|water|contract/.test(f)?250:f==='tenant'?230:180])];
+  const fixed=defs.reduce((s,d)=>s+d[1],0);defs[1][1]=Math.max(260,W-2*P-fixed);
+  const TW=defs.reduce((s,d)=>s+d[1],0),X0=W-P-(W-2*P-TW)/2;
+  const colX=[];let cx=X0;defs.forEach(d=>{colX.push(cx);cx-=d[1]});
+  let y=150;
+  x.fillStyle='#1b2433';x.fillRect(X0-TW,y,TW,RH);x.fillStyle='#fff';x.textAlign='center';
+  defs.forEach((d,i)=>{x.fillText(fit(d[0],d[1],26,1),colX[i]-d[1]/2,y+RH/2)});y+=RH;
+  let k=0,tot=0;
+  groups.forEach(([l,us])=>{
+    x.fillStyle=tint(l.color);x.fillRect(X0-TW,y,TW,58);x.fillStyle=l.color;x.fillRect(X0-10,y,10,58);
+    x.fillStyle='#1b2433';x.textAlign='right';F(28,1);x.fillText(l.name+(l.landNo?'  ·  قطعة '+l.landNo:''),X0-28,y+29);y+=58;
+    us.forEach(u=>{k++;tot+=+u.rent||0;
+      x.fillStyle=k%2?'#ffffff':'#f7f9fc';x.fillRect(X0-TW,y,TW,RH);
+      const vals=[uNo(u),u.name||'فاضية',...cols.map(f=>f==='rent'?(u.vacant?'فاضية':u.rent?fmt(u.rent):''):(u[f]||'—'))];
+      vals.forEach((v,i)=>{const w=defs[i][1];x.fillStyle=i===1?'#1b2433':cols[i-2]==='elecMeter'?'#9a5b00':'#33405a';x.textAlign=i===1?'right':'center';
+        const t=fit(v,w,i===1?28:27,i===1||cols[i-2]==='elecMeter');x.fillText(t,i===1?colX[i]-12:colX[i]-w/2,y+RH/2)});
+      x.fillStyle='#e3e8f0';x.fillRect(X0-TW,y+RH-1,TW,1);colX.slice(1).forEach(c=>x.fillRect(c,y,1,RH));y+=RH});
+  });
+  // خطوط الأعمدة
+  y+=34;x.textAlign='right';F(30,1);x.fillStyle='#1b2433';
+  x.fillText('عدد الاستراحات: '+n+(cols.includes('rent')?'   ·   إجمالي الإيجار: '+fmt(tot)+' ريال':''),W-P,y);
+  F(22);x.fillStyle='#6b7689';x.fillText('أُنشئت من تطبيق استراحاتي',W-P,y+48);
+  return cv.toDataURL('image/png');
+}
+function sendOfficeCard(office){
+  const t='بيانات الاستراحات — محدّث '+today();
+  if(office&&!waNum(db.settings.office)){toast('أضف رقم المكتب من الإعدادات أولاً');closeSheet();go({v:'settings'});return}
+  if(A){A.shareImage(window._oc.split(',')[1],t,office?waNum(db.settings.office):'');return}
+  toast('في المعاينة: اضغط مطوّلاً على الصورة لحفظها');
+}
+/* ---------- ملفاتي: بياناتي ومستنداتي الشخصية ---------- */
+const MEK=['الهوية','عقد أرض (البلدية)','شهادة الآيبان','العنوان الوطني','صك','وكالة','أخرى'];
+const MEF=[['fullName','الاسم الكامل'],['idNo','رقم الهوية'],['iban','رقم الآيبان'],['bank','البنك'],['phone','رقم الجوال'],['address','العنوان الوطني'],['email','البريد الإلكتروني']];
+const meFields=()=>[...MEF.filter(([f])=>db.me[f]).map(([f,lab])=>[f,lab,db.me[f]]),...(db.me.extra||[]).filter(x=>x.label&&x.value).map((x,i)=>['x'+i,x.label,x.value])];
+function vMe(){
+  const me=db.me=db.me||{};me.docs=me.docs||[];
+  const filled=meFields();
+  return `<div class="top"><button class="ib" onclick="back()">${I.back}</button><h1>ملفاتي</h1><button class="ib" onclick="meEdit()">${I.edit}</button></div><div class="wrap">
+  ${(()=>{const ls=db.lands.filter(l=>landContracts(l).length);return ls.length?`<div class="card"><h3>📄 عقود البلدية (${ls.length})</h3>${ls.map(l=>`<div class="row" style="cursor:pointer" onclick="landContract('${l.id}')"><span style="font-size:24px">📕</span><div class="f"><div class="v" style="font-size:15px">${esc(l.name)}</div><div class="k">قطعة ${esc(l.landNo||'')} · اضغط للمشاركة أو الفتح</div></div><span class="k">›</span></div>`).join('')}</div>`:''})()}
+  <div class="card"><h3>مستنداتي (${me.docs.length})</h3>${docsGrid('me',me.docs)}
+   ${me.docs.length>1?`<div class="row"><button class="btn sec" style="flex:1" onclick="meMulti()">${I.share} إرسال أكثر من ملف مع بعض</button></div>`:''}</div>
+  <div class="card"><h3>بياناتي</h3>${filled.map(([f,lab,val])=>`<div class="row"><div class="f"><div class="k">${esc(lab)}</div><div class="v">${esc(val)}</div></div><button class="ib" onclick='copy(${JSON.stringify(val).replace(/'/g,"&#39;")},${JSON.stringify("تم نسخ "+lab).replace(/'/g,"&#39;")})'>${I.copy}</button><button class="ib" onclick='share(${JSON.stringify(lab+": "+val).replace(/'/g,"&#39;")})'>${I.share}</button></div>`).join('')||`<div class="fld" style="color:var(--mut);font-size:14px">اضغط القلم وأضف رقم هويتك والآيبان وغيرها عشان تنسخها وترسلها بسرعة.</div>`}
+   ${filled.length?`<div class="row"><button class="btn wa" style="flex:1" onclick="mePick()">${I.msg} إرسال بياناتي</button></div>`:''}</div>
+  <div class="fld" style="color:var(--mut);font-size:13px;text-align:center">هذي الملفات خاصة فيك ومحفوظة على جوالك، وتدخل في النسخة الاحتياطية.</div></div>`;
+}
+function meEdit(){
+  const me=db.me||{};
+  const ex=(me.extra||[]).concat([{label:'',value:''}]);
+  sheet(`<h2>بياناتي</h2><div style="display:grid;gap:8px">${MEF.map(([f,lab])=>`<div><label style="font-size:13px;color:var(--mut)">${lab}</label><input id="me_${f}" value="${esc(me[f]||'')}" ${/idNo|phone|iban/.test(f)?'inputmode="'+(f==='iban'?'text':'numeric')+'" dir="ltr"':''}></div>`).join('')}
+   <div style="font-weight:700;margin-top:8px">خانات إضافية</div><div style="font-size:12px;color:var(--mut)">مثلاً: رقم السجل التجاري، رقم حساب ثاني، رقم رخصة البلدية</div>
+   <div id="mex" style="display:grid;gap:8px">${ex.map(x=>`<div class="g2" style="gap:8px"><input class="mx-l" placeholder="اسم الخانة" value="${esc(x.label)}"><input class="mx-v" placeholder="القيمة" value="${esc(x.value)}"></div>`).join('')}</div>
+   <button class="chip" style="justify-self:start" onclick="document.getElementById('mex').insertAdjacentHTML('beforeend','<div class=&quot;g2&quot; style=&quot;gap:8px&quot;><input class=&quot;mx-l&quot; placeholder=&quot;اسم الخانة&quot;><input class=&quot;mx-v&quot; placeholder=&quot;القيمة&quot;></div>')">+ خانة ثانية</button></div>
+   <div class="btns" style="margin-top:12px"><button class="btn full" onclick="saveMe()">حفظ</button></div>`);
+}
+function saveMe(){
+  MEF.forEach(([f])=>db.me[f]=document.getElementById('me_'+f).value.trim());
+  const ls=[...sheetEl.querySelectorAll('.mx-l')],vs=[...sheetEl.querySelectorAll('.mx-v')];
+  db.me.extra=ls.map((l,i)=>({label:l.value.trim(),value:vs[i].value.trim()})).filter(x=>x.label&&x.value);
+  save();closeSheet();render();toast('تم الحفظ');
+}
+function mePick(){
+  const me=db.me;
+  sheet(`<h2>وش ترسل من بياناتك؟</h2>${meFields().map(([f,lab,val])=>`<label class="ck"><input type="checkbox" value="${f}" ${/fullName|idNo/.test(f)?'checked':''}><span>${esc(lab)}<br><small style="color:var(--mut)">${esc(val)}</small></span></label>`).join('')}
+   <div class="btns" style="margin-top:12px"><button class="btn wa full" onclick="meSend(1)">${I.msg} للمكتب</button><button class="btn" onclick="meSend()">${I.share} مشاركة</button><button class="btn sec" onclick="meSend(2)">${I.copy} نسخ</button></div>`);
+}
+function meSend(how){
+  const fs=[...sheetEl.querySelectorAll('input:checked')].map(i=>i.value);if(!fs.length){toast('اختر شيء واحد على الأقل');return}
+  const all=meFields(),t=fs.map(f=>{const x=all.find(y=>y[0]===f);return x[1]+': '+x[2]}).join('\n');closeSheet();
+  how===1?sendOffice(t):how===2?copy(t):share(t);
+}
+function meMulti(){
+  sheet(`<h2>اختر الملفات</h2><div class="docs" style="padding:0 0 8px">${db.me.docs.map(d=>`<label class="doc" style="cursor:pointer">${d.pdf?'PDF':`<img src="${esc(docSrc(d))}" alt="">`}<span>${esc(d.name||d.kind)}</span><input type="checkbox" value="${d.id}" style="position:absolute;top:6px;left:6px;width:22px;height:22px"></label>`).join('')}</div>
+   <div class="btns"><button class="btn wa" onclick="meMultiGo(1)">${I.msg} للمكتب</button><button class="btn" onclick="meMultiGo()">${I.share} مشاركة</button></div>`);
+}
+function meMultiGo(office){
+  const ids=[...sheetEl.querySelectorAll('input:checked')].map(i=>i.value),ds=db.me.docs.filter(d=>ids.includes(d.id));
+  if(!ds.length){toast('اختر ملف واحد على الأقل');return}
+  if(office&&!waNum(db.settings.office)){toast('أضف رقم المكتب من الإعدادات أولاً');closeSheet();go({v:'settings'});return}
+  const t=ds.map(d=>d.name||d.kind).join('، ')+(db.me.fullName?' — '+db.me.fullName:'');closeSheet();
+  if(A)return A.shareDocs(JSON.stringify(ds.filter(d=>d.file).map(d=>d.file)),t,office?waNum(db.settings.office):'');
+  toast('إرسال الملفات يعمل داخل التطبيق على الجوال');
+}
+/* ---------- الملخص السنوي ---------- */
+function yearData(y){
+  const cal=db.settings.cal,now=nowPeriod(cal),el=y<now.y?12:y>now.y?0:now.m;
+  const ks=[...Array(12)].map((_,i)=>pkey(cal,{y,m:i+1})),inY=d=>d&&(cal==='G'?d.slice(0,4)===String(y):(()=>{const h=hParts(new Date(d+'T12:00'));return h&&h.y===y})());
+  const mon=ks.map(k=>db.units.reduce((t,u)=>{const x=payOf(u,k);return t+(x&&(x.s==='paid'||x.s==='partial')?netA(u,x):0)},0));
+  const lands=db.lands.map(l=>{const us=unitsOf(l.id).map(u=>{let got=0,pm=0,pend=0;ks.forEach(k=>{const x=payOf(u,k);if(x&&(x.s==='paid'||x.s==='partial')){got+=netA(u,x);if(x.s==='paid')pm++}if(x&&x.s==='platform')pend+=netA(u,x)});
+      const mt=(u.maint||[]).filter(m=>inY(m.date)).reduce((t,m)=>t+(+m.amount||0),0);return {u,got,pm,pend,mt,exp:(nr(u)?0:+u.rent||0)*el}});
+    const sum=f=>us.reduce((t,x)=>t+x[f],0),fee=+l.fee||0,fp=(l.feePaid||{})[y];return {l,us,got:sum('got'),mt:sum('mt'),exp:sum('exp'),pend:sum('pend'),fee,fp}});
+  const sum=f=>lands.reduce((t,x)=>t+x[f],0);
+  return {y,cal,el,mon,lands,got:sum('got'),mt:sum('mt'),exp:sum('exp'),pend:sum('pend'),fee:sum('fee')};
+}
+function vYear(v){
+  const cal=db.settings.cal,y=v.y||nowPeriod(cal).y,D=yearData(y),mx=Math.max(1,...D.mon),now=nowPeriod(cal),M=cal==='G'?GM:HM,pc=D.exp?Math.round(D.got/D.exp*100):0;
+  let h=`<div class="top"><button class="ib" onclick="back()">${I.back}</button><h1>الملخص السنوي</h1><button class="ib" onclick="shareYear(${y})">${I.share}</button></div><div class="wrap">
+  <div class="hero"><div class="hm"><button class="ib" onclick="cur().y=${y-1};render()" aria-label="السنة السابقة">›</button><div class="t"><b>سنة ${y}${cal==='H'?' هـ':''}</b><small>${D.el?`${D.el} شهر محسوب`:'السنة ما بدأت'}</small></div><button class="ib" onclick="cur().y=${y+1};render()" aria-label="السنة التالية">‹</button></div>
+   <div class="hbig"><div><div class="lbl">دخل السنة</div><div class="num"><span data-count="${D.got}">${fmt(D.got)}</span><small>ريال</small></div></div><div class="pct">${pc}% من المتوقع</div></div>
+   <div class="hbar"><i class="g" style="width:${Math.min(100,pc)}%"></i></div>
+   <div class="hstats"><div style="--d:#5CF2B0"><span>المتوقع</span><b>${fmt(D.exp)}</b></div><div style="--d:#FF8A9A"><span>صيانة + بلدية</span><b>${fmt(D.mt+D.fee)}</b></div><div style="--d:#FFD24A"><span>الصافي</span><b>${fmt(D.got-D.mt-D.fee)}</b></div></div></div>
+  <div class="card"><h3>الدخل شهر بشهر</h3><div class="ychart">${D.mon.map((v,i)=>`<div title="${M[i]}: ${fmt(v)}"><span>${v?Math.round(v/1000)+'k':''}</span><i class="${v?'':'zero'} ${y===now.y&&i+1===now.m?'now':''}" style="height:${Math.max(2,v/mx*100)}%"></i></div>`).join('')}</div>
+   <div class="ylbl">${M.map(m=>`<span>${m.split(' ')[0].slice(0,cal==='G'?3:4)}</span>`).join('')}</div></div>`;
+  D.lands.forEach(L=>{h+=`<div class="land yl" style="--c:${L.l.color};--lt:${dark(L.l.color)?'#fff':'#1d1400'}"><div class="lh"><span class="dot"></span><div style="flex:1;min-width:0"><h2>${esc(L.l.name)}</h2><div class="meta">دخل ${fmt(L.got)} · صيانة ${fmt(L.mt)} · بلدية ${fmt(L.fee)} · صافي ${fmt(L.got-L.mt-L.fee)}${(()=>{const n=wFills(L.l).filter(w=>w.d.startsWith(String(y))).length;return n?` · 💧 ${n} مرة`:''})()}</div></div></div>
+    ${L.fee?`<div class="u fee" style="--t:20%"><span class="no">🏛️</span><div class="nm"><b>رسوم البلدية ${y}</b><small>${L.fp?'انسددت '+esc(L.fp.d||''):L.l.feeDue?'الموعد '+esc(L.l.feeDue):'السنوية'}</small></div><div class="amt">${fmt(L.fee)}</div><button class="st ${L.fp?'paid':'unpaid'}" onclick="go({v:'fees'})">${L.fp?'انسددت':'ما انسددت'}</button></div>`:''}
+    ${L.us.map((x,ri)=>`<div class="u ${x.u.vacant?'vac':''}" style="--t:${Math.max(5,17-ri*2.6).toFixed(1)}%" onclick="go({v:'unit',id:'${x.u.id}'})"><span class="no">${esc(uNo(x.u))}</span><div class="nm"><b>${esc(x.u.name||'فاضية')}</b><small>دفع ${x.pm} من ${D.el} شهر${x.mt?' · صيانة '+fmt(x.mt):''}${x.pend?' · معلّق '+fmt(x.pend):''}</small></div><div class="amt">${fmt(x.got)}</div></div>`).join('')}</div>`});
+  return h+`<div class="btns"><button class="btn full" onclick="shareYear(${y})">${I.share} مشاركة الملخص</button></div></div>`;
+}
+function toggleFee(lid,y){const l=land(lid);l.feePaid=l.feePaid||{};if(l.feePaid[y])delete l.feePaid[y];else l.feePaid[y]={d:today()};save();render();toast(l.feePaid[y]?'تم: انسددت رسوم البلدية':'تم التراجع')}
+function shareYear(y){
+  const D=yearData(y),L=['الملخص السنوي '+y+(D.cal==='H'?' هـ':''),'','دخل السنة: '+fmt(D.got)+' ريال','المتوقع: '+fmt(D.exp)+' ريال','الصيانة: '+fmt(D.mt)+' ريال','رسوم البلدية: '+fmt(D.fee)+' ريال','الصافي: '+fmt(D.got-D.mt-D.fee)+' ريال',''];
+  D.lands.forEach(x=>{L.push('【'+x.l.name+'】 دخل '+fmt(x.got)+' · صيانة '+fmt(x.mt)+' · بلدية '+fmt(x.fee)+(x.fee?(x.fp?' (انسددت)':' (ما انسددت)'):'')+' · صافي '+fmt(x.got-x.mt-x.fee));x.us.forEach(u=>L.push('  '+uTitle(u.u)+': '+fmt(u.got)+' ('+u.pm+'/'+D.el+' شهر)'))});
+  share(L.join('\n'),'الملخص السنوي');
+}
+/* ---------- طلب الموية: لكل أرض كاملة — صورتها وموقعها برسالة جاهزة لعامل الموية ---------- */
+const landPic=l=>(l.docs||[]).find(d=>d.kind==='صورة الأرض'&&!d.pdf)||(l.docs||[]).find(d=>!d.pdf);
+function waterText(ls,note){const n=db.settings.waterName;
+  const lines=['السلام عليكم'+(n?' '+n:''),(ls.length>1?'أبي موية للمواقع هذي:':'أبي موية للموقع هذا:')];
+  ls.forEach(l=>{lines.push('','📍 '+l.name+(l.landNo?' (قطعة '+l.landNo+')':''));if(l.location)lines.push(l.location)});
+  if(note)lines.push('',note);lines.push('','الله يعطيك العافية');return lines.join('\n')}
+function waterPick(){
+  sheet(`<h2>💧 طلب موية</h2><div style="color:var(--mut);font-size:14px;margin-bottom:8px">اختر الأرض:</div>${db.lands.map(l=>`<label class="ck"><input type="checkbox" value="${l.id}"><span style="color:${l.color};font-weight:700">● </span><span>${esc(l.name)}</span>${landPic(l)?'<small>📷</small>':''}</label>`).join('')}
+   <div class="btns" style="margin-top:12px"><button class="btn water full" onclick="const ids=[...sheetEl.querySelectorAll('.ck input:checked')].map(i=>i.value);if(!ids.length){toast('اختر أرض');return}waterSheet(ids)">التالي</button></div>`);
+}
+function waterSheet(ids,msg){
+  const ls=ids.map(land).filter(Boolean),pics=ls.map(landPic).filter(Boolean),noPic=ls.filter(l=>!landPic(l)),noLoc=ls.filter(l=>!l.location);
+  window._wids=ids;
+  sheet(`<h2>💧 طلب موية — ${ls.length>1?ls.length+' مواقع':esc(ls[0].name)}</h2>
+   <div style="font-size:13px;color:var(--mut);margin:-4px 0 10px">${ls.map(l=>{const f=wFills(l)[0];return (ls.length>1?esc(l.name)+': ':'')+(f?'آخر تعبئة '+ago(f.d)+' ('+fdate(f.d)+')':'ما فيه تعبئة مسجّلة')}).join(' · ')}${ls.length===1?` · <a style="color:var(--pri-2);font-weight:700" onclick="wFillSheet('${ls[0].id}')">✅ عبّيت بدون رسالة؟ سجّلها</a>`:''}</div>
+   ${pics.length?`<div id="wpics" style="display:grid;grid-template-columns:repeat(${Math.min(2,pics.length)},minmax(0,1fr));gap:8px;margin-bottom:8px">${pics.map(d=>`<img src="${esc(docSrc(d))}" alt="" style="width:100%;border-radius:14px;display:block">`).join('')}</div>
+   <label class="ck" style="border:0;padding-top:0"><input type="checkbox" id="wstamp" checked onchange="waterPreview()"><span>ختم الصورة برموز "فاضية موية" (يفهمها العامل بدون قراءة)</span></label>`:''}
+   ${noPic.length?`<div class="alert"><span>📷</span><span>ما فيه صورة لـ${noPic.map(l=>esc(l.name)).join('، ')}. أضفها مرة وحدة وتنحفظ: <button class="chip" style="margin-top:6px" onclick="closeSheet();addDocSheet('L:${noPic[0].id}')">📷 أضف صورة</button></span></div>`:''}
+   ${noLoc.map(l=>`<div class="card" style="padding:12px 14px"><div style="font-weight:700;margin-bottom:6px">📍 رابط موقع ${esc(l.name)}</div><div style="display:flex;gap:6px"><input id="loc_${l.id}" type="url" dir="ltr" placeholder="الصق رابط قوقل ماب هنا"><button class="btn" style="flex:none;padding:0 16px" onclick="saveLoc('${l.id}')">حفظ</button></div><div style="font-size:12px;color:var(--mut);margin-top:6px">افتح قوقل ماب على الأرض ← مشاركة ← نسخ الرابط. ينحفظ مرة وحدة.</div></div>`).join('')}
+   <div style="display:flex;align-items:center;justify-content:space-between;margin:4px 0 6px"><label style="font-size:13px;color:var(--mut);font-weight:600">✏️ الرسالة — عدّلها واكتب اللي تبيه</label><button class="chip" onclick="document.getElementById('wmsg').value=waterText(window._wids.map(land),'')">↺ الأصلية</button></div>
+   <textarea id="wmsg" class="msgbox" rows="9">${esc(waterText(ls,''))}</textarea>
+   <div class="btns" style="margin-top:8px"><button class="btn water full" onclick="waterGo()">${I.msg} أرسل لعامل الموية${db.settings.waterName?' ('+esc(db.settings.waterName)+')':''}</button><button class="btn sec" onclick="waterGo(1)">${I.share} مشاركة</button><button class="btn sec" onclick="copy(document.getElementById('wmsg').value)">${I.copy} نسخ</button></div>`);
+  if(msg){const m=document.getElementById('wmsg');m.value=msg.replace(/^السلام عليكم[^\n]*/,waterText(ls,'').split('\n')[0])}
+  waterPreview();
+}
+async function waterPreview(){const box=document.getElementById('wpics');if(!box)return;const ls=window._wids.map(land).filter(l=>landPic(l)),st=document.getElementById('wstamp').checked,imgs=box.querySelectorAll('img');
+  for(let i=0;i<ls.length;i++){const d=landPic(ls[i]);try{imgs[i].src=st?await stampWater(d,ls[i]):docSrc(d)}catch(e){imgs[i].src=docSrc(d)}}}
+function saveLoc(lid){const v=document.getElementById('loc_'+lid).value.trim();if(!/^https?:\/\//.test(v)){toast('الصق رابط يبدأ بـ https');return}land(lid).location=v;save();toast('تم حفظ الموقع');waterSheet(window._wids)}
+/* ختم صورة الموية: رموز يفهمها أي أحد بدون قراءة — قطرة عليها علامة منع + وايت موية، وتاريخ بالأرقام */
+function stampWater(d,l){return new Promise((res,rej)=>{const im=new Image();im.onload=()=>{try{
+  const k=Math.min(1,1280/Math.max(im.width,im.height)),W=Math.round(im.width*k),IH=Math.round(im.height*k),BH=Math.round(Math.max(W*.3,IH*.22)),c=document.createElement('canvas');
+  c.width=W;c.height=IH+BH;const x=c.getContext('2d');x.drawImage(im,0,0,W,IH);
+  const E=s=>x.font=s+'px "Noto Color Emoji","Apple Color Emoji","Segoe UI Emoji",sans-serif';
+  const noWater=(cx,cy,r)=>{x.save();x.fillStyle='#fff';x.beginPath();x.arc(cx,cy,r,0,7);x.fill();x.textAlign='center';x.textBaseline='middle';E(Math.round(r*1.15));x.fillText('💧',cx,cy+r*.06);
+    x.strokeStyle='#E5262B';x.lineWidth=r*.17;x.beginPath();x.arc(cx,cy,r*.86,0,7);x.stroke();x.beginPath();x.moveTo(cx-r*.6,cy-r*.6);x.lineTo(cx+r*.6,cy+r*.6);x.stroke();x.restore()};
+  // شارة حمراء على زاوية الصورة (تبان حتى في المعاينة الصغيرة)
+  const br=Math.round(Math.min(W,IH)*.13);x.save();x.shadowColor='rgba(0,0,0,.45)';x.shadowBlur=br*.4;noWater(br*1.35,br*1.35,br);x.restore();
+  // الشريط السفلي
+  const g=x.createLinearGradient(0,IH,W,IH+BH);g.addColorStop(0,'#0B4FD6');g.addColorStop(1,'#1EA0FF');x.fillStyle=g;x.fillRect(0,IH,W,BH);
+  const r=BH*.3,cy=IH+BH*.44;noWater(W*.27,cy,r);
+  x.fillStyle='#fff';x.strokeStyle='#fff';x.lineWidth=BH*.06;x.lineCap='round';const ax1=W*.42,ax2=W*.58;x.beginPath();x.moveTo(ax1,cy);x.lineTo(ax2,cy);x.stroke();
+  x.beginPath();x.moveTo(ax1,cy);x.lineTo(ax1+BH*.12,cy-BH*.1);x.moveTo(ax1,cy);x.lineTo(ax1+BH*.12,cy+BH*.1);x.stroke();
+  x.textAlign='center';x.textBaseline='middle';E(Math.round(r*1.5));x.fillText('🚛',W*.73,cy);E(Math.round(r*.8));x.fillText('💧',W*.73+r*1.05,cy-r*.75);
+  const [Y,M,D]=today().split('-');x.font='700 '+Math.round(BH*.13)+'px Plex,system-ui,sans-serif';x.fillStyle='rgba(255,255,255,.92)';x.fillText('📍 '+(l.landNo||'')+'   ·   '+D+'/'+M+'/'+Y,W/2,IH+BH*.86);
+  res(c.toDataURL('image/jpeg',.86))}catch(e){rej(e)}};im.onerror=rej;im.src=docSrc(d)})}
+// سجل تعبئة الموية لكل أرض: طلبات الواتساب + التسجيل اليدوي + مصروف الموية من القطة
+const WMN=['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+// كل طلب موية ينحفظ «بانتظار التعبئة» لين تأكد إن العامل عبّاها
+const wList=l=>(l.water=l.water||[]).map(w=>{if(!w.id)w.id=uid();return w});
+const wPend=l=>wList(l).filter(w=>w.st==='pending').sort((a,b)=>b.date.localeCompare(a.date));
+function wFills(l){return wList(l).filter(w=>w.st!=='pending'&&(w.done||w.date)).map(w=>({d:w.done||w.date,note:w.note,a:+w.a||0,w:w.id,o:w.done&&w.date!==w.done?w.date:''})).sort((a,b)=>b.d.localeCompare(a.d))}
+function wStats(l){const f=wFills(l),n=new Date(),mk=m=>{const x=new Date(n.getFullYear(),n.getMonth()-m,1);return x.getFullYear()+'-'+String(x.getMonth()+1).padStart(2,'0')};
+  const months=[5,4,3,2,1,0].map(m=>{const k=mk(m);return {k,n:f.filter(x=>x.d.startsWith(k)).length}});
+  const g=f.slice(0,8).map(x=>new Date(x.d)),gaps=g.slice(1).map((x,i)=>(g[i]-x)/864e5),avg=gaps.length?Math.round(gaps.reduce((a,b)=>a+b,0)/gaps.length):0;
+  return {f,last:f[0],mon:months[5].n,prev:months[4].n,months,avg}}
+function wCard(l){const S=wStats(l),P=wPend(l),mx=Math.max(1,...S.months.map(m=>m.n));
+  return `<div class="card"><div style="display:flex;align-items:center;justify-content:space-between;padding-left:12px;gap:8px"><h3>💧 تعبئة الموية</h3>${S.last?`<span class="ago big">آخر تعبئة: ${ago(S.last.d)}</span>`:''}</div>
+  ${P.map(w=>`<div class="wpend"><span style="font-size:22px">⏳</span><div class="f"><b>بانتظار التعبئة</b><div class="k">طلبتها ${ago(w.date)} · ${fdate(w.date)}</div></div><button class="btn water" onclick="wDone('${l.id}','${w.id}')">✅ عبّاها</button><button class="ib" style="color:var(--no)" onclick="wDel('${l.id}','${w.id}')">${I.trash}</button></div>`).join('')}
+  ${S.f.length?`<div class="wst"><div><b>${S.mon}</b><span>هالشهر</span></div><div><b>${S.prev}</b><span>الشهر الماضي</span></div><div><b>${S.avg?'~'+S.avg:'—'}</b><span>${S.avg?'يوم بين كل تعبئة':'المعدل'}</span></div></div>
+   <div class="wbars">${S.months.map((m,i)=>`<div class="${i===5?'on':''}"><b>${m.n||''}</b><i style="height:${Math.round(m.n/mx*48)}px"></i><span>${WMN[+m.k.slice(5)-1]}</span></div>`).join('')}</div>
+   ${S.f.slice(0,8).map(x=>`<div class="row" style="cursor:pointer" onclick="wMenu('${l.id}','${x.w}')"><span style="font-size:20px">🚚</span><div class="f"><div class="v" style="font-size:15px">${fdate(x.d)}</div>${x.note||x.a||x.o?`<div class="k">${esc([x.o&&'طلبتها '+fdate(x.o),x.note,x.a?fmt2(x.a)+SAR:''].filter(Boolean).join(' · '))}</div>`:''}</div><span class="ago">${ago(x.d)}</span></div>`).join('')}`
+  :P.length?'':`<div class="fld" style="color:var(--mut);font-size:14px">ما فيه تعبئات مسجّلة. اطلب من العامل، ولما يعبّي اضغط "عبّاها" عشان تعرف متى آخر مرة وكم مرة بالشهر.</div>`}
+  <div class="btns" style="padding:4px 14px 12px"><button class="btn water" onclick="waterSheet(['${l.id}'])">💬 اطلب موية</button><button class="btn sec" onclick="wFillSheet('${l.id}')">✅ تعبّت (بدون طلب)</button></div></div>`}
+function wDone(lid,wid){const w=wList(land(lid)).find(x=>x.id===wid);if(!w)return;
+  sheet(`<h2>✅ العامل عبّا الموية؟</h2><div style="font-size:14px;color:var(--mut);margin:-4px 0 10px">${esc(land(lid).name)} · طلبتها ${fdate(w.date)}</div>
+   <div class="g2" style="gap:8px;margin-bottom:10px"><div><label style="font-size:13px;color:var(--mut)">متى عبّاها؟</label><input id="wf_d" type="date" value="${today()}"></div><div><label style="font-size:13px;color:var(--mut)">المبلغ (اختياري)</label><input id="wf_a" type="number" inputmode="decimal"></div></div>
+   <label style="font-size:13px;color:var(--mut);font-weight:600">ملاحظة (اختياري)</label><input id="wf_n" placeholder="مثلاً: وايت كبير" style="margin:6px 0 12px">
+   <div class="btns"><button class="btn water full" onclick="wDoneSave('${lid}','${wid}')">✅ تم التعبئة</button></div>`)}
+function wDoneSave(lid,wid){const w=wList(land(lid)).find(x=>x.id===wid);w.st='done';w.done=document.getElementById('wf_d').value||today();w.a=+document.getElementById('wf_a').value||0;const n=document.getElementById('wf_n').value.trim();w.note=n;save();closeSheet();_lastView='';render();toast('تم تسجيل التعبئة 💧')}
+function wFillSheet(lid,wid){const l=land(lid),w=wid&&(l.water||[]).find(x=>x.id===wid);
+  sheet(`<h2>${w?'✏️ تعديل التعبئة':'✅ عبّيت موية — '+esc(l.name)}</h2>
+   <div class="g2" style="gap:8px;margin-bottom:10px"><div><label style="font-size:13px;color:var(--mut)">التاريخ</label><input id="wf_d" type="date" value="${w?w.done||w.date:today()}"></div><div><label style="font-size:13px;color:var(--mut)">المبلغ (اختياري)</label><input id="wf_a" type="number" inputmode="decimal" value="${w&&w.a||''}"></div></div>
+   <label style="font-size:13px;color:var(--mut);font-weight:600">ملاحظة (اختياري)</label><input id="wf_n" value="${esc(w?w.note||'':'')}" placeholder="مثلاً: وايت كبير" style="margin:6px 0 12px">
+   <div class="btns"><button class="btn water full" onclick="wFillSave('${lid}','${wid||''}')">حفظ</button></div>`)}
+function wFillSave(lid,wid){const l=land(lid);l.water=l.water||[];const r={date:document.getElementById('wf_d').value||today(),note:document.getElementById('wf_n').value.trim(),a:+document.getElementById('wf_a').value||0};
+  const w=wid&&l.water.find(x=>x.id===wid);if(w){w.note=r.note;w.a=r.a;if(w.done)w.done=r.date;else w.date=r.date}else l.water.push({id:uid(),st:'done',...r});save();closeSheet();_lastView='';render();toast(w?'تم التعديل':'تم تسجيل التعبئة 💧')}
+function wMenu(lid,wid){const w=(land(lid).water||[]).find(x=>x.id===wid);if(!w)return;
+  sheet(`<h2>🚚 تعبئة ${fdate(w.done||w.date)}</h2>${w.note?`<div class="k" style="margin-bottom:6px">📝 ${esc(w.note)}</div>`:''}<div class="acts"><button onclick="wFillSheet('${lid}','${wid}')"><span class="e">✏️</span>تعديل (التاريخ، المبلغ، الملاحظة)</button><button class="dg" onclick="wDel('${lid}','${wid}')"><span class="e">🗑️</span>حذف</button></div>`)}
+function wDel(lid,wid){if(!confirm('حذف هذي التعبئة؟'))return;const l=land(lid);l.water=(l.water||[]).filter(x=>x.id!==wid);save();closeSheet();_lastView='';render();toast('تم الحذف')}
+async function waterGo(other){
+  const ls=window._wids.map(land),note='',t=document.getElementById('wmsg').value.trim(),files=ls.map(landPic).filter(d=>d&&d.file).map(d=>d.file);
+  const doStamp=(document.getElementById('wstamp')||{}).checked;
+  const ph=waNum(db.settings.waterPhone);
+  if(!other&&!ph){window._wmsg=t;
+    sheet(`<h2>رقم عامل الموية</h2><div style="color:var(--mut);font-size:14px;margin-bottom:8px">تكتبه مرة وحدة وينحفظ.</div><div style="display:grid;gap:8px"><input id="wn" placeholder="اسمه (اختياري)"><input id="wp" type="tel" inputmode="tel" placeholder="05xxxxxxxx"></div>
+     <div class="btns" style="margin-top:12px"><button class="btn water full" onclick="const p=document.getElementById('wp').value.trim();if(!waNum(p)||waNum(p).length<11){toast('اكتب رقم صحيح');return}db.settings.waterPhone=p;db.settings.waterName=document.getElementById('wn').value.trim();save();waterSheet(window._wids,window._wmsg)">حفظ والرجوع</button></div>`);return}
+  // سجل الموية لكل أرض (عشان تعرف كم مرة عبّيت ومتى)
+  ls.forEach(l=>{l.water=l.water||[];l.water.push({id:uid(),date:today(),st:'pending',note:''})});
+  save();closeSheet();if(['editLand','home'].includes(cur().v))render();
+  if(A&&doStamp&&ls.some(landPic)){try{const imgs=[];for(const l of ls){const d=landPic(l);if(d)imgs.push((await stampWater(d,l)).split(',')[1])}return A.shareImages(JSON.stringify(imgs),t,other?'':ph)}catch(e){toast('تعذر ختم الصورة — بنرسلها بدون ختم')}}
+  if(A&&files.length){return files.length>1?A.shareDocs(JSON.stringify(files),t,other?'':ph):A.shareDoc(files[0],t,other?'':ph)}
+  if(other)return share(t,'طلب موية');
+  openUrl('https://wa.me/'+ph+'?text='+encodeURIComponent(t));
+}
+/* ---------- رسوم البلدية (فرص): حالة كل سنة، المتأخر، والقادم ---------- */
+const isoD=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+function feeDate(l,y){if(!l.feeDue)return null;return new Date(y,+l.feeDue.slice(5,7)-1,+l.feeDue.slice(8,10))}
+function feeStatus(l){const [Y,M,D]=today().split('-').map(Number),t=new Date(Y,M-1,D),paid=l.feePaid||{};if(!l.fee||!l.feeDue)return null;
+  // أقدم سنة ما انسددت لين هالسنة (من سنة الفاتورة المسجّلة)
+  const y0=+l.feeDue.slice(0,4);for(let y=y0;y<=Y;y++){if(!paid[y]){const d=feeDate(l,y),n=Math.round((d-t)/864e5);if(n<0)return {y,d,n,late:true}}}
+  let y=Math.max(Y,+l.feeDue.slice(0,4));while(paid[y]||feeDate(l,y)<t)y++;const d=feeDate(l,y);return {y,d,n:Math.round((d-t)/864e5),late:false}}
+const dayWord=n=>n===1?'يوم':n===2?'يومين':n<=10?n+' أيام':n+' يوم';
+function feeBadge(st){if(!st)return '';return st.late?`<span class="st unpaid">متأخرة ${dayWord(-st.n)}</span>`:st.n===0?`<span class="st platform">اليوم</span>`:`<span class="st ${st.n<=30?'platform':'paid'}">باقي ${dayWord(st.n)}</span>`}
+function vFees(){
+  const ls=db.lands.filter(l=>l.fee).map(l=>({l,st:feeStatus(l)})).sort((a,b)=>(a.st?a.st.n:1e9)-(b.st?b.st.n:1e9));
+  const late=ls.filter(x=>x.st&&x.st.late),lateSum=late.reduce((t,x)=>t+x.l.fee,0),tot=ls.reduce((t,x)=>t+x.l.fee,0);
+  let h=`<div class="top"><button class="ib" onclick="back()">${I.back}</button><h1>رسوم البلدية</h1><button class="ib" onclick="shareFees()">${I.share}</button></div><div class="wrap">
+  <div class="hero" style="${late.length?'background:linear-gradient(135deg,#E5484D,#B5179E)':''}"><div class="hbig" style="margin-top:4px"><div><div class="lbl">${late.length?'متأخرة السداد':'كل الرسوم مسددة أو قادمة'}</div><div class="num"><span data-count="${late.length?lateSum:tot}">${fmt2(late.length?lateSum:tot)}</span><small>ريال</small></div></div><div class="pct">${late.length?late.length+' من '+ls.length:ls.length+' أراضي'}</div></div>
+   <div class="hstats"><div style="--d:#FF8A9A"><span>متأخرة</span><b>${late.length}</b></div><div style="--d:#FFD24A"><span>خلال شهر</span><b>${ls.filter(x=>x.st&&!x.st.late&&x.st.n<=30).length}</b></div><div style="--d:#5CF2B0"><span>المجموع السنوي</span><b>${fmt2(tot)}</b></div></div></div>`;
+  ls.forEach(({l,st})=>{const Y=st?st.y:+today().slice(0,4);
+    h+=`<div class="land" style="--c:${l.color};--lt:${dark(l.color)?'#fff':'#1d1400'}"><div class="lh"><span class="dot"></span><div style="flex:1;min-width:0"><h2>${esc(l.name)}${l.landNo?`<span class="tag">قطعة ${esc(l.landNo)}</span>`:''}</h2><div class="meta">${fmt2(l.fee)} ريال سنوياً${l.vat?` (${fmt2(l.feeBase)} + ضريبة ${l.vat}%)`:''}${l.furas?' · عقد '+esc(l.furas):''}</div></div></div>
+     <div class="u" style="--t:16%"><span class="no">🏛️</span><div class="nm"><b>دفعة ${Y}</b><small>الاستحقاق ${fdate(st?isoD(st.d):l.feeDue)}</small></div>${feeBadge(st)}</div>
+     ${l.sadad?`<div class="u" style="--t:11%"><span class="no">🧾</span><div class="nm"><b style="letter-spacing:.5px">${esc(l.sadad)}</b><small>رقم السداد · المفوتر ${esc(l.biller||'177')}</small></div><button class="ib" onclick="copy('${esc(l.sadad)}','تم نسخ رقم السداد')">${I.copy}</button></div>`:''}
+     <div class="u" style="--t:7%"><span class="no">📆</span><div class="nm"><b>السنوات الجاية</b><small>${[1,2,3].map(k=>{const d=feeDate(l,Y+k);return fdate(isoD(d))}).join(' · ')}</small></div></div>
+     <div class="lacts" style="padding:10px 14px 14px;margin:0"><button style="color:var(--tx);background:var(--card2)" onclick="payFee('${l.id}',${Y})">${I.check}<span>انسددت دفعة ${Y}</span></button><button style="color:var(--tx);background:var(--card2);width:auto;padding:0 12px" onclick="shareFee('${l.id}')">${I.share}<span>مشاركة</span></button></div></div>`});
+  return h+`<div style="color:var(--mut);font-size:12.5px;text-align:center;padding:6px 10px">السداد من تطبيق البنك: المدفوعات ← سداد ← المفوتر 177 (فرص) ← رقم السداد.<br>المواعيد الجاية محسوبة بنفس اليوم كل سنة — حدّثها لو جتك فاتورة بتاريخ مختلف.</div></div>`;
+}
+function payFee(lid,y){const l=land(lid);if(!confirm('تعلّم دفعة '+y+' لـ'+l.name+' ('+fmt2(l.fee)+' ريال) إنها انسددت؟'))return;l.feePaid=l.feePaid||{};l.feePaid[y]={d:today()};save();_lastView='';render();toast('تم: انسددت دفعة '+y)}
+function feeMsg(l){const st=feeStatus(l);return msgJoin([[head('🏛️','رسوم البلدية — '+l.name)],[l.landNo&&'🗺️ رقم القطعة: '+bold(l.landNo),l.furas&&'📄 رقم العقد: '+bold(l.furas)],
+  ['💰 المبلغ: '+bold(fmt2(l.fee)+' ريال'),l.vat&&'🧮 '+fmt2(l.feeBase)+' + ضريبة '+l.vat+'%',st&&'📅 الاستحقاق: '+bold(fdate(isoD(st.d))),st&&(st.late?'🔴 متأخرة '+bold(dayWord(-st.n)):'🟢 باقي '+bold(dayWord(st.n)))],
+  l.sadad&&['🧾 رقم السداد: '+bold(l.sadad),'🏦 المفوتر: '+bold(l.biller||'177')+' (فرص)']])}
+function shareFee(lid){share(feeMsg(land(lid)),'رسوم البلدية')}
+function shareFees(){share(db.lands.filter(l=>l.fee).map(feeMsg).join('\n\n'),'رسوم البلدية')}
+/* ---------- رسائل منصة إيجار: قراءة "نفيدك بسداد المستأجر ... مبلغ ... للعقد رقم ..." وتسجيلها ---------- */
+const toLatin=t=>String(t||'').replace(/[٠-٩]/g,d=>'٠١٢٣٤٥٦٧٨٩'.indexOf(d)).replace(/[۰-۹]/g,d=>'۰۱۲۳۴۵۶۷۸۹'.indexOf(d)).replace(/٫/g,'.').replace(/٬/g,',');
+function parseEjar(text){const t=toLatin(text).replace(/[ً-ْـ]/g,'').replace(/\s+/g,' '),out=[];
+  // كل رسالة تبدأ بـ "بسداد المستأجر"؛ نقسم النص عليها عشان ما تختلط معلومات رسالتين
+  // نتسامح مع أخطاء قراءة الصور: كلمة "مبلغ" ممكن تنقرأ غلط، فنعتمد على المبلغ نفسه (رقم بفاصلة عشرية)
+  t.split(/بسداد ال?مستأجر/).slice(1).forEach(ch=>{const am=/(\d{1,3}(?:,\d{3})+(?:\.\d{1,2})?|\d+\.\d{1,2}|\d+)\s*ريال/.exec(ch)||/(\d{1,3}(?:,\d{3})*\.\d{2})/.exec(ch);if(!am)return;
+    let name=ch.slice(0,am.index).replace(/\s*بقيمة\s*$/,'').trim().split(' ');if(name.length>1&&/^مب/.test(name[name.length-1]))name.pop();name=name.slice(0,6).join(' ');
+    const rest=ch.slice(am.index),ct=/للعقد\s*رقم\s*(\d+)/.exec(rest),ac=/المنتهي\s*ب\S*\s*(\d{3,4})/.exec(rest);
+    // رقم العقد أحياناً ما ينقرأ من الصورة (عليه خط) — نتجاهله إذا قصير
+    if(name)out.push({name,amount:+am[1].replace(/,/g,''),contract:ct&&ct[1].length>=8?ct[1]:'',acct:ac?ac[1]:''})});
+  return out}
+/* لمين راحت الفلوس: حسابي أو حساب المكتب (آخر 4 أرقام من الآيبان) */
+function acctOf(n){const st=db.settings;if(!n)return null;if(n===st.myAcct)return {k:'me',t:'لحسابك',e:'💳'};if(n===st.officeAcct)return {k:'office',t:'لحساب المكتب',e:'🏢'};return {k:'other',t:'لحساب ينتهي بـ '+n,e:'❓'}}
+const normAr=s=>String(s||'').replace(/[أإآ]/g,'ا').replace(/ة/g,'ه').replace(/ى/g,'ي').replace(/^ال/,'');
+function matchUnit(r){
+  const c=r.contract&&db.units.find(u=>u.contractNo&&toLatin(u.contractNo).replace(/\D/g,'')===r.contract);if(c)return {u:c,how:'رقم العقد'};
+  const words=r.name.split(' ').filter(w=>w.length>2).map(normAr);
+  const byName=db.units.filter(u=>{const hay=(u.name+' '+(u.tenant||'')).split(/\s+/).map(normAr);return words.some(w=>hay.includes(w))});
+  const byAmt=db.units.filter(u=>!nr(u)&&+u.rent===r.amount);
+  const both=byName.filter(u=>byAmt.includes(u));
+  if(both.length===1)return {u:both[0],how:'الاسم والمبلغ'};
+  if(byName.length===1)return {u:byName[0],how:'الاسم'};
+  if(byAmt.length===1)return {u:byAmt[0],how:'المبلغ',weak:true};
+  return {u:null,how:''};
+}
+function ejarSheet(text){
+  const rs=parseEjar(text);
+  if(!rs.length){toast('ما لقيت رسالة سداد من إيجار في النص');return}
+  const cal=db.settings.cal,p=nowPeriod(cal),k=pkey(cal,p),kp=pkey(cal,padd(p,-1));
+  window._ej=rs.map(r=>({...r,...matchUnit(r)}));
+  const opts=sel=>`<option value="">— اختر الاستراحة —</option>`+db.lands.map(l=>`<optgroup label="${esc(l.name)}">${unitsOf(l.id).map(u=>`<option value="${u.id}" ${sel===u.id?'selected':''}>${esc(uNo(u)+' - '+(u.name||'فاضية'))} · ${fmt(u.rent)}</option>`).join('')}</optgroup>`).join('');
+  sheet(`<h2>📩 رسائل إيجار (${rs.length})</h2><div style="color:var(--mut);font-size:13.5px;margin-bottom:10px">تأكد من الاستراحة لكل دفعة، وبعدها اضغط تسجيل.</div>
+   <div class="fld" style="padding:0 0 10px"><label>الشهر</label><div class="chips" id="ejm"><button class="chip on" data-k="${k}" onclick="document.querySelectorAll('#ejm .chip').forEach(c=>c.classList.remove('on'));this.classList.add('on')">${pname(cal,p)}</button><button class="chip" data-k="${kp}" onclick="document.querySelectorAll('#ejm .chip').forEach(c=>c.classList.remove('on'));this.classList.add('on')">${pname(cal,padd(p,-1))}</button></div></div>
+   <div class="fld" style="padding:0 0 10px"><label>الحالة</label><div class="chips" id="ejs"><button class="chip on" data-s="platform" onclick="document.querySelectorAll('#ejs .chip').forEach(c=>c.classList.remove('on'));this.classList.add('on')">⏳ بالمنصة — جاري التحويل</button><button class="chip" data-s="paid" onclick="document.querySelectorAll('#ejs .chip').forEach(c=>c.classList.remove('on'));this.classList.add('on')">✅ وصلني</button></div></div>
+   ${window._ej.map((r,i)=>`<div class="card" style="padding:12px 14px"><div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline"><b style="font-size:15px">${esc(r.name)}</b><b style="font-variant-numeric:tabular-nums">${fmt2(r.amount)} ريال</b></div>
+     ${(a=>a?`<div style="margin-top:6px"><span class="mc" style="${a.k==='office'?'background:var(--part-soft);color:var(--part)':a.k==='me'?'background:var(--ok-soft);color:var(--ok)':''}">${a.e} ${a.t} (${esc(r.acct)})</span></div>`:'')(acctOf(r.acct))}
+     <div style="font-size:12.5px;color:var(--mut);margin:4px 0 8px;direction:rtl">${r.contract?'عقد '+esc(r.contract):'رقم العقد ما انقرأ'}${r.u?` · <span style="color:${r.weak?'var(--wait)':'var(--ok)'}">${r.weak?'⚠️ تطابق بالمبلغ بس — تأكد':'✓ تطابق '+r.how}</span>`:' · <span style="color:var(--no)">ما عرفت الاستراحة — اخترها</span>'}</div>
+     <select id="ej_${i}">${opts(r.u&&r.u.id)}</select></div>`).join('')}
+   <label class="ck" style="border:0"><input type="checkbox" id="ejlearn" checked><span>احفظ رقم العقد واسم المستأجر في الاستراحة (المرة الجاية يتعرّف عليها على طول)</span></label>
+   <div class="btns" style="margin-top:6px"><button class="btn full" onclick="ejarSave()">${I.check} تسجيل ${rs.length>1?rs.length+' دفعات':'الدفعة'}</button></div>`);
+}
+function ejarSave(){
+  const k=document.querySelector('#ejm .chip.on').dataset.k,st=document.querySelector('#ejs .chip.on').dataset.s,learn=document.getElementById('ejlearn').checked;let n=0;
+  for(let i=0;i<window._ej.length;i++){const r=window._ej[i],id=document.getElementById('ej_'+i).value;if(!id)continue;const u=unit(id);
+    db.pay[id]=db.pay[id]||{};const ac=acctOf(r.acct);db.pay[id][k]={s:st,m:'ejar',a:r.amount,d:today(),to:ac?ac.k:'',n:(st==='platform'?'جاري التحويل ':'')+(ac?ac.t:'')};if(ac&&ac.k!=='other')u.payTo=ac.k;
+    if(learn){if(!u.contractNo&&r.contract)u.contractNo=r.contract;if(!u.tenant)u.tenant=r.name}n++}
+  if(!n){toast('اختر الاستراحة');return}
+  save();closeSheet();_lastView='';render();toast('تم تسجيل '+n+(n>1?' دفعات':' دفعة'));
+}
+/* ---------- قراءة صورة الرسالة (OCR) — محرك Tesseract مع النموذج العربي داخل التطبيق، يشتغل بدون إنترنت ---------- */
+let _ocr=null;
+const loadScript=src=>new Promise((res,rej)=>{const s=document.createElement('script');s.src=src;s.onload=res;s.onerror=()=>rej(new Error('ما قدرت أحمّل '+src));document.head.appendChild(s)});
+async function gunzipB64(b64){const bin=Uint8Array.from(atob(b64),c=>c.charCodeAt(0));return new Uint8Array(await new Response(new Blob([bin]).stream().pipeThrough(new DecompressionStream('gzip'))).arrayBuffer())}
+async function ocrInit(){if(_ocr)return _ocr;
+  await loadScript('ocr/core.js');await loadScript('ocr/ara.js');
+  const M=await TesseractCore();M.FS.writeFile('/ara.traineddata',await gunzipB64(window.OCR_ARA));delete window.OCR_ARA;
+  const api=new M.TessBaseAPI();if(api.Init('/','ara'))throw new Error('تعذر تشغيل القارئ');return _ocr={M,api}}
+async function ocrImage(src){const {M,api}=await ocrInit();
+  const im=new Image();await new Promise((r,j)=>{im.onload=r;im.onerror=()=>j(new Error('ما قدرت أفتح الصورة'));im.src=src});
+  // تكبير الصور الصغيرة، وعكس الألوان لو اللقطة بالوضع الداكن (النص الأبيض على أسود ينقرأ أسوأ)
+  const k=im.width<1000?2:1,W=im.width*k,H=im.height*k,c=document.createElement('canvas');c.width=W;c.height=H;const x=c.getContext('2d');x.drawImage(im,0,0,W,H);
+  const d=x.getImageData(0,0,W,H),p=d.data;let sum=0;for(let i=0;i<p.length;i+=16)sum+=(p[i]+p[i+1]+p[i+2])/3;
+  if(sum/(p.length/16)<110){for(let i=0;i<p.length;i+=4){p[i]=255-p[i];p[i+1]=255-p[i+1];p[i+2]=255-p[i+2]}x.putImageData(d,0,0)}
+  const blob=await new Promise(r=>c.toBlob(r,'image/png'));M.FS.writeFile('/input',new Uint8Array(await blob.arrayBuffer()));
+  api.SetImageFile(1,0);api.Recognize(null);return api.GetUTF8Text()}
+async function ejarFromImages(srcs){
+  if(!srcs.length)return;
+  sheet(`<h2>📷 أقرأ الصورة…</h2><div class="empty" style="padding:30px 10px"><div class="spin"></div><div id="ocrst" style="margin-top:14px">أول مرة تاخذ ثواني زيادة</div></div>`);
+  await new Promise(r=>setTimeout(r,60));
+  try{let all='';for(let i=0;i<srcs.length;i++){const e=document.getElementById('ocrst');if(e)e.textContent='صورة '+(i+1)+' من '+srcs.length;all+='\n'+await ocrImage(srcs[i])}
+    try{A&&A.clearOcr&&A.clearOcr()}catch(e){}
+    if(!parseEjar(all).length){sheet(`<h2>ما لقيت رسالة إيجار</h2><div style="color:var(--mut);font-size:14px;margin-bottom:8px">هذا اللي قريته من الصورة. تأكد إن الصورة فيها رسالة "نفيدك بسداد المستأجر…" وواضحة، أو عدّل النص تحت واضغط قراءة:</div><textarea id="ejt" class="msgbox" rows="10">${esc(all.trim())}</textarea><div class="btns"><button class="btn full" onclick="ejarSheet(document.getElementById('ejt').value)">قراءة</button></div>`);return}
+    ejarSheet(all)}
+  catch(e){sheet(`<h2>تعذرت قراءة الصورة</h2><div class="alert"><span>⚠️</span><span>${esc(e.message||String(e))}</span></div><div class="btns"><button class="btn full" onclick="ejarPaste(1)">جرّب لصق النص بدالها</button></div>`)}
+}
+function ejarPickImage(){if(A&&A.pickOcr)return A.pickOcr();const i=document.createElement('input');i.type='file';i.accept='image/*';i.multiple=true;i.onchange=()=>ejarFromImages([...i.files].map(f=>URL.createObjectURL(f)));i.click()}
+function ejarPaste(textOnly){
+  const go=t=>{if(!t||!t.trim()){sheet(`<h2>📩 لصق رسالة إيجار</h2><div style="color:var(--mut);font-size:14px;margin-bottom:8px">انسخ رسالة إيجار والصقها هنا (تقدر تلصق كذا رسالة مع بعض):</div><textarea id="ejt" class="msgbox" rows="8"></textarea><div class="btns"><button class="btn full" onclick="ejarSheet(document.getElementById('ejt').value)">قراءة</button></div>`);return}ejarSheet(t)};
+  if(textOnly)return go('');
+  if(A&&A.getClip){const t=A.getClip();if(parseEjar(t).length)return go(t)}
+  sheet(`<h2>📩 تسجيل دفعة من إيجار</h2><div class="sbig"><button class="partial" onclick="ejarPickImage()">📷 من صورة الرسالة (سكرين شوت)</button><button class="paid" onclick="ejarPaste(1)">📋 لصق نص الرسالة</button></div>
+   <div style="color:var(--mut);font-size:13px;line-height:1.7">💡 أسرع: صوّر الرسائل سكرين شوت، وشاركها من المعرض ← <b>استراحاتي</b>، وتنقرأ على طول. تقدر تختار كذا صورة مع بعض.</div>`);
+}
+window.takeShared=function(){if(!A||!A.takeShared)return;const t=A.takeShared();if(t)return ejarSheet(t);let im=[];try{im=JSON.parse(A.takeImages()||'[]')}catch(e){}if(im.length)ejarFromImages(im)};
+/* ---------- القطة: فلوس الشباب للاستراحة الخاصة — مين دفع، وين انصرفت، ونصيب كل واحد ---------- */
+const KCATS=[['rent','🏠','الإيجار'],['clean','🧴','منظفات'],['elec','⚡','كهرباء'],['water','💧','موية'],['worker','👷','العامل'],['net','🌐','نت'],['food','🍖','أكل وضيافة'],['fix','🔧','صيانة'],['buy','🛒','مشتريات'],['other','➕','أخرى']];
+const kc=id=>KCATS.find(c=>c[0]===id)||KCATS[KCATS.length-1];
+/* البند المعروض: "أخرى" تاخذ الاسم اللي كتبه المستخدم */
+const kLabel=i=>i.cat==='other'&&i.cname?['other:'+i.cname,'🔖',i.cname]:kc(i.cat);
+const SAR=' ريال';
+function kit(u){u.kitty=u.kitty||{members:[],items:[]};return u.kitty}
+function kRange(sel){const p=nowPeriod('G');
+  if(sel==='all')return {from:'',to:'9999',lbl:'من البداية'};
+  const q=sel==='prev'?padd(p,-1):p,f=q.y+'-'+String(q.m).padStart(2,'0');return {from:f+'-01',to:f+'-31',lbl:GM[q.m-1]+' '+q.y}}
+/* مبلغ القطة الشهري لكل واحد، مع تاريخ تغيّره: كل شهر يتحسب بالمبلغ اللي كان وقتها */
+const ymOf=d=>String(d||'').slice(0,7);
+function kRate(K,ym){const r=(K.rates||[]).filter(x=>x.from<=ym).sort((a,b)=>a.from.localeCompare(b.from)).pop();return r?+r.a:400}
+function kMonths(K,sel){const p=nowPeriod('G'),cur=p.y+'-'+String(p.m).padStart(2,'0');
+  if(sel==='prev'){const q=padd(p,-1);return [q.y+'-'+String(q.m).padStart(2,'0')]}
+  if(sel!=='all')return [cur];
+  const first=[...K.items.map(i=>ymOf(i.d)),...(K.rates||[]).map(r=>r.from)].filter(Boolean).sort()[0]||cur,out=[];
+  let [y,m]=first.split('-').map(Number);while(y*12+m<=p.y*12+p.m){out.push(y+'-'+String(m).padStart(2,'0'));m++;if(m>12){m=1;y++}}return out}
+function kStats(u,sel){const K=kit(u),R=kRange(sel),inR=i=>i.d>=R.from&&i.d<=R.to,its=K.items.filter(inR);
+  const tin=its.filter(i=>i.t==='in').reduce((t,i)=>t+ +i.a,0),tout=its.filter(i=>i.t==='out').reduce((t,i)=>t+ +i.a,0);
+  const bal=K.items.reduce((t,i)=>t+(i.t==='in'?+i.a:-i.a),0);
+  const g={};its.filter(i=>i.t==='out').forEach(i=>{const L=kLabel(i);(g[L[0]]=g[L[0]]||{c:L,a:0,notes:[],ids:[],cat:i.cat,cname:i.cname||''}).a+= +i.a;g[L[0]].ids.push(i.id);if(i.note)g[L[0]].notes.push({n:i.note,a:+i.a})});
+  const byCat=Object.values(g).sort((a,b)=>b.a-a.a);
+  const ms=kMonths(K,sel),owed=ms.reduce((t,m)=>t+kRate(K,m),0),rate=kRate(K,ms[ms.length-1]);
+  const names=[...new Set([...K.members,...its.filter(i=>i.t==='in').map(i=>i.who)])].filter(Boolean);
+  const people=names.map(n=>{const paid=its.filter(i=>i.t==='in'&&i.who===n).reduce((t,i)=>t+ +i.a,0);return {n,paid,diff:paid-owed}}).sort((a,b)=>a.diff-b.diff);
+  const expected=owed*names.length,due=people.reduce((t,p)=>t+Math.max(0,-p.diff),0);
+  return {R,its,tin,tout,bal,byCat,people,rate,owed,expected,due,months:ms.length}}
+function vKitty(v){
+  const u=unit(v.id);if(!u){stack.pop();setTimeout(render);return ''}
+  const sel=v.p||'month',S=kStats(u,sel),mx=Math.max(1,...S.byCat.map(x=>x.a));
+  let h=`<div class="top"><button class="ib" onclick="back()">${I.back}</button><h1>💰 القطة — ${esc(u.name||'استراحتي')}</h1><button class="ib" onclick="kittyStatement('${u.id}','${sel}')">${I.share}</button></div><div class="wrap">
+  <div class="hero" style="background:linear-gradient(135deg,#0EA968,#0891B2 60%,#2563EB)"><div class="hbig" style="margin-top:2px"><div><div class="lbl">الرصيد الحالي في القطة</div><div class="num"><span data-count="${Math.abs(S.bal)}">${fmt2(Math.abs(S.bal))}</span><small>ريال${S.bal<0?' عجز':''}</small></div></div><div class="pct">${S.bal<0?'⚠️ عجز':'✓ متوفر'}</div></div>
+   <div class="hstats"><div style="--d:#5CF2B0"><span>دخل ${esc(S.R.lbl)}</span><b>${fmt2(S.tin)}</b></div><div style="--d:#FF8A9A"><span>مصروف</span><b>${fmt2(S.tout)}</b></div><div style="--d:#FFD24A"><span>باقي على الشباب</span><b>${fmt2(S.due)}</b></div></div></div>
+  <div class="seg" style="grid-template-columns:repeat(3,minmax(0,1fr))">${[['month','هالشهر'],['prev','الشهر الماضي'],['all','الكل']].map(([k,t])=>`<button class="${sel===k?'on':''}" onclick="cur().p='${k}';render()">${t}</button>`).join('')}</div>
+  <div class="btns"><button class="btn" style="background:linear-gradient(135deg,#22C55E,#0EA968)" onclick="kittyAdd('${u.id}','in')">＋ دفع واحد</button><button class="btn" style="background:linear-gradient(135deg,#F43F5E,#E11D48)" onclick="kittyAdd('${u.id}','out')">− مصروف</button></div>`;
+  h+=`<div class="card"><h3>🧾 وين راحت الفلوس</h3>${S.byCat.length?S.byCat.map((x,ci)=>`<div class="swr"><div class="swa"><button style="background:#10B981" onclick="kittyAdd('${u.id}','out','',${esc(JSON.stringify(x.cat))},${esc(JSON.stringify(x.cname))})"><b>＋</b>إضافة</button><button style="background:#6366F1" onclick="kCatMenu('${u.id}',${ci})"><b>☰</b>التفاصيل</button></div><div class="row" onclick="kCatMenu('${u.id}',${ci})"><span style="font-size:22px">${x.c[1]}</span><div class="f"><div class="v" style="font-size:15px">${esc(x.c[2])}</div>${x.notes.length?`<div class="k" style="margin-top:2px">${x.notes.map(n=>esc(n.n)+(x.notes.length>1?' ('+fmt2(n.a)+')':'')).join(' · ')}</div>`:''}<div style="height:7px;border-radius:9px;background:var(--line);overflow:hidden;margin-top:6px"><i style="display:block;height:100%;width:${x.a/mx*100}%;background:linear-gradient(90deg,#F43F5E,#FB923C);border-radius:9px"></i></div></div><b style="font-variant-numeric:tabular-nums">${fmt2(x.a)}<small style="font-weight:600;color:var(--mut)">${SAR}</small></b><span class="k" style="min-width:36px;text-align:left">${S.tout?Math.round(x.a/S.tout*100):0}%</span></div></div>`).join(''):`<div class="fld" style="color:var(--mut);font-size:14px">ما فيه مصاريف ${esc(S.R.lbl)}.</div>`}</div>`;
+  h+=`<div class="card"><div style="display:flex;align-items:center;justify-content:space-between;padding-left:12px"><h3>👥 الشباب · القطة ${fmt2(S.rate)} لكل واحد${S.months>1?' × '+S.months+' شهر':''}</h3><button class="chip" onclick="kittySettings('${u.id}')">⚙️ تعديل</button></div>${S.people.length?S.people.map(p=>`<div class="row"><span style="font-size:20px">👤</span><div class="f"><div class="v" style="font-size:15px">${esc(p.n)}</div><div class="k">دفع ${fmt2(p.paid)} من ${fmt2(S.owed)}</div></div><span class="st ${p.diff>=0?'paid':p.paid?'platform':'unpaid'}">${p.diff===0?'مكمّل ✓':p.diff>0?'زايد '+fmt2(p.diff):'عليه '+fmt2(-p.diff)}</span>${p.diff<0?`<button class="ib" style="color:var(--ok)" onclick="kittyQuickPay('${u.id}','${esc(p.n)}',${-p.diff})" aria-label="دفع">${I.check}</button>`:''}</div>`).join(''):`<div class="fld" style="color:var(--mut);font-size:14px">أضف الشباب من ⚙️ تعديل، أو سجّل أول دفعة.</div>`}</div>`;
+  h+=`<div class="card"><h3>📋 السجل (${S.its.length})</h3>${S.its.length?'<div style="padding:0 16px 8px;font-size:12.5px;color:var(--mut)">👆 اضغط على أي قيد أو اسحبه للخيارات</div>':''}${S.its.slice().sort((a,b)=>b.d.localeCompare(a.d)).map(i=>`<div class="swr"><div class="swa"><button style="background:#3B82F6" onclick="kittyAdd('${u.id}','${i.t}','${i.id}')"><b>✏️</b>تعديل</button><button style="background:#F59E0B" onclick="kNote('${u.id}','${i.id}')"><b>📝</b>وصف</button><button style="background:#E11D48" onclick="kittyDel('${u.id}','${i.id}')"><b>🗑️</b>حذف</button></div><div class="row" onclick="kItemMenu('${u.id}','${i.id}')"><span style="font-size:20px">${i.t==='in'?'📥':kLabel(i)[1]}</span><div class="f"><div class="v" style="font-size:15px">${i.t==='in'?esc(i.who):esc(kLabel(i)[2])}</div>${i.note?`<div class="k">📝 ${esc(i.note)}</div>`:''}<div class="k">${fdate(i.d)}</div></div><b style="color:${i.t==='in'?'var(--ok)':'var(--no)'};font-variant-numeric:tabular-nums">${i.t==='in'?'+':'−'}${fmt2(i.a)}</b><span style="color:var(--mut2);font-size:20px;padding:0 2px">⋮</span></div></div>`).join('')||`<div class="fld" style="color:var(--mut);font-size:14px">ما فيه شي ${esc(S.R.lbl)}.</div>`}</div>
+  <div class="btns"><button class="btn full" onclick="kittyStatement('${u.id}','${sel}')">🖨️ كشف القطة للشباب</button></div></div>`;
+  return h;
+}
+function kittyAdd(id,t,iid,pc,pn){
+  const u=unit(id),K=kit(u),E=iid?K.items.find(i=>i.id===iid):null;if(E)t=E.t;window._kt=t;window._kedit=E?E.id:'';window._kc=E?E.cat||'rent':pc||'rent';window._kcn=E?E.cname||'':pn||'';
+  const people=[...new Set([...K.members,...K.items.filter(i=>i.t==='in').map(i=>i.who)])].filter(Boolean);
+  sheet(`<h2>${E?'✏️ تعديل القيد':t==='in'?'＋ دفع واحد في القطة':'− مصروف من القطة'}</h2>
+   ${t==='in'?`<label style="font-size:13px;color:var(--mut);font-weight:600">مين دفع؟</label><div class="chips" id="kw" style="margin-top:6px">${people.map(n=>`<button class="chip" onclick="document.getElementById('k_who').value=this.textContent;document.querySelectorAll('#kw .chip').forEach(c=>c.classList.remove('on'));this.classList.add('on')">${esc(n)}</button>`).join('')}</div><input id="k_who" placeholder="اسمه (أو اختر من فوق)" style="margin-bottom:10px" value="${E?esc(E.who||''):''}">`
+   :`<label style="font-size:13px;color:var(--mut);font-weight:600">على إيش؟</label><div class="chips" id="kcat" style="margin-top:6px">${KCATS.filter(c=>c[0]!=='other').map(c=>`<button class="chip ${window._kc===c[0]?'on':''}" onclick="kPickCat(this,'${c[0]}','')">${c[1]} ${c[2]}</button>`).join('')}${(K.ccats||[]).map(n=>`<button class="chip ${window._kc==='other'&&window._kcn===n?'on':''}" onclick="kPickCat(this,'other',${esc(JSON.stringify(n))})">🔖 ${esc(n)}</button>`).join('')}<button class="chip" onclick="kPickCat(this,'other','',1)">✏️ بند جديد…</button></div>
+   <input id="k_cname" placeholder="اسم البند (مثلاً: غاز، فحم، ثلج)" style="display:none;margin-bottom:10px">`}
+   <div class="g2" style="gap:8px;margin-bottom:10px"><div><label style="font-size:13px;color:var(--mut)">المبلغ</label><input id="k_a" type="number" inputmode="decimal" value="${E?E.a:''}"></div><div><label style="font-size:13px;color:var(--mut)">التاريخ</label><input id="k_d" type="date" value="${E?E.d:today()}"></div></div>
+   <label style="font-size:13px;color:var(--mut);font-weight:600">${t==='in'?'ملاحظة (اختياري)':'📝 الوصف — وش انصرفت عليه؟'}</label><input id="k_n" placeholder="${t==='in'?'مثلاً: قطة شهرين':'مثلاً: وايت، فلاتر، تصليح الماطور'}" style="margin:6px 0 12px" value="${E?esc(E.note||''):''}">
+   <div class="btns"><button class="btn full" onclick="kittySave('${id}')">${E?'حفظ التعديل':'حفظ'}</button></div>`);
+}
+function kPickCat(el,cat,name,fresh){window._kc=cat;window._kcn=name;document.querySelectorAll('#kcat .chip').forEach(x=>x.classList.remove('on'));el.classList.add('on');
+  const ci=document.getElementById('k_cname');ci.style.display=fresh?'':'none';if(fresh){ci.value='';ci.focus()}}
+function kittySave(id){
+  const u=unit(id),K=kit(u),a=+document.getElementById('k_a').value,t=window._kt,who=t==='in'?document.getElementById('k_who').value.trim():'';
+  if(!a||a<=0){toast('اكتب المبلغ');return}if(t==='in'&&!who){toast('اكتب اسم اللي دفع');return}
+  if(who&&!K.members.includes(who))K.members.push(who);
+  let cname='';if(t==='out'&&window._kc==='other'){const ci=document.getElementById('k_cname');cname=(ci&&ci.style.display!=='none'?ci.value.trim():'')||window._kcn||'';if(!cname){toast('اكتب اسم البند');return}K.ccats=K.ccats||[];if(!K.ccats.includes(cname))K.ccats.push(cname)}
+  const rec={t,a,d:document.getElementById('k_d').value||today(),who,cat:t==='out'?window._kc:'',cname,note:document.getElementById('k_n').value.trim()};const E=window._kedit&&K.items.find(i=>i.id===window._kedit);
+  if(E)Object.assign(E,rec);else K.items.push({id:uid(),...rec});
+  save();closeSheet();_lastView='';render();toast(E?'تم تعديل القيد':t==='in'?'تم: دفع '+who:'تم تسجيل المصروف');
+}
+function kittySettings(id){const u=unit(id),K=kit(u),p=nowPeriod('G'),ym=p.y+'-'+String(p.m).padStart(2,'0');window._km=[...K.members];
+  const list=()=>window._km.map((n,i)=>`<div class="ck"><span>👤 ${esc(n)}</span><button class="ib" style="color:var(--no)" onclick="window._km.splice(${i},1);document.getElementById('kml').innerHTML=window._kmlist()">${I.trash}</button></div>`).join('');window._kmlist=list;
+  sheet(`<h2>⚙️ إعدادات القطة</h2><div class="g2" style="gap:8px"><div><label style="font-size:13px;color:var(--mut)">القطة الشهرية لكل واحد</label><input id="kr" type="number" inputmode="decimal" value="${kRate(K,ym)}"></div><div><label style="font-size:13px;color:var(--mut)">تبدأ من شهر</label><input id="kf" type="month" value="${ym}"></div></div>
+   <div style="font-size:12.5px;color:var(--mut);margin:6px 0 14px">إذا غيّرت المبلغ، الأشهر اللي قبل تبقى بمبلغها القديم.</div>
+   <label style="font-size:13px;color:var(--mut)">التوقيع تحت الكشف</label><input id="ksg" value="${esc(K.sign||'ابو حاتم')}" style="margin:6px 0 14px">
+   <label style="font-size:13px;color:var(--mut);font-weight:600">الشباب</label><div id="kml">${list()}</div>
+   <div style="display:flex;gap:8px;margin:10px 0 14px"><input id="kn" placeholder="اسم واحد جديد"><button class="btn" style="flex:none;padding:0 16px" onclick="const v=document.getElementById('kn').value.trim();if(v&&!window._km.includes(v)){window._km.push(v);document.getElementById('kml').innerHTML=window._kmlist();document.getElementById('kn').value=''}">إضافة</button></div>
+   <div class="btns"><button class="btn full" onclick="kittySetSave('${id}')">حفظ</button></div>`)}
+function kittySetSave(id){const K=kit(unit(id)),a=+document.getElementById('kr').value,f=document.getElementById('kf').value;if(!a||a<=0){toast('اكتب مبلغ القطة');return}
+  K.rates=(K.rates||[]).filter(r=>r.from!==f);K.rates.push({from:f,a});K.members=window._km;K.sign=document.getElementById('ksg').value.trim()||'ابو حاتم';save();closeSheet();_lastView='';render();toast('تم الحفظ')}
+function kittyQuickPay(id,who,a){const K=kit(unit(id));if(!confirm(who+' دفع '+fmt2(a)+' ريال؟'))return;K.items.push({id:uid(),t:'in',a,d:today(),who,cat:'',note:''});save();_lastView='';render();toast('تم: دفع '+who)}
+function kittyDel(id,iid){if(!confirm('حذف هذا القيد؟'))return;const K=kit(unit(id));K.items=K.items.filter(i=>i.id!==iid);save();closeSheet();_lastView='';render();toast('تم الحذف')}
+function kSum(i){const L=kLabel(i);return `<div class="ksum"><span style="font-size:26px">${i.t==='in'?'📥':L[1]}</span><div class="f" style="flex:1;min-width:0"><div class="v" style="font-size:15.5px;font-weight:700">${esc(i.t==='in'?i.who:L[2])}</div>${i.note?`<div class="k">📝 ${esc(i.note)}</div>`:''}<div class="k">${fdate(i.d)}</div></div><b style="color:${i.t==='in'?'var(--ok)':'var(--no)'};white-space:nowrap">${i.t==='in'?'+':'−'}${fmt2(i.a)}${SAR}</b></div>`}
+function kItemMenu(id,iid){const u=unit(id),K=kit(u),i=K.items.find(x=>x.id===iid);if(!i)return;
+  sheet(`<h2>خيارات القيد</h2>${kSum(i)}<div class="acts">
+   <button onclick="kittyAdd('${id}','${i.t}','${iid}')"><span class="e">✏️</span>تعديل (المبلغ، البند، التاريخ)</button>
+   <button onclick="kNote('${id}','${iid}')"><span class="e">📝</span>${i.note?'تعديل الوصف':'إضافة وصف'}</button>
+   ${i.t==='out'?`<button onclick="kittyAdd('${id}','out','',${esc(JSON.stringify(i.cat))},${esc(JSON.stringify(i.cname||''))})"><span class="e">＋</span>مصروف ثاني في «${esc(kLabel(i)[2])}»</button>`:''}
+   <button onclick="kDup('${id}','${iid}')"><span class="e">📄</span>تكرار نفس القيد اليوم</button>
+   <button class="dg" onclick="kittyDel('${id}','${iid}')"><span class="e">🗑️</span>حذف</button></div>`)}
+function kNote(id,iid){const i=kit(unit(id)).items.find(x=>x.id===iid);if(!i)return;
+  sheet(`<h2>📝 ${i.note?'تعديل الوصف':'إضافة وصف'}</h2>${kSum(i)}<input id="kn_t" value="${esc(i.note||'')}" placeholder="${i.t==='in'?'مثلاً: قطة شهرين':'مثلاً: وايت، فلاتر، تصليح'}" style="margin:6px 0 14px">
+   <div class="btns"><button class="btn full" onclick="kNoteSave('${id}','${iid}')">حفظ</button></div>`);setTimeout(()=>{const e=document.getElementById('kn_t');e&&e.focus()},250)}
+function kNoteSave(id,iid){const i=kit(unit(id)).items.find(x=>x.id===iid);i.note=document.getElementById('kn_t').value.trim();save();closeSheet();_lastView='';render();toast('تم حفظ الوصف')}
+function kDup(id,iid){const K=kit(unit(id)),i=K.items.find(x=>x.id===iid);K.items.push({...i,id:uid(),d:today()});save();closeSheet();_lastView='';render();toast('تم التكرار')}
+function kCatMenu(id,ci){const u=unit(id),K=kit(u),sel=cur().p||'month',x=kStats(u,sel).byCat[ci];if(!x)return;
+  const its=x.ids.map(d=>K.items.find(i=>i.id===d)).filter(Boolean).sort((a,b)=>b.d.localeCompare(a.d));
+  sheet(`<h2>${x.c[1]} ${esc(x.c[2])} — ${fmt2(x.a)}${SAR}</h2>
+   <div class="acts" style="margin-bottom:10px"><button onclick="kittyAdd('${id}','out','',${esc(JSON.stringify(x.cat))},${esc(JSON.stringify(x.cname))})"><span class="e">＋</span>إضافة مصروف لهذا البند</button>
+   ${x.cat==='other'?`<button onclick="kRenameCat('${id}',${esc(JSON.stringify(x.cname))})"><span class="e">🏷️</span>تغيير اسم البند</button>`:''}</div>
+   <label style="font-size:13px;color:var(--mut);font-weight:600">القيود (${its.length}) — اضغط على أي واحد للخيارات</label>
+   ${its.map(i=>`<div onclick="kItemMenu('${id}','${i.id}')" style="cursor:pointer">${kSum(i)}</div>`).join('')}`)}
+function kRenameCat(id,old){const n=(prompt('الاسم الجديد للبند',old)||'').trim();if(!n||n===old)return;const K=kit(unit(id));
+  K.items.forEach(i=>{if(i.cat==='other'&&i.cname===old)i.cname=n});K.ccats=[...new Set((K.ccats||[]).map(c=>c===old?n:c))];save();closeSheet();_lastView='';render();toast('تم تغيير الاسم')}
+// السحب لإظهار الخيارات
+(function(){let S=null;const closeAll=ex=>document.querySelectorAll('.swr>.row').forEach(r=>{if(r!==ex&&r._off){r._off=0;r.style.transform=''}});
+  document.addEventListener('touchstart',e=>{const r=e.target.closest&&e.target.closest('.swr>.row');closeAll(r);if(!r)return;const t=e.touches[0];S={r,x:t.clientX,y:t.clientY,lock:0,base:r._off||0,off:r._off||0,a:r.previousElementSibling}},{passive:true});
+  document.addEventListener('touchmove',e=>{if(!S)return;const t=e.touches[0],dx=t.clientX-S.x,dy=t.clientY-S.y;
+    if(!S.lock){if(Math.abs(dx)>10&&Math.abs(dx)>Math.abs(dy)*1.2)S.lock=1;else if(Math.abs(dy)>10){S.lock=2}}
+    if(S.lock!==1)return;const aw=S.a.offsetWidth;let o=S.base+dx;if(o>0){S.a.style.left='0';S.a.style.right='auto'}else{S.a.style.right='0';S.a.style.left='auto'}
+    o=Math.max(-aw-24,Math.min(aw+24,o));S.off=o;S.r.style.transition='none';S.r.style.transform=`translateX(${o}px)`},{passive:true});
+  document.addEventListener('touchend',()=>{if(!S)return;const s=S;S=null;if(s.lock!==1)return;const aw=s.a.offsetWidth,f=Math.abs(s.off)>aw*.4?Math.sign(s.off)*aw:0;
+    s.r.style.transition='';s.r.style.transform=f?`translateX(${f}px)`:'';s.r._off=f;s.r._sw=Date.now()});
+  document.addEventListener('click',e=>{const r=e.target.closest&&e.target.closest('.swr>.row');if(!r)return;if(r._sw&&Date.now()-r._sw<400||r._off){e.stopPropagation();e.preventDefault();if(!(r._sw&&Date.now()-r._sw<400)){r._off=0;r.style.transform=''}}},true);
+  document.addEventListener('click',e=>{if(e.target.closest&&e.target.closest('.swa'))setTimeout(()=>closeAll(null),50)},true);
+})();
+function kittyText(u,sel){const S=kStats(u,sel);
+  return msgJoin([[head('💰','كشف القطة — '+(u.name||'استراحتي')),'📅 '+S.R.lbl],
+    ['📥 المدفوع: '+bold(fmt2(S.tin)+' ريال'),'📤 المصروف: '+bold(fmt2(S.tout)+' ريال'),(S.bal<0?'⚠️ العجز: ':'💼 الرصيد الحالي: ')+bold(fmt2(Math.abs(S.bal))+' ريال')],
+    S.byCat.length&&['🧾 '+bold('وين راحت الفلوس'),...S.byCat.flatMap(x=>[x.c[1]+' '+x.c[2]+' — '+bold(fmt2(x.a)+SAR)+' ('+Math.round(x.a/S.tout*100)+'%)',...x.notes.map(n=>'      ↳ '+n.n+(x.notes.length>1?' — '+fmt2(n.a)+SAR:''))])],
+    S.people.length&&['👥 '+bold('القطة: '+fmt2(S.rate)+' لكل واحد'+(S.months>1?' × '+S.months+' شهر':'')),...S.people.map(p=>(p.diff>=0?'✅ ':'⏳ ')+p.n+' — دفع '+bold(fmt2(p.paid)+SAR)+(p.diff<0?' · عليه '+bold(fmt2(-p.diff)+SAR):p.diff>0?' · زايد '+fmt2(p.diff)+SAR:''))],
+    S.due&&['💸 باقي على الشباب: '+bold(fmt2(S.due)+' ريال')],['✍️ بواسطة '+(kit(u).sign||'ابو حاتم')]])}
+function kittyCard(u,sel){const S=kStats(u,sel),W=1080,P=48,cv=document.createElement('canvas'),x=cv.getContext('2d');
+  const rowsC=S.byCat.length,rowsP=S.people.length,nN=S.byCat.filter(c=>c.notes.length).length,H=340+(rowsC?90+rowsC*78+nN*38:0)+(rowsP?100+rowsP*70:0)+110;cv.width=W;cv.height=H;x.direction='rtl';x.textBaseline='middle';
+  const F=(sz,b)=>x.font=(b?'700 ':'400 ')+sz+'px Plex,system-ui,sans-serif',R=(X,Y,w,h,r,c)=>{x.fillStyle=c;x.beginPath();x.roundRect(X,Y,w,h,r);x.fill()};
+  const g=x.createLinearGradient(0,0,W,H);g.addColorStop(0,'#05261C');g.addColorStop(1,'#0B1B3A');x.fillStyle=g;x.fillRect(0,0,W,H);
+  x.textAlign='right';x.fillStyle='#fff';F(50,1);x.fillText('💰 كشف القطة — '+(u.name||'استراحتي'),W-P,72);F(30);x.fillStyle='#9FE8C9';x.fillText('📅 '+S.R.lbl,W-P,124);
+  const bw=(W-2*P-32)/3;[['📥 المدفوع',S.tin,'#22C55E'],['📤 المصروف',S.tout,'#F43F5E'],[S.bal<0?'⚠️ العجز':'💼 الرصيد',Math.abs(S.bal),'#38BDF8']].forEach(([t,v,c],i)=>{const X=W-P-(i+1)*bw-i*16;R(X,166,bw,134,26,'rgba(255,255,255,.07)');R(X+bw-12,182,6,102,3,c);x.textAlign='right';x.fillStyle='#C9D3E6';F(28,1);x.fillText(t,X+bw-32,212);x.fillStyle='#fff';F(44,1);const vs=fmt2(v);x.fillText(vs,X+bw-32,264);const vw=x.measureText(vs).width;F(22,1);x.fillStyle='#9FB0CC';x.fillText('ريال',X+bw-40-vw,268)});
+  let y=340;
+  if(rowsC){x.textAlign='right';x.fillStyle='#fff';F(36,1);x.fillText('🧾 وين راحت الفلوس',W-P,y+30);y+=78;const mx=Math.max(...S.byCat.map(c=>c.a)),bx=P+270,bfull=W-2*P-580;
+    S.byCat.forEach(c=>{const hh=64+(c.notes.length?38:0);R(P,y,W-2*P,hh,18,'rgba(255,255,255,.05)');x.fillStyle='#fff';F(31,1);x.textAlign='right';x.fillText(c.c[1]+' '+c.c[2],W-P-22,y+32);
+      if(c.notes.length){let nt='↳ '+c.notes.map(n=>n.n+(c.notes.length>1?' ('+fmt2(n.a)+')':'')).join(' · ');F(24);x.fillStyle='#9FB0CC';while(x.measureText(nt).width>W-2*P-60&&nt.length>8)nt=nt.slice(0,-2);x.fillText(nt,W-P-22,y+80)}
+      R(bx,y+24,bfull,16,8,'rgba(255,255,255,.08)');const bwid=Math.max(12,bfull*(c.a/mx)),gg=x.createLinearGradient(bx,0,bx+bwid,0);gg.addColorStop(0,'#FB923C');gg.addColorStop(1,'#F43F5E');R(bx+bfull-bwid,y+24,bwid,16,8,gg);
+      x.textAlign='left';x.fillStyle='#fff';F(30,1);x.fillText(fmt2(c.a)+' ريال',P+22,y+32);F(24);x.fillStyle='#9FB0CC';x.fillText(Math.round(c.a/S.tout*100)+'%',P+190,y+32);y+=hh+14})}
+  if(rowsP){y+=14;x.textAlign='right';x.fillStyle='#fff';F(36,1);x.fillText('👥 القطة '+fmt2(S.rate)+' ريال لكل واحد'+(S.months>1?' × '+S.months+' شهر':''),W-P,y+30);y+=82;
+    S.people.forEach(p=>{R(P,y,W-2*P,58,18,'rgba(255,255,255,.05)');x.textAlign='right';x.fillStyle='#fff';F(30,1);x.fillText('👤 '+p.n,W-P-22,y+29);x.textAlign='left';F(30,1);x.fillText(fmt2(p.paid)+' ريال',P+22,y+29);
+      F(24,1);x.fillStyle=p.diff>=0?'#4ADE80':'#FB7185';x.fillText(p.diff>=0?'✓ مكمّل':'عليه '+fmt2(-p.diff),P+230,y+29);y+=70})}
+  x.textAlign='right';F(26,1);x.fillStyle='#C9D3E6';x.fillText('✍️ بواسطة '+(kit(u).sign||'ابو حاتم'),W-P,H-46);x.textAlign='left';F(22);x.fillStyle='#7C8BA5';x.fillText(fdate(today()),P,H-46);return cv.toDataURL('image/png')}
+function kittyStatement(id,sel){const u=unit(id);window._ktxt=kittyText(u,sel);window._kimg=kittyCard(u,sel);
+  sheet(`<h2>🖨️ كشف القطة</h2><img src="${window._kimg}" alt="" style="width:100%;border-radius:16px;margin-bottom:10px">
+   <div class="btns"><button class="btn wa full" onclick="if(A)A.shareImage(window._kimg.split(',')[1],window._ktxt,'');else share(window._ktxt)">${I.share} أرسل للشباب (صورة + نص)</button><button class="btn sec" onclick="share(window._ktxt)">${I.msg} نص بس</button><button class="btn sec" onclick="copy(window._ktxt)">${I.copy} نسخ</button></div>`)}
+function setOwn(id,on){const u=unit(id);u.own=!!on;save();_lastView='';render();toast(on?'تم تفعيل القطة 💰':'انخفت القطة (السجل محفوظ)')}
+function reportSheet(){
+  const ownU=db.units.filter(u=>u.own);
+  sheet(`<h2>التقارير</h2><div class="sbig">${ownU.map(u=>`<button class="paid" onclick="closeSheet();go({v:'kitty',id:'${u.id}'})">💰 القطة — ${esc(u.name||'استراحتي')}</button>`).join('')}<button class="unpaid" onclick="closeSheet();go({v:'fees'})">🏛️ رسوم البلدية (فرص)</button><button class="partial" onclick="closeSheet();go({v:'year'})">📊 الملخص السنوي</button><button class="paid" onclick="report('all')">📋 تقرير كامل للشهر</button><button class="unpaid" onclick="report('due')">⚠️ قائمة من لم يصل منهم</button><button class="partial" onclick="report('land')">🏡 ملخص حسب الأرض</button><button class="platform" onclick="officeCard()">🖼️ صورة بيانات الاستراحات للمكتب</button></div>`);
+}
+function report(type){
+  const cal=db.settings.cal,p=ui.period||nowPeriod(cal),k=pkey(cal,p);let exp=0,got=0,wait=0;const blocks=[];
+  const IC={paid:'✅',platform:'⏳',partial:'🌓',vacant:'⚪',own:'🏠',unpaid:'❌'};
+  db.lands.forEach(l=>{const us=unitsOf(l.id);let le=0,lg=0;const rows=[];
+    us.forEach(u=>{const x=payOf(u,k),s=stOf(u,k);if(s!=='vacant'){exp+=+u.rent||0;le+=+u.rent||0}if(s==='paid'||s==='partial'){got+=netA(u,x);lg+=netA(u,x)}if(s==='platform')wait+=netA(u,x);
+      if(type==='all'||(type==='due'&&s!=='paid'&&s!=='vacant'))rows.push(IC[s]+' '+keyNo(uNo(u))+' '+(s==='vacant'?'فاضية':(u.name||'')+' — '+bold(fmt(s==='partial'?x.a:u.rent)))+(x&&x.to==='office'?' 🏢':x&&x.to==='me'?' 💳':'')+(x&&x.n&&!/^(جاري التحويل )?(لحسابك|لحساب المكتب)$/.test(x.n)?' _('+x.n+')_':''))});
+    if(type==='land')blocks.push(['🏘️ '+bold(l.name),'💰 '+fmt(lg)+' من '+fmt(le)+' ريال']);
+    else if(rows.length)blocks.push(['🏘️ '+bold(l.name),...rows])});
+  const pct=exp?Math.round(got/exp*100):0,bar='🟩'.repeat(Math.round(pct/10))+'⬜'.repeat(10-Math.round(pct/10));
+  const t=msgJoin([[head('📊',type==='due'?'المتأخرين — '+pname(cal,p):'تقرير الإيجارات — '+pname(cal,p))],...blocks,
+    (()=>{let me=0,of=0;db.units.forEach(u=>{const x=payOf(u,k);if(x&&x.s!=='unpaid'){if(x.to==='office')of+=+x.a||0;else if(x.to==='me')me+=+x.a||0}});return me||of?['💳 لحسابي: '+bold(fmt(me)+' ريال'),'🏢 لحساب المكتب: '+bold(fmt(of)+' ريال')]:null})(),
+    ['💰 المتوقع: '+bold(fmt(exp)+' ريال'),'✅ وصل: '+bold(fmt(got)+' ريال'),'⏳ بالمنصة: '+bold(fmt(wait)+' ريال'),'❌ المتبقي: '+bold(fmt(remOf(k))+' ريال'),'',bar+' '+pct+'%']]);
+  closeSheet();share(t,'تقرير');
+}
+
+/* ---------- الإضافة والتعديل ---------- */
+function addSheet(){sheet(`<h2>إضافة</h2><div class="sbig"><button class="partial" onclick="closeSheet();go({v:'editUnit'})">🏠 استراحة جديدة</button><button class="paid" onclick="closeSheet();go({v:'editLand'})">🗺️ أرض جديدة</button></div>`)}
+function fld(id,lab,val,type,extra){return `<div class="fld"><label>${lab}</label><input id="f_${id}" type="${type||'text'}" value="${esc(val||'')}" ${extra||''}></div>`}
+function vEditUnit(v){
+  const u=v.id?unit(v.id):{landId:v.landId||(db.lands[0]&&db.lands[0].id),method:'ejar',rent:''};
+  if(!db.lands.length) return `<div class="top"><button class="ib" onclick="back()">${I.back}</button><h1>استراحة جديدة</h1></div><div class="wrap"><div class="empty">أضف أرضاً أولاً<br><br><button class="btn" onclick="stack.pop();go({v:'editLand'})">إضافة أرض</button></div></div>`;
+  return `<div class="top"><button class="ib" onclick="back()">${I.back}</button><h1>${v.id?'تعديل':'استراحة جديدة'}</h1><button class="ib" onclick="saveUnit('${v.id||''}')" style="font-size:15px;width:auto;padding:0 12px;border-radius:10px;background:rgba(255,255,255,.2)">حفظ</button></div><div class="wrap">
+  ${v.id?`<div class="alert" id="lockNote">🔒 رقم الاستراحة والقطعة والعدادات مقفلة عشان ما تتغير بالغلط. لتغيير المستأجر استخدم زر <b>تغيير المستأجر</b> في صفحة الاستراحة. <button class="chip" style="margin-top:6px" onclick="document.querySelectorAll('.lk').forEach(e=>e.disabled=false);document.getElementById('lockNote').remove()">🔓 فتح للتعديل</button></div>`:''}
+  <div class="card"><h3>الأساسيات</h3>${fld('name','الاسم (يظهر في القائمة) *',u.name)}
+   <div class="fld"><label>الأرض</label><select id="f_landId" ${v.id?'':`onchange="document.getElementById('f_unitNo').value=nextNo(this.value)"`}>${db.lands.map(l=>`<option value="${l.id}" ${l.id===u.landId?'selected':''}>${esc(l.name)}</option>`).join('')}</select></div>
+   <div class="g2">${fld('unitNo','رقم الاستراحة (تلقائي)',v.id?u.unitNo:nextNo(u.landId),'text','inputmode="numeric"')}${fld('plotNo','رقم القطعة',u.plotNo,'text','inputmode="numeric"')}</div>${fld('rent','الإيجار الشهري',u.rent,'number','inputmode="numeric"')}
+   <div class="fld"><label>طريقة الدفع المعتادة</label><select id="f_method">${Object.entries(METHODS).map(([m,t])=>`<option value="${m}" ${u.method===m?'selected':''}>${t}</option>`).join('')}</select></div></div>
+  <div class="card"><h3>المستأجر والعقد</h3>${fld('tenant','اسم المستأجر',u.tenant)}${fld('phone','جوال المستأجر',u.phone,'tel')}${fld('contractNo','رقم العقد (إيجار)',u.contractNo,'text','inputmode="numeric"')}
+   <div class="g2">${fld('start','بداية العقد',u.start,'date')}${fld('end','نهاية العقد',u.end,'date')}</div></div>
+  <div class="card"><h3>الخدمات</h3>${fld('elecMeter','رقم عداد الكهرباء',u.elecMeter,'text','inputmode="numeric"')}${fld('elecAccount','رقم حساب الكهرباء',u.elecAccount,'text','inputmode="numeric"')}${fld('waterMeter','رقم عداد الماء',u.waterMeter,'text','inputmode="numeric"')}</div>
+  <div class="card"><div class="fld"><label>ملاحظات</label><textarea id="f_notes">${esc(u.notes||'')}</textarea></div></div>
+  <div class="btns"><button class="btn full" onclick="saveUnit('${v.id||''}')">حفظ</button>${v.id?`<button class="btn sec" onclick="moveUnit('${v.id}',-1)">${I.up} تقديم</button><button class="btn sec" onclick="moveUnit('${v.id}',1)">${I.down} تأخير</button><button class="btn red full" onclick="delUnit('${v.id}')">حذف الاستراحة</button>`:''}</div></div>`;
+}
+function changeTenant(id){
+  const u=unit(id);
+  sheet(`<h2>🔑 مستأجر جديد — استراحة ${esc(uNo(u))}</h2><div style="color:var(--mut);font-size:14px;margin-bottom:10px">العدادات ورقم القطعة والصور تبقى مثل ما هي.${u.vacant?'':` المستأجر الحالي (${esc(u.name)}) ينحفظ في "المستأجرين السابقين".`}</div>
+   <div style="display:grid;gap:8px"><div><label style="font-size:13px;color:var(--mut)">اسم المستأجر الجديد *</label><input id="ct_name"></div>
+   <div><label style="font-size:13px;color:var(--mut)">جواله</label><input id="ct_phone" type="tel" inputmode="tel" placeholder="05xxxxxxxx"></div>
+   <div class="g2" style="gap:8px"><div><label style="font-size:13px;color:var(--mut)">الإيجار</label><input id="ct_rent" type="number" inputmode="numeric" value="${esc(u.rent||'')}"></div><div><label style="font-size:13px;color:var(--mut)">رقم العقد</label><input id="ct_contract" inputmode="numeric"></div></div>
+   <div class="g2" style="gap:8px"><div><label style="font-size:13px;color:var(--mut)">بداية العقد</label><input id="ct_start" type="date" value="${today()}"></div><div><label style="font-size:13px;color:var(--mut)">نهاية العقد</label><input id="ct_end" type="date"></div></div></div>
+   <div class="btns" style="margin-top:12px"><button class="btn full" onclick="saveTenant('${id}')">حفظ المستأجر الجديد</button></div>`);
+}
+/* الكل وصل: يعلّم كل استراحة مؤجّرة ما عليها حالة في الشهر المعروض */
+function markAllSheet(scope){
+  const cal=db.settings.cal,p=ui.period||nowPeriod(cal),k=pkey(cal,p),l=scope==='all'?null:land(scope);
+  const us=(l?unitsOf(l.id):db.units).filter(u=>!nr(u)&&stOf(u,k)==='unpaid');
+  if(!us.length){toast('ما فيه أحد باقي — كلهم متعلّمين');return}
+  window._pm=db.settings.lastMethod||'ejar';
+  sheet(`<h2>✓ الكل وصل — ${l?esc(l.name):'كل الأراضي'}</h2><div style="color:var(--mut);font-size:14px;margin-bottom:10px">${pname(cal,p)} · بيتعلّم ${us.length} استراحة "وصل" بمبلغ إيجارها. اللي ما دفع عدّله بعدين بضغطة على حالته.</div>
+   <div class="fld" style="padding:0 0 10px"><label>طريقة الدفع</label><div class="chips" id="pm">${Object.entries(METHODS).map(([m,t])=>`<button class="chip ${window._pm===m?'on':''}" onclick="window._pm='${m}';document.querySelectorAll('#pm .chip').forEach(c=>c.classList.remove('on'));this.classList.add('on')">${t}</button>`).join('')}</div></div>
+   <div class="card" style="padding:4px 0">${us.map(u=>`<label class="ck" style="padding:10px 14px"><input type="checkbox" value="${u.id}" checked><span>${esc(uTitle(u))}</span><b>${fmt(u.rent)}</b></label>`).join('')}</div>
+   <div class="btns"><button class="btn full" onclick="markAllGo('${k}')">${I.check} تعليم ${us.length} وصل</button></div>`);
+}
+function markAllGo(k){
+  const ids=[...sheetEl.querySelectorAll('.ck input:checked')].map(i=>i.value);if(!ids.length){toast('اختر استراحة');return}
+  db.settings.lastMethod=window._pm;
+  ids.forEach(id=>{const u=unit(id);db.pay[id]=db.pay[id]||{};db.pay[id][k]={s:'paid',m:window._pm,a:+u.rent||0,d:today(),n:''}});
+  save();closeSheet();_lastView='';render();toast('تم تعليم '+ids.length+' وصل');
+}
+function vacantMsg(u){const l=land(u.landId)||{};
+  return msgJoin([[head('🏡','استراحة متاحة للإيجار'),'🟢 '+bold('فاضية وجاهزة للتأجير')],
+    ['🏘️ '+bold(l.name||''),'🔢 استراحة رقم: '+bold(uNo(u)),(u.plotNo||l.landNo)&&'🗺️ رقم القطعة: '+bold(u.plotNo||l.landNo)],
+    [u.rent&&'💰 الإيجار الشهري: '+bold(fmt(u.rent)+' ريال'),u.vacantSince&&'📅 فاضية من: '+bold(fdate(u.vacantSince)),u.elecMeter&&'⚡ عداد الكهرباء: '+bold(u.elecMeter),u.waterMeter&&'💧 عداد الماء: '+bold(u.waterMeter)],
+    ['📝 '+bold('ملاحظات'),...(u.notes?u.notes.split('\n').map(x=>'• '+x):['• ']),],
+    l.location&&['📍 '+bold('الموقع'),l.location],
+    [db.me&&db.me.phone?'📞 للتواصل: '+db.me.phone:'📞 للتواصل معنا على نفس الرقم','🤝 حياكم الله']])}
+function vacantSheet(id){
+  const u=unit(id),pics=(u.docs||[]).filter(d=>!d.pdf&&d.kind!=='الصك'),lp=landPic(land(u.landId)||{});const all=[...pics,...(lp?[lp]:[])];
+  sheet(`<h2>📢 متاحة للإيجار — استراحة ${esc(uNo(u))}</h2>
+   <div style="display:flex;align-items:center;justify-content:space-between;margin:0 0 6px"><label style="font-size:13px;color:var(--mut);font-weight:600">✏️ الرسالة — عدّلها وأضف ملاحظاتك</label><button class="chip" onclick="document.getElementById('vmsg').value=vacantMsg(unit('${id}'))">↺ الأصلية</button></div>
+   <textarea id="vmsg" class="msgbox" rows="14">${esc(vacantMsg(u))}</textarea>
+   ${all.length?`<label class="ck" style="border:0;padding-top:0"><input type="checkbox" id="vpics" checked><span>إرفاق الصور (${all.length})</span></label>`:''}
+   <div class="btns"><button class="btn wa full" onclick="vacantGo('${id}',1)">${I.msg} أرسل للمكتب</button><button class="btn" onclick="vacantGo('${id}')">${I.share} مشاركة</button><button class="btn sec" onclick="copy(document.getElementById('vmsg').value)">${I.copy} نسخ</button></div>`);
+}
+function vacantGo(id,office){
+  const u=unit(id),t=document.getElementById('vmsg').value.trim(),cb=document.getElementById('vpics');
+  const files=cb&&cb.checked?[...(u.docs||[]).filter(d=>!d.pdf&&d.kind!=='الصك'),landPic(land(u.landId)||{})].filter(d=>d&&d.file).map(d=>d.file):[];
+  if(office&&!waNum(db.settings.office)){toast('أضف رقم المكتب من الإعدادات أولاً');closeSheet();go({v:'settings'});return}
+  closeSheet();const ph=office?waNum(db.settings.office):'';
+  if(A&&files.length)return files.length>1?A.shareDocs(JSON.stringify(files),t,ph):A.shareDoc(files[0],t,ph);
+  office?sendOffice(t):share(t,'استراحة متاحة');
+}
+function markVacant(id){
+  const u=unit(id);if(!confirm('تعلّم استراحة '+uNo(u)+' كفاضية؟ المستأجر الحالي ينحفظ في المستأجرين السابقين.'))return;
+  u.prev=u.prev||[];if(u.name)u.prev.unshift({name:u.name,tenant:u.tenant,phone:u.phone,rent:u.rent,contractNo:u.contractNo,start:u.start,end:u.end,left:today()});
+  u.vacant=true;u.vacantSince=today();u.name='';u.tenant='';u.phone='';u.contractNo='';u.start='';u.end='';
+  save();render();toast('صارت فاضية');setTimeout(()=>{if(cur().v==='unit'&&cur().id===id&&!sheetEl)vacantSheet(id)},350);
+}
+function saveTenant(id){
+  const u=unit(id),g=f=>document.getElementById('ct_'+f).value.trim();
+  if(!g('name')){toast('اكتب اسم المستأجر');return}
+  u.prev=u.prev||[];if(!u.vacant&&u.name)u.prev.unshift({name:u.name,tenant:u.tenant,phone:u.phone,rent:u.rent,contractNo:u.contractNo,start:u.start,end:u.end,left:today()});
+  u.vacant=false;delete u.vacantSince;u.name=g('name');u.tenant='';u.phone=g('phone');u.rent=+g('rent')||u.rent;u.contractNo=g('contract');u.start=g('start');u.end=g('end');
+  save();closeSheet();render();toast('تم تغيير المستأجر');
+}
+function lockFixed(){document.querySelectorAll('#f_landId,#f_unitNo,#f_plotNo,#f_elecMeter,#f_elecAccount,#f_waterMeter').forEach(e=>{e.classList.add('lk');e.disabled=true})}
+function saveUnit(id){
+  const g=f=>{const e=document.getElementById('f_'+f);return e?e.value.trim():''};
+  if(!g('name')&&!(id&&unit(id).vacant)){toast('اكتب الاسم');return}
+  let u=id?unit(id):null; if(!u){u={id:uid()};db.units.push(u)}
+  ['name','landId','unitNo','plotNo','tenant','phone','contractNo','elecMeter','elecAccount','waterMeter','loc','start','end','method','notes'].forEach(f=>u[f]=g(f)); u.rent=+g('rent')||0;if(!u.unitNo)u.unitNo=nextNo(u.landId);
+  save();stack.pop();if(!id)go({v:'unit',id:u.id});else render();toast('تم الحفظ');
+}
+function moveUnit(id,d){const u=unit(id),sib=unitsOf(u.landId),i=sib.indexOf(u),o=sib[i+d];if(!o)return;const a=db.units.indexOf(u),b=db.units.indexOf(o);db.units[a]=o;db.units[b]=u;save();toast('تم')}
+function delUnit(id){if(!confirm('حذف هذه الاستراحة وكل سجل دفعاتها؟'))return;const du=unit(id);rmFiles(du.docs);(du.maint||[]).forEach(m=>rmFiles(m.docs));db.units=db.units.filter(u=>u.id!==id);delete db.pay[id];save();stack=[{v:'home'}];render()}
+function vEditLand(v){
+  const l=v.id?land(v.id):{color:COLORS[db.lands.length%COLORS.length]};window._lc=l.color;
+  return `<div class="top"><button class="ib" onclick="back()">${I.back}</button><h1>${v.id?'تعديل الأرض':'أرض جديدة'}</h1><button class="ib" onclick="saveLand('${v.id||''}')" style="font-size:15px;width:auto;padding:0 12px;border-radius:10px;background:rgba(255,255,255,.2)">حفظ</button></div><div class="wrap">
+  <div class="card">${fld('name','اسم الأرض *',l.name)}<div class="fld"><label>اللون</label><div class="colors" id="cl">${COLORS.map(c=>`<button style="background:${c}" class="${c===l.color?'on':''}" onclick="window._lc='${c}';document.querySelectorAll('#cl button').forEach(b=>b.classList.remove('on'));this.classList.add('on')"></button>`).join('')}</div></div></div>
+  ${v.id?`<div class="card"><h3>📷 صورة الأرض (تنرسل مع طلب الموية)</h3>${docsGrid('L:'+v.id,l.docs||[])}</div>
+  ${wCard(l)}`:''}
+  <div class="card"><h3>🏛️ رسوم البلدية السنوية</h3><div class="g2" style="padding:0 8px">${fld('feeBase','المبلغ قبل الضريبة (مثل رسالة فرص)',l.feeBase||l.fee||'','number','inputmode="decimal"')}${fld('vat','الضريبة %',l.vat==null?15:l.vat,'number','inputmode="numeric"')}${fld('feeDue','تاريخ الاستحقاق',l.feeDue||'','date')}${fld('furas','رقم العقد (فرص)',l.furas||'','text','dir="ltr"')}${fld('sadad','رقم السداد',l.sadad||'','text','inputmode="numeric" dir="ltr"')}</div><div class="fld" style="font-size:12.5px;color:var(--mut);padding-top:0">تنخصم من صافي الأرض في الملخص السنوي، ولو حطيت موعد يطلع لك تنبيه قبله بشهر.</div></div>
+  <div class="card">${fld('landNo','رقم الأرض / القطعة',l.landNo)}${fld('deedNo','رقم الصك',l.deedNo)}${fld('elecMeter','عداد كهرباء الأرض (إن وجد)',l.elecMeter)}${fld('location','📍 رابط موقع الأرض (قوقل ماب) — ينرسل مع طلب الموية',l.location,'url','dir="ltr"')}<div class="fld"><label>ملاحظات</label><textarea id="f_notes">${esc(l.notes||'')}</textarea></div></div>
+  <div class="btns"><button class="btn full" onclick="saveLand('${v.id||''}')">حفظ</button>${v.id?`<button class="btn sec" onclick="moveLand('${v.id}',-1)">${I.up} تقديم</button><button class="btn sec" onclick="moveLand('${v.id}',1)">${I.down} تأخير</button><button class="btn sec full" onclick="stack.pop();go({v:'editUnit',landId:'${v.id}'})">+ إضافة استراحة لهذه الأرض</button><button class="btn red full" onclick="delLand('${v.id}')">حذف الأرض</button>`:''}</div></div>`;
+}
+function saveLand(id){
+  const g=f=>document.getElementById('f_'+f).value.trim();
+  if(!g('name')){toast('اكتب اسم الأرض');return}
+  let l=id?land(id):null;if(!l){l={id:uid()};db.lands.push(l)}
+  ['name','landNo','deedNo','elecMeter','location','notes','feeDue','furas','sadad'].forEach(f=>l[f]=g(f));l.feeBase=+g('feeBase')||0;l.vat=g('vat')===''?0:+g('vat');l.fee=withVat(l.feeBase,l.vat);l.feePaid=l.feePaid||{};l.color=window._lc||COLORS[0];
+  save();back();toast('تم الحفظ');
+}
+function moveLand(id,d){const i=db.lands.findIndex(l=>l.id===id),j=i+d;if(j<0||j>=db.lands.length)return;[db.lands[i],db.lands[j]]=[db.lands[j],db.lands[i]];save();toast('تم')}
+function delLand(id){if(unitsOf(id).length){alert('انقل أو احذف استراحات هذه الأرض أولاً');return}if(!confirm('حذف الأرض؟'))return;db.lands=db.lands.filter(l=>l.id!==id);save();back()}
+
+/* ---------- الإعدادات والنسخ الاحتياطي ---------- */
+function vSettings(){
+  const c=db.settings.cal;
+  return `<div class="top"><button class="ib" onclick="back()">${I.back}</button><h1>الإعدادات</h1></div><div class="wrap">
+  <div class="card"><h3>🔄 التحديثات</h3><div class="fld" style="font-size:13.5px;color:var(--mut);padding-bottom:4px">التطبيق يتحدّث لحاله من النت أول ما تفتحه، وإذا فيه نسخة تطبيق جديدة يطلع لك زر تحميلها.<br>النسخة الحالية: ${A&&A.appVersion?A.appVersion():'—'} · ${WEBV}</div><div class="btns" style="padding:4px 14px 12px"><button class="btn full" onclick="checkUpd(1)">🔄 تحقّق من التحديثات</button></div></div>
+  <div class="card"><h3>المظهر</h3><div class="themes">${[['dark','داكن','linear-gradient(135deg,#070B16,#1a2140)'],['light','فاتح','linear-gradient(135deg,#F3F5FA,#ffffff)'],['auto','حسب الجوال','linear-gradient(135deg,#070B16 50%,#F3F5FA 50%)']].map(([t,n,g])=>`<button class="${(db.settings.theme||'dark')===t?'on':''}" onclick="db.settings.theme='${t}';save();applyTheme();render()"><i style="background:${g};border:1px solid var(--line2)"></i>${n}</button>`).join('')}</div></div>
+  <div class="card"><h3>💧 عامل الموية</h3>${fld('wname','اسمه',db.settings.waterName)}${fld('wphone','رقم واتسابه',db.settings.waterPhone,'tel','placeholder="05xxxxxxxx"')}
+   <div class="btns" style="padding:0 14px"><button class="btn full" onclick="db.settings.waterName=document.getElementById('f_wname').value.trim();db.settings.waterPhone=document.getElementById('f_wphone').value.trim();save();toast('تم حفظ رقم عامل الموية')">حفظ</button></div></div>
+  <div class="card"><h3>💳 الحسابات البنكية (آخر 4 أرقام)</h3><div class="fld" style="font-size:12.5px;color:var(--mut);padding-bottom:0">رسائل إيجار تذكر آخر 4 أرقام الحساب اللي انحوّلت له الدفعة، فيعرف التطبيق هل راحت لك أو للمكتب.</div><div class="g2" style="padding:0 8px">${fld('myacct','حسابي',db.settings.myAcct||'','text','inputmode="numeric" maxlength="4"')}${fld('offacct','حساب المكتب',db.settings.officeAcct||'','text','inputmode="numeric" maxlength="4"')}</div>
+   <div class="btns" style="padding:0 14px"><button class="btn full" onclick="db.settings.myAcct=document.getElementById('f_myacct').value.trim();db.settings.officeAcct=document.getElementById('f_offacct').value.trim();save();toast('تم الحفظ')">حفظ</button></div></div>
+  <div class="card"><h3>المكتب العقاري</h3>${fld('oname','اسم المكتب',db.settings.officeName)}${fld('ophone','رقم واتساب المكتب',db.settings.office,'tel','placeholder="05xxxxxxxx"')}
+   <div class="btns" style="padding:0 14px"><button class="btn full" onclick="db.settings.officeName=document.getElementById('f_oname').value.trim();db.settings.office=document.getElementById('f_ophone').value.trim();save();toast('تم حفظ رقم المكتب')">حفظ</button></div></div>
+  <div class="card"><h3>موعد الإيجار الشهري</h3><div class="fld"><label>يوم الاستحقاق من كل شهر ميلادي (يظهر العدّاد فوق في الرئيسية)</label><input id="f_due" type="number" min="1" max="31" inputmode="numeric" value="${db.settings.dueDay||27}" onchange="const v=Math.min(31,Math.max(1,parseInt(this.value)||27));db.settings.dueDay=v;this.value=v;save();toast('تم الحفظ')"></div></div>
+  <div class="card"><h3>التقويم المستخدم للأشهر</h3><div class="fld"><div class="chips"><button class="chip ${c==='H'?'on':''}" onclick="setCal('H')">هجري</button><button class="chip ${c==='G'?'on':''}" onclick="setCal('G')">ميلادي</button></div></div></div>
+  <div class="card"><h3>النسخ الاحتياطي</h3><div class="fld" style="font-size:14px;color:var(--mut)">احفظ نسخة من بياناتك وصور المستندات بشكل دوري (على قوقل درايف) حتى لا تضيع لو تغيّر الجوال.<br><b style="color:var(--tx)">${db.settings.lastBackup?'آخر نسخة: '+db.settings.lastBackup+' ('+ago(db.settings.lastBackup)+')':'ما سويت نسخة للحين'}</b></div>
+   <div class="btns" style="padding:0 14px"><button class="btn" onclick="exportBk()">حفظ نسخة</button><button class="btn sec" onclick="importBk()">استرجاع نسخة</button></div></div>
+  <div class="card"><h3>حجم الخط</h3><div class="fld"><div class="chips">${[[1,'عادي'],[1.12,'كبير'],[1.25,'كبير جداً']].map(([z,t])=>`<button class="chip ${(db.settings.zoom||1)==z?'on':''}" onclick="db.settings.zoom=${z};save();applyZoom();render()">${t}</button>`).join('')}</div></div></div>
+  <div class="card"><h3>رسالة تذكير المستأجر (واتساب)</h3><div class="fld"><textarea id="f_tpl" style="min-height:120px">${esc(db.settings.remindTpl||DEF_TPL)}</textarea><div style="font-size:12px;color:var(--mut);margin-top:6px">تقدر تستخدم: {المستأجر} {الاستراحة} {الشهر} {المبلغ}</div></div>
+   <div class="btns" style="padding:0 14px"><button class="btn" onclick="db.settings.remindTpl=document.getElementById('f_tpl').value;save();toast('تم الحفظ')">حفظ الرسالة</button><button class="btn sec" onclick="delete db.settings.remindTpl;save();render();toast('رجعت الرسالة الأصلية')">الرسالة الأصلية</button></div></div>
+  <div class="card"><h3>معلومات</h3><div class="fld" style="font-size:14px;color:var(--mut)">${db.lands.length} أراضي · ${db.units.length} استراحات<br>البيانات محفوظة على جوالك فقط.</div></div>
+  <div class="btns"><button class="btn red full" onclick="resetAll()">مسح كل البيانات</button></div></div>`;
+}
+function setCal(c){if(c===db.settings.cal)return;if(!confirm('سجل الدفعات مرتبط بالتقويم. التبديل يُظهر أشهر التقويم الآخر (الدفعات القديمة تبقى محفوظة). متابعة؟'))return;db.settings.cal=c;ui.period=null;save();render()}
+window.onBackupDone=function(){db.settings.lastBackup=today();save();render()};
+function exportBk(){const s=JSON.stringify(db,null,1),n='rentals-backup-'+today()+'.json';if(A)A.exportFile(n,s);else{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([s],{type:'application/json'}));a.download=n;a.click();onBackupDone()}}
+function importBk(){if(A)A.importFile();else{const i=document.createElement('input');i.type='file';i.accept='.json,application/json';i.onchange=()=>{const r=new FileReader();r.onload=()=>onImport(r.result);r.readAsText(i.files[0])};i.click()}}
+// حزمة مستندات (مثل عقود البلدية) تنضاف للاستراحات حسب رقم القطعة ورقم الاستراحة بدون ما تمسح شي
+function importPack(d){let n=0;const miss=[];
+  d.items.forEach(it=>{const l=db.lands.find(x=>String(x.landNo)===String(it.plot)),u=it.unit==null?l:l&&unitsOf(l.id).find(x=>String(uNo(x))===String(it.unit));
+    if(!u){miss.push(it.plot+(it.unit!=null?'/'+it.unit:''));return}u.docs=u.docs||[];if(u.docs.some(x=>x.file===it.file))return;
+    u.docs.push({id:uid(),kind:it.kind||CK,name:it.name||'',file:it.file,pdf:/\.pdf$/i.test(it.file),date:today()});n++});
+  save();_lastView='';render();alert('تمت إضافة '+n+' ملف'+(miss.length?'\nما لقيت: '+miss.join('، '):''))}
+window.onImport=function(s){
+  try{const d=JSON.parse(s);if(d.kind==='docs-pack'&&Array.isArray(d.items))return importPack(d);if(!d.lands||!d.units)throw 0;if(!confirm('سيتم استبدال بياناتك الحالية بالنسخة ('+d.units.length+' استراحة). متابعة؟'))return;db=d;db.pay=db.pay||{};db.settings=db.settings||{cal:'H'};save();stack=[{v:'home'}];ui.period=null;render();toast('تم الاسترجاع')}
+  catch(e){alert('الملف غير صالح')}
+};
+function resetAll(){if(!confirm('سيتم مسح كل شيء نهائياً. هل أنت متأكد؟'))return;if(!confirm('تأكيد أخير: مسح كل البيانات؟'))return;db={v:1,settings:{cal:db.settings.cal},lands:[],units:[],pay:{}};save();stack=[{v:'home'}];render()}
+
+function countUp(){if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;document.querySelectorAll('[data-count]').forEach(e=>{const to=+e.dataset.count,t0=performance.now(),D=900;if(!to)return;
+  const f=t=>{const k=Math.min(1,(t-t0)/D),v=to*(1-Math.pow(1-k,3));e.textContent=fmt(v);if(k<1)requestAnimationFrame(f)};requestAnimationFrame(f)})}
+/* المظهر: داكن / فاتح / حسب الجوال */
+function themeNow(){const t=db.settings.theme||'dark';return t==='auto'?(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'):t}
+function applyTheme(){const t=themeNow();document.documentElement.dataset.theme=t;const c=getComputedStyle(document.documentElement).getPropertyValue('--bg').trim();try{A&&A.setBars&&A.setBars(c,t==='dark')}catch(e){}}
+try{matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{if(db.settings.theme==='auto')applyTheme()})}catch(e){}
+function applyZoom(){document.body.style.zoom=db.settings.zoom||1}
+// ---------- التحديث عن بعد ----------
+window.onUpdate=function(v,manual){const ap=A.appVersion();
+  if(v.apk>ap){sheet(`<h2>📲 نسخة جديدة من التطبيق ${esc(v.apkVer||'')}</h2>${v.notes?`<div style="white-space:pre-line;font-size:14.5px;line-height:1.8;margin-bottom:12px">${esc(v.notes)}</div>`:''}<div style="font-size:13px;color:var(--mut);margin-bottom:12px">تتحمّل وتفتح لك شاشة التثبيت، وبياناتك تبقى مثل ما هي.</div><div class="btns"><button class="btn full" onclick="A.installApk('${v.apkSha}','${esc(v.apkFile||'Rentals.apk')}');closeSheet()">⬇️ تحميل وتثبيت</button></div>`);return}
+  if(v.web>WEBV&&(v.minApk||0)<=ap){window._updNotes=v.notes||'';A.fetchWeb(v.webSha,v.web);return}
+  if(manual)toast('عندك آخر نسخة ✓')};
+window.onWebReady=function(){sheet(`<h2>✨ وصل تحديث جديد</h2>${window._updNotes?`<div style="white-space:pre-line;font-size:14.5px;line-height:1.8;margin-bottom:12px">${esc(window._updNotes)}</div>`:''}<div class="btns"><button class="btn full" onclick="A.reload()">🔄 حدّث الحين</button></div><div style="text-align:center;color:var(--mut);font-size:13px">أو يتحدّث لحاله المرة الجاية اللي تفتح فيها التطبيق</div>`)};
+window.onUpdateFail=function(e){toast('تعذر التحقق من التحديث — تأكد من النت')};
+function checkUpd(manual){if(A&&A.checkUpdate)A.checkUpdate(!!manual);else toast('التحديث يشتغل من التطبيق على الجوال')}
+// المستندات المرفقة مع التطبيق (عقود البلدية) تنضاف مرة وحدة لأراضيها
+function addBundled(){if(!A||!A.installBundled||!window.SEED||!SEED.DOCS||db.settings.bundled1)return;
+  let ok=true;SEED.DOCS.forEach(it=>{const l=db.lands.find(x=>String(x.landNo).trim()===it.plot);if(!l){ok=false;return}l.docs=l.docs||[];
+    if(l.docs.some(d=>d.kind===it.kind&&d.file&&d.file.endsWith(it.file)))return;const f=A.installBundled(it.file);if(!f){ok=false;return}
+    l.docs.push({id:uid(),kind:it.kind,name:it.name,file:f,pdf:true,date:today()})});
+  if(ok)db.settings.bundled1=1;save()}
+load();addBundled();applyTheme();applyZoom();render();drainDocs();takeShared();setTimeout(()=>checkUpd(0),2500);
+</script>
+</body>
+</html>
